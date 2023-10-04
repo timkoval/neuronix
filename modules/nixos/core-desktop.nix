@@ -47,7 +47,7 @@
   programs = {
     # android development tools, this will install adb/fastboot and other android tools and udev rules
     # see https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/adb.nix
-    adb.enable = true;
+    # adb.enable = true;
     # The OpenSSH agent remembers private keys for you
     # so that you don’t have to type in passphrases every time you make an SSH connection.
     # Use `ssh-add` to add a key to the agent.

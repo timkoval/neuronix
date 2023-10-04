@@ -3,7 +3,6 @@
     ../base/desktop
 
     ./base
-    ./fcitx5
     ./desktop
 
     ./i3

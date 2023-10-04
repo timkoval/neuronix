@@ -22,7 +22,7 @@
     vulkan-tools
     glxinfo
 
-    nur-ryan4yin.packages.${pkgs.system}.yazi  # terminal file manager
+   # nur-ryan4yin.packages.${pkgs.system}.yazi  # terminal file manager
   ];
 
   # https://github.com/catppuccin/cava

@@ -58,12 +58,12 @@
     # For details, see https://github.com/mas-cli/mas
     masApps = {
       # Xcode = 497799835;
-      Wechat = 836500024;
-      QQ = 451108668;
-      WeCom = 1189898970; # Wechat for Work
-      TecentMetting = 1484048379;
-      NeteaseCloudMusic = 944848654;
-      QQMusic = 595615424;
+      # Wechat = 836500024;
+      # QQ = 451108668;
+      # WeCom = 1189898970; # Wechat for Work
+      # TecentMetting = 1484048379;
+      # NeteaseCloudMusic = 944848654;
+      # QQMusic = 595615424;
     };
 
     taps = [
@@ -101,8 +101,6 @@
 
     # `brew install --cask`
     casks = [
-      "squirrel" # input method for Chinese, rime-squirrel
-
       "firefox"
       "google-chrome"
       "visual-studio-code"
@@ -110,8 +108,6 @@
       # IM & audio & remote desktop & meeting
       "telegram"
       "discord"
-      "neteasemusic"
-      "qqmusic"
       "microsoft-remote-desktop"
 
       # "anki"
@@ -121,7 +117,6 @@
       "syncthing" # file sync
       "raycast" # (HotKey: alt/option + space)search, caculate and run scripts(with many plugins)
       "iglance" # beautiful system monitor
-      "eudic" # 欧路词典
       # "reaper"  # audio editor
       "sonic-pi" # music programming
 

@@ -21,7 +21,6 @@
     # instant messaging
     telegram-desktop
     discord
-    qq # https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/networking/instant-messengers/qq
 
     # remote desktop(rdp connect)
     remmina

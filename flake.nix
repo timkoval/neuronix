@@ -24,9 +24,9 @@
     nixos-rk3588,
     ...
   }: let
-    username = "ryan";
-    userfullname = "Ryan Yin";
-    useremail = "xiaoyin_c@qq.com";
+    username = "timkoval";
+    userfullname = "Tim Koval";
+    useremail = "timkoval00@gmail.com";
 
     x64_system = "x86_64-linux";
     x64_darwin = "x86_64-darwin";
@@ -38,18 +38,28 @@
     macosSystem = import ./lib/macosSystem.nix;
     colmenaSystem = import ./lib/colmenaSystem.nix;
 
-    # 星野 アイ, Hoshino Ai
-    idol_ai_modules_i3 = {
+    # Book
+    book_modules_hyprland = {
       nixos-modules = [
-        ./hosts/idols/ai
-        ./modules/nixos/i3.nix
-      ];
-      home-module = import ./home/linux/desktop-i3.nix;
-    };
-    idol_ai_modules_hyprland = {
-      nixos-modules = [
-        ./hosts/idols/ai
+        ./modules/zfs-root
+        ./hosts/book
         ./modules/nixos/hyprland.nix
+              
+        (({ zfs-root, pkgs, lib, ... }: {
+          inherit zfs-root;
+          system.configurationRevision = if (self ? rev) then
+            self.rev
+          else
+            throw "refuse to build: git tree is dirty";
+          imports = [
+            "${nixpkgs}/nixos/modules/installer/scan/not-detected.nix"
+            # "${nixpkgs}/nixos/modules/profiles/hardened.nix"
+            # "${nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
+          ];
+        }) {
+          inherit zfs-root pkgs;
+          lib = nixpkgs.lib;
+        })
       ];
       home-module = import ./home/linux/desktop-hyprland.nix;
     };
@@ -128,6 +138,8 @@
         specialArgs = x64_specialArgs;
       };
     in {
+      # Book with hyprland compositor
+      book_hyprland = nixosSystem (book_modules_hyprland // base_args);
       # ai with i3 window manager
       ai_i3 = nixosSystem (idol_ai_modules_i3 // base_args);
       # ai with hyprland compositor
@@ -218,6 +230,7 @@
     packages."${x64_system}" =
       # genAttrs returns an attribute set with the given keys and values(host => image).
       nixpkgs.lib.genAttrs [
+        "book_hyprland"
         "ai_i3"
         "ai_hyprland"
       ] (
@@ -363,10 +376,6 @@
       url = "github:catppuccin/btop";
       flake = false;
     };
-    catppuccin-fcitx5 = {
-      url = "github:catppuccin/fcitx5";
-      flake = false;
-    };
     catppuccin-bat = {
       url = "github:catppuccin/bat";
       flake = false;
@@ -407,7 +416,7 @@
 
     substituters = [
       # my own cache server
-      "https://ryan4yin.cachix.org"
+      # "https://ryan4yin.cachix.org"
       # replace official cache with a mirror located in China
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
@@ -421,7 +430,7 @@
       "https://nixpkgs-wayland.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "ryan4yin.cachix.org-1:Gbk27ZU5AYpGS9i3ssoLlwdvMIh0NxG0w8it/cv9kbU="
+      # "ryan4yin.cachix.org-1:Gbk27ZU5AYpGS9i3ssoLlwdvMIh0NxG0w8it/cv9kbU="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
