@@ -230,6 +230,7 @@
     packages."${x64_system}" =
       # genAttrs returns an attribute set with the given keys and values(host => image).
       nixpkgs.lib.genAttrs [
+        "book_hyprland"
         "ai_i3"
         "ai_hyprland"
       ] (
