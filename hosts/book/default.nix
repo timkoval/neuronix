@@ -15,7 +15,7 @@
     ../../../modules/nixos/user-group.nix
 
     # ../../../secrets/nixos.nix
-    ];
+  ];
   
   nixpkgs.overlays = import ../../../overlays args;
 
