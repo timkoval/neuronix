@@ -1,1 +1,0 @@
-{ config, lib, pkgs, ... }: {imports = [ ./boot .file-systems ./networking]; }
