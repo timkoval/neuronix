@@ -28,6 +28,9 @@
     xserver = {
       enable = true;
 
+      layout = "us, ru";
+      xkbVariant = "dvorak,";
+
       desktopManager = {
         xterm.enable = false;
       };

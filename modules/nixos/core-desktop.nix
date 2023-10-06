@@ -133,6 +133,7 @@
     ];
   };
 
+  console.keyMap = mkForce "dvorak";
 
   xdg.portal = {
     enable = true;
