@@ -15,6 +15,9 @@
     ./core-server.nix
   ];
 
+  # use latest kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # to install chrome, you need to enable unfree packages
   nixpkgs.config.allowUnfree = lib.mkForce true;
 
@@ -133,7 +136,7 @@
     ];
   };
 
-  console.keyMap = mkForce "dvorak";
+  console.keyMap = lib.mkForce "dvorak";
 
   xdg.portal = {
     enable = true;

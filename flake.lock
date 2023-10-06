@@ -438,23 +438,6 @@
         "type": "gitlab"
       }
     },
-    "mysecrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1692380165,
-        "narHash": "sha256-+vas7ICp7rl9mN2wPIRFkMsTyoDcMM62CV/+BT1rVY0=",
-        "ref": "refs/heads/main",
-        "rev": "3ef4106d1b2432a68704e90449a04615c5e7ebaa",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/ryan4yin/nix-secrets.git"
-      },
-      "original": {
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/ryan4yin/nix-secrets.git"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -833,7 +816,6 @@
         "cattppuccin-k9s": "cattppuccin-k9s",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
-        "mysecrets": "mysecrets",
         "nix-darwin": "nix-darwin",
         "nixos-generators": "nixos-generators",
         "nixos-licheepi4a": "nixos-licheepi4a",
