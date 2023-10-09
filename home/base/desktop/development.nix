@@ -23,6 +23,20 @@
     # scheme related
     guile
 
+    # debian bootstrap
+    # dpkg
+    pkgs-unstable.debootstrap
+    cacert
+    binutils
+    xorg.xauth
+    xorg.xhost
+
+    # vscode
+    pkgs-unstable.vscode
+
+    # vpn
+    pkgs-unstable.strongswan
+    
     # python
     (python311.withPackages (ps:
       with ps; [
@@ -42,6 +56,10 @@
 
     # embedded development
     minicom
+
+    # notes
+    git-crypt
+    pkgs-unstable.obsidian
 
     # other tools
     bfg-repo-cleaner  # remove large files from git history

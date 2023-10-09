@@ -30,6 +30,10 @@
           # required to prevent sending default identity files first.
           IdentitiesOnly yes
 
+      Host git.ftc.ru
+          IdentityFile ~/.ssh/qp_rsa
+          IdentitiesOnly yes
+
       Host gtr5
         HostName 192.168.5.172
         Port 22
