@@ -30,21 +30,19 @@
           # required to prevent sending default identity files first.
           IdentitiesOnly yes
 
+      Host gitlab.com
+          IdentityFile ~/.ssh/gl_rsa
+          IdentitiesOnly yes
+
       Host git.ftc.ru
           IdentityFile ~/.ssh/qp_rsa
           IdentitiesOnly yes
 
-      Host gtr5
-        HostName 192.168.5.172
-        Port 22
-
-      Host um560
-        HostName 192.168.5.173
-        Port 22
-
-      Host s500plus
-        HostName 192.168.5.174
-        Port 22
+      Host dt
+          HostName 100.116.246.152
+          User tkoval
+          IdentityFile ~/.ssh/dt_rsa
+          IdentitiesOnly yes
 
       Host k8s-main
         HostName 192.168.5.181

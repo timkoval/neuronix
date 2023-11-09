@@ -12,5 +12,8 @@
     viu # Terminal image viewer with native support for iTerm and Kitty
     imagemagick
     graphviz
+
+    # pdf
+    poppler_utils
   ];
 }

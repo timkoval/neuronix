@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   ###################################################################################
@@ -70,6 +71,7 @@
       enable = true;
     };
     upower.enable = true;
+    tailscale.enable = true;
   };
 
   # List packages installed in system profile. To search, run:
@@ -81,6 +83,7 @@
     aria2
     git # used by nix flakes
     git-lfs # used by huggingface models
+    # pkgs-unstable.netclient # vpn 
 
     # create a fhs environment by command `fhs`, so we can run non-nixos packages in nixos!
     (

@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, pkgs-unstable, ...}: {
   imports = [
     ./creative.nix
     ./gtk.nix
@@ -21,13 +21,14 @@
     # instant messaging
     telegram-desktop
     discord
+    pkgs-unstable.teams-for-linux
 
     # remote desktop(rdp connect)
     remmina
     freerdp # required by remmina
 
     # misc
-    flameshot
+    # flameshot
   ];
 
   # GitHub CLI tool

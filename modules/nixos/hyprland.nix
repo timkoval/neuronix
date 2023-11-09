@@ -29,7 +29,7 @@
       enable = true;
 
       layout = "us, ru";
-      xkbVariant = "dvorak,";
+      xkbVariant = "dvorak,mac";
 
       desktopManager = {
         xterm.enable = false;

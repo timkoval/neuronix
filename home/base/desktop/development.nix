@@ -36,9 +36,11 @@
 
     # vpn
     pkgs-unstable.strongswan
-    
+
+    # work
+    # changed python311 with python39
     # python
-    (python311.withPackages (ps:
+    (python39.withPackages (ps:
       with ps; [
         ipython
         pandas
@@ -66,6 +68,8 @@
     k6 # load testing tool
     mitmproxy # http/https proxy tool
     protobuf # protocol buffer compiler
+    pkgs-unstable.glances # system monitor
+    pkgs-unstable.qutebrowser # keyboard-first browser
   ];
 
   programs = {
