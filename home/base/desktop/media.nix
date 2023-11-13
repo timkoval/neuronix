@@ -15,5 +15,8 @@
 
     # pdf
     poppler_utils
+
+    # radio
+    shortwave
   ];
 }
