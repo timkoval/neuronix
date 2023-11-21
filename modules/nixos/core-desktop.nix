@@ -46,6 +46,8 @@
     colmena  # nixos's remote deployment tool
     pulseaudio  # provides `pactl`, which is required by some apps(e.g. sonic-pi)
     modemmanager # usb modem stuff
+    usb-modeswitch
+    usb-modeswitch-data
   ];
 
   programs = {
@@ -134,14 +136,7 @@
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
       android-udev-rules
       openfpgaloader
-      usb-modeswitch
-      usb-modeswitch-data
     ];
-    # usb modem stuff
-    udev.extraRules = ''
-      ATTR{idVendor}=="12d1", ATTR{idProduct}=="1f01", RUN+="/nix/store/5787pmk5p1jkanpfy5w80vdsk1i1gkv3-usb-modeswitch-2.6.0/lib/udev/usb_modeswitch '/%k'"
-    '';
-
   };
 
   console.keyMap = lib.mkForce "dvorak";
