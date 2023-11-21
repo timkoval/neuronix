@@ -45,6 +45,8 @@
     caddy
     gnupg
 
+    py-spy # python code profiler
+
     # nix related
     #
     # it provides the command `nom` works just like `nix
@@ -55,6 +57,11 @@
     # productivity
     hugo # static site generator
     glow # markdown previewer in terminal
+
+    # docker tui
+    lazydocker
+    oxker
+
   ];
 
   programs = {
