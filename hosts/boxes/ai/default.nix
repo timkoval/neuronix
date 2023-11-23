@@ -6,7 +6,6 @@
 #############################################################
 {
   imports = [
-    ./cifs-mount.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
@@ -16,7 +15,7 @@
     ../../../modules/nixos/remote-building.nix
     ../../../modules/nixos/user-group.nix
 
-    ../../../secrets/nixos.nix
+  #  ../../../secrets/nixos.nix
   ];
 
   nixpkgs.overlays = import ../../../overlays args;
@@ -33,7 +32,6 @@
     "fat"
     "vfat"
     "exfat"
-    "cifs" # mount windows share
   ];
 
   # Bootloader.
@@ -54,22 +52,6 @@
     # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     networkmanager.enable = true;
-
-    enableIPv6 = false; # disable ipv6
-    interfaces.enp5s0 = {
-      useDHCP = false;
-      ipv4.addresses = [
-        {
-          address = "192.168.5.100";
-          prefixLength = 24;
-        }
-      ];
-    };
-    defaultGateway = "192.168.5.201";
-    nameservers = [
-      "119.29.29.29" # DNSPod
-      "223.5.5.5" # AliDNS
-    ];
   };
 
   virtualisation.docker.storageDriver = "btrfs";
@@ -97,6 +79,16 @@
     # needed by nvidia-docker
     driSupport32Bit = true;
   };
+  
+    boot.kernelModules = [ "88x2bu" ];
+  boot.extraModulePackages = [    
+    (config.boot.kernelPackages.rtl88x2bu.overrideAttrs (old: {
+      prePatch = old.prePatch + ''
+        substituteInPlace Makefile --replace "CONFIG_CONCURRENT_MODE = n" "CONFIG_CONCURRENT_MODE = y"
+      '';
+    }))
+  ];
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -104,5 +96,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 }

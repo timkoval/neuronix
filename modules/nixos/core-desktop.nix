@@ -21,6 +21,11 @@
   # to install chrome, you need to enable unfree packages
   nixpkgs.config.allowUnfree = lib.mkForce true;
 
+  # to build etcher, you need to enable insecure electron
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-12.2.3"
+  ];
+
   # add user's shell into /etc/shells
   environment.shells = with pkgs; [
     bash

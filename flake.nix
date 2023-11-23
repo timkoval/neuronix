@@ -38,6 +38,15 @@
     macosSystem = import ./lib/macosSystem.nix;
     colmenaSystem = import ./lib/colmenaSystem.nix;
 
+    # Ai
+    ai_modules_hyprland = {
+      nixos-modules = [
+        ./hosts/boxes/ai
+        ./modules/nixos/hyprland.nix
+      ];
+      home-module = import ./home/linux/desktop-hyprland.nix;
+    };
+
     # Book
     book_modules_hyprland = {
       nixos-modules = [
@@ -139,11 +148,14 @@
     in {
       # book with hyprland compositor
       book_hyprland = nixosSystem (book_modules_hyprland // base_args);
+   
+      # book with hyprland compositor
+      ai_hyprland = nixosSystem (ai_modules_hyprland // base_args);
       
       # ai with i3 window manager
-      ai_i3 = nixosSystem (idol_ai_modules_i3 // base_args);
+      # ai_i3 = nixosSystem (idol_ai_modules_i3 // base_args);
       # ai with hyprland compositor
-      ai_hyprland = nixosSystem (idol_ai_modules_hyprland // base_args);
+      # ai_hyprland = nixosSystem (idol_ai_modules_hyprland // base_args);
 
       # three virtual machines without desktop environment.
       aquamarine = nixosSystem (idol_aquamarine_modules // base_args);
@@ -231,7 +243,6 @@
       # genAttrs returns an attribute set with the given keys and values(host => image).
       nixpkgs.lib.genAttrs [
         "book_hyprland"
-        "ai_i3"
         "ai_hyprland"
       ] (
         # generate iso image for hosts with desktop environment
