@@ -38,7 +38,6 @@
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
     };
     systemd-boot.enable = true;
   };
@@ -54,7 +53,7 @@
     networkmanager.enable = true;
   };
 
-  virtualisation.docker.storageDriver = "btrfs";
+#  virtualisation.docker.storageDriver = "btrfs";
 
   # for Nvidia GPU
   services.xserver.videoDrivers = ["nvidia"]; # will install nvidia-vaapi-driver by default

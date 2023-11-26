@@ -47,6 +47,8 @@
 
     py-spy # python code profiler
 
+    nodejs_18 # node for vscode-server
+
     # nix related
     #
     # it provides the command `nom` works just like `nix
