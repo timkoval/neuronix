@@ -1,5 +1,5 @@
 return {
-  colorscheme = "catppuccin",
+  colorscheme = "gruvbox-baby",
 
   options = {
     opt = {
@@ -13,8 +13,8 @@ return {
 
   plugins = {
     "AstroNvim/astrocommunity",
-    -- colorscheme - catppuccin
-    { import = "astrocommunity.colorscheme.catppuccin" },
+    -- colorscheme - gruvbox
+    { import = "astrocommunity.colorscheme.gruvbox-baby" },
     -- Highly experimental plugin that completely replaces
     -- the UI for messages, cmdline and the popupmenu.
     { import = "astrocommunity.utility.noice-nvim" },

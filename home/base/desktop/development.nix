@@ -70,7 +70,7 @@
     protobuf # protocol buffer compiler
     pkgs-unstable.glances # system monitor
     pkgs-unstable.qutebrowser # keyboard-first browser
-    etcher # iso flashing tool
+    rpi-imager # iso flashing tool
   ];
 
   programs = {

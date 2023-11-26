@@ -38,11 +38,13 @@
           IdentityFile ~/.ssh/qp_rsa
           IdentitiesOnly yes
 
-      Host dt
-          HostName 100.116.246.152
+      Host ai
+          HostName 100.67.153.109
           User tkoval
-          IdentityFile ~/.ssh/dt_rsa
+          IdentityFile ~/.ssh/ai_rsa
           IdentitiesOnly yes
+          RequestTTY yes
+          RemoteCommand /run/current-system/sw/bin/bash 
 
       Host k8s-main
         HostName 192.168.5.181
