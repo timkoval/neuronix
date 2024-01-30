@@ -141,6 +141,8 @@
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
       android-udev-rules
       openfpgaloader
+      qmk-udev-rules # for qmk keyboard
+      vial # for vial support
     ];
   };
 

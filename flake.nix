@@ -47,10 +47,19 @@
       home-module = import ./home/linux/desktop-hyprland.nix;
     };
 
-    # Book
-    book_modules_hyprland = {
+    # Book HP 450
+    book_hp_450_modules_hyprland = {
       nixos-modules = [
-        ./hosts/book
+        ./hosts/books/hp_450
+        ./modules/nixos/hyprland.nix
+      ];
+      home-module = import ./home/linux/desktop-hyprland.nix;
+    };
+    
+    # Book MacBook Air
+    book_air_modules_hyprland = {
+      nixos-modules = [
+        ./hosts/books/air
         ./modules/nixos/hyprland.nix
       ];
       home-module = import ./home/linux/desktop-hyprland.nix;
@@ -146,10 +155,13 @@
         specialArgs = x64_specialArgs;
       };
     in {
-      # book with hyprland compositor
-      book_hyprland = nixosSystem (book_modules_hyprland // base_args);
+      # hp_450 with hyprland compositor
+      hp_450_hyprland = nixosSystem (book_hp_450_modules_hyprland // base_args);
    
-      # book with hyprland compositor
+      # air with hyprland compositor
+      air_hyprland = nixosSystem (book_air_modules_hyprland // base_args);
+      
+      # ai with hyprland compositor
       ai_hyprland = nixosSystem (ai_modules_hyprland // base_args);
       
       # ai with i3 window manager
@@ -242,7 +254,8 @@
     packages."${x64_system}" =
       # genAttrs returns an attribute set with the given keys and values(host => image).
       nixpkgs.lib.genAttrs [
-        "book_hyprland"
+        "hp_450_hyprland"
+        "air_hyprland"
         "ai_hyprland"
       ] (
         # generate iso image for hosts with desktop environment
