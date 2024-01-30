@@ -61,7 +61,13 @@
 
     # notes
     git-crypt
-    pkgs-unstable.obsidian
+#    pkgs-unstable.obsidian
+
+    # keyboard tools
+    qmk
+    qmk_hid
+    # vial
+
 
     # other tools
     bfg-repo-cleaner  # remove large files from git history
@@ -71,6 +77,7 @@
     pkgs-unstable.glances # system monitor
     pkgs-unstable.qutebrowser # keyboard-first browser
     rpi-imager # iso flashing tool
+    unar # unzip tool
   ];
 
   programs = {

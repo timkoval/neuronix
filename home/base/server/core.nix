@@ -76,12 +76,12 @@
 
     # A modern replacement for ‘ls’
     # useful in bash/zsh prompt, not in nushell.
-    exa = {
-      enable = true;
-      enableAliases = true;
-      git = true;
-      icons = true;
-    };
+#    exa = {
+#      enable = true;
+#      enableAliases = true;
+#      git = true;
+#      icons = true;
+#    };
 
     # A command-line fuzzy finder
     fzf = {

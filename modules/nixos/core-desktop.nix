@@ -16,7 +16,7 @@
   ];
 
   # use latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   # to install chrome, you need to enable unfree packages
   nixpkgs.config.allowUnfree = lib.mkForce true;
@@ -53,6 +53,7 @@
     modemmanager # usb modem stuff
     usb-modeswitch
     usb-modeswitch-data
+    meson # to build mac GPU driver
   ];
 
   programs = {
@@ -71,10 +72,14 @@
   # https://github.com/rvaiya/keyd
   services.keyd = {
     enable = true;
-    settings = {
-      main = {
-        # overloads the capslock key to function as both escape (when tapped) and control (when held)
-        capslock = "overload(control, esc)";
+    keyboards = {
+      default = {
+        settings = {
+        main = {
+          # overloads the capslock key to function as both escape (when tapped) and control (when held)
+          capslock = "overload(control, esc)";
+	  };
+	};
       };
     };
   };
@@ -141,6 +146,8 @@
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
       android-udev-rules
       openfpgaloader
+      qmk-udev-rules # for qmk keyboard
+      # vial # for vial support
     ];
   };
 

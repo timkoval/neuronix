@@ -47,13 +47,30 @@
       home-module = import ./home/linux/desktop-hyprland.nix;
     };
 
-    # Book
-    book_modules_hyprland = {
+    # Book HP 450
+    book_hp_450_modules_hyprland = {
       nixos-modules = [
-        ./hosts/book
+        ./hosts/books/hp_450
         ./modules/nixos/hyprland.nix
       ];
       home-module = import ./home/linux/desktop-hyprland.nix;
+    };
+    
+    # Book MacBook Air
+    book_air_modules_hyprland = {
+      nixos-modules = [
+        ./hosts/books/air
+        ./modules/nixos/hyprland.nix
+      ];
+      home-module = import ./home/linux/desktop-hyprland.nix;
+    };
+    
+    book_air_modules_i3 = {
+      nixos-modules = [
+        ./hosts/books/air
+        ./modules/nixos/i3.nix
+      ];
+      home-module = import ./home/linux/desktop-i3.nix;
     };
     
     # 星野 アイ, Hoshino Ai
@@ -146,10 +163,16 @@
         specialArgs = x64_specialArgs;
       };
     in {
-      # book with hyprland compositor
-      book_hyprland = nixosSystem (book_modules_hyprland // base_args);
+      # hp_450 with hyprland compositor
+      hp_450_hyprland = nixosSystem (book_hp_450_modules_hyprland // base_args);
    
-      # book with hyprland compositor
+      # air with hyprland compositor
+      air_hyprland = nixosSystem (book_air_modules_hyprland // base_args);
+      
+      # air with i3wm
+      air_i3 = nixosSystem (book_air_modules_i3 // base_args);
+      
+      # ai with hyprland compositor
       ai_hyprland = nixosSystem (ai_modules_hyprland // base_args);
       
       # ai with i3 window manager
@@ -242,7 +265,9 @@
     packages."${x64_system}" =
       # genAttrs returns an attribute set with the given keys and values(host => image).
       nixpkgs.lib.genAttrs [
-        "book_hyprland"
+        "hp_450_hyprland"
+        "air_hyprland"
+	"air_i3"
         "ai_hyprland"
       ] (
         # generate iso image for hosts with desktop environment
@@ -301,7 +326,7 @@
     # which represents the GitHub repository URL + branch/commit-id/tag.
 
     # Official NixOS package source, using nixos's stable branch by default
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # for macos
@@ -313,7 +338,7 @@
 
     # home-manager, used for managing user configuration
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs dependencies.

@@ -52,8 +52,8 @@
       };
 
       # Configure keymap in X11
-      layout = "us";
-      xkbVariant = "";
+      layout = "us,ru";
+      xkbVariant = "dvorak,mac";
     };
   };
 

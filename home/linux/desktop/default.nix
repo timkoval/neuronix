@@ -11,7 +11,7 @@
 
   home.packages = with pkgs; [
     # GUI apps
-    insomnia # REST client
+ #   insomnia # REST client
     wireshark # network analyzer
 
     # e-book viewer(.epub/.mobi/...)
@@ -20,7 +20,7 @@
 
     # instant messaging
     telegram-desktop
-    discord
+ #   discord
     pkgs-unstable.teams-for-linux
 
     # remote desktop(rdp connect)

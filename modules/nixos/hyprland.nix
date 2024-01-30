@@ -52,10 +52,10 @@
     
       xwayland = {
         enable = true;
-        hidpi = true;
+        # hidpi = true;
       };
     
-      nvidiaPatches = true;
+#      nvidiaPatches = true;
     };
 
     # monitor backlight control

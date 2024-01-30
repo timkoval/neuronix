@@ -73,6 +73,11 @@ return {
       end,
     },
 
+    -- jupyter noteboks support
+    {
+      'luk400/vim-jukit',
+    },
+
     -- markdown preview
     {
       '0x00-ketsu/markdown-preview.nvim',
