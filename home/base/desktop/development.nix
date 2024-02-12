@@ -61,7 +61,7 @@
 
     # notes
     git-crypt
-#    pkgs-unstable.obsidian
+    pkgs-unstable.obsidian
 
     # keyboard tools
     qmk
