@@ -11,7 +11,7 @@
 
     # instant messaging
     telegram-desktop
-    discord
+    # discord
  #    pkgs-unstable.qq # https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/networking/instant-messengers/qq
     teams-for-linux
 

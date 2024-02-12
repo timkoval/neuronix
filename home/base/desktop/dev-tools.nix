@@ -51,8 +51,8 @@
         # conda is not available for MacOS
         conda
 
-        mitmproxy # http/https proxy tool
-        insomnia # REST client
+        # mitmproxy # http/https proxy tool
+        # insomnia # REST client
         wireshark # network analyzer
       ]
       else []

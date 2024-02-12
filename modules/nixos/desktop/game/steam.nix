@@ -8,7 +8,7 @@
     #   ~/.local/share/Steam/steamapps/common - The default Game install location
     #   ~/.steam/root        - A symlink to ~/.local/share/Steam
     #   ~/.steam             - Some Symlinks & user info
-    enable = true;
+    enable = false;
 
     # fix gamescope inside steam
     package = pkgs.steam.override {

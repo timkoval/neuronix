@@ -47,7 +47,7 @@ in {
         zstd # for undo-fu-session/undo-tree compression
 
         # go-mode
-        gocode
+        # gocode
 
         ## Module dependencies
         # :checkers spell

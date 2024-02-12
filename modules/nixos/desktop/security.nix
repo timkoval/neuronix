@@ -1,7 +1,7 @@
 {config, ...}: {
-  nix.extraOptions = ''
-    !include ${config.age.secrets.nix-access-tokens.path}
-  '';
+  # nix.extraOptions = ''
+  #   !include ${config.age.secrets.nix-access-tokens.path}
+  # '';
 
   # security with polkit
   security.polkit.enable = true;
