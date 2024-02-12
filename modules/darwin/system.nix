@@ -5,7 +5,15 @@
 #
 #  All the configuration options are documented here:
 #    https://daiderd.com/nix-darwin/manual/index.html#sec-options
+#  Incomplete list of macOS `defaults` commands :
+#    https://github.com/yannbertrand/macos-defaults
 #
+#
+# NOTE: Some options are not supported by nix-darwin directly, manually set them:
+#   1. To avoid conflicts with neovim, disable ctrl + up/down/left/right to switch spaces in:
+#     [System Preferences] -> [Keyboard] -> [Keyboard Shortcuts] -> [Mission Control]
+#   2. Disable use Caps Lock as 中/英 switch in:
+#     [System Preferences] -> [Keyboard] -> [Input Sources] -> [Edit] -> [Use 中/英 key to switch ] -> [Disble]
 ###################################################################################
 {
   # Add ability to used TouchID for sudo authentication
@@ -24,16 +32,16 @@
 
       # customize dock
       dock = {
-        autohide = true;  # automatically hide and show the dock
+        autohide = true; # automatically hide and show the dock
         show-recents = false; # do not show recent apps in dock
-        # do not automatically rearrange spaces based on most recent use. 
-        mru-spaces = false; 
+        # do not automatically rearrange spaces based on most recent use.
+        mru-spaces = false;
 
         # customize Hot Corners(触发角, 鼠标移动到屏幕角落时触发的动作)
         wvous-tl-corner = 2; # top-left - Mission Control
-        wvous-tr-corner = 13; # top-right - Lock Screen
+        wvous-tr-corner = 4; # top-right - Desktop
         wvous-bl-corner = 3; # bottom-left - Application Windows
-        wvous-br-corner = 4; # bottom-right - Desktop
+        wvous-br-corner = 13; # bottom-right - Lock Screen
       };
 
       # customize finder
@@ -59,7 +67,10 @@
         # `defaults read NSGlobalDomain "xxx"`
         "com.apple.swipescrolldirection" = true; # enable natural scrolling(default to true)
         "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
+
+        # Appearance
         AppleInterfaceStyle = "Dark"; # dark mode
+
         AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
         ApplePressAndHoldEnabled = true; # enable press and hold
 
@@ -80,7 +91,8 @@
       };
 
       # customize settings that not supported by nix-darwin directly
-      # see the source code of https://github.com/rgcr/m-cli to get all the available options
+      # Incomplete list of macOS `defaults` commands :
+      #   https://github.com/yannbertrand/macos-defaults
       CustomUserPreferences = {
         ".GlobalPreferences" = {
           # automatically switch to a new space when switching to the application
@@ -91,6 +103,7 @@
           WebKitDeveloperExtras = true;
         };
         "com.apple.finder" = {
+          AppleShowAllFiles = true;
           ShowExternalHardDrivesOnDesktop = true;
           ShowHardDrivesOnDesktop = true;
           ShowMountedServersOnDesktop = true;
@@ -103,6 +116,16 @@
           # Avoid creating .DS_Store files on network or USB volumes
           DSDontWriteNetworkStores = true;
           DSDontWriteUSBStores = true;
+        };
+        "com.apple.spaces" = {
+          "spans-displays" = 0; # Display have seperate spaces
+        };
+        "com.apple.WindowManager" = {
+          EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
+          StandardHideDesktopIcons = 0; # Show items on desktop
+          HideDesktop = 0; # Do not hide items on desktop & stage manager
+          StageManagerHideWidgets = 0;
+          StandardHideWidgets = 0;
         };
         "com.apple.screensaver" = {
           # Require password immediately after sleep or screen saver begins
@@ -141,6 +164,15 @@
       #
       # disabled, caused only problems!
       swapLeftCommandAndLeftAlt = false;
+
+      userKeyMapping = [
+        # remap escape to caps lock
+        # so we swap caps lock and escape, then we can use caps lock as escape
+        {
+          HIDKeyboardModifierMappingSrc = 30064771113;
+          HIDKeyboardModifierMappingDst = 30064771129;
+        }
+      ];
     };
   };
 
@@ -151,22 +183,38 @@
 
   # Fonts
   fonts = {
-    # use fonts specified by user rather than default ones
+    # will be removed after this PR is merged:
+    #   https://github.com/LnL7/nix-darwin/pull/754
     fontDir.enable = true;
 
+    # will change to `fonts.packages` after this PR is merged:
+    #   https://github.com/LnL7/nix-darwin/pull/754
     fonts = with pkgs; [
+      # packages = with pkgs; [
       # icon fonts
       material-design-icons
       font-awesome
 
+      # 思源系列字体是 Adobe 主导的。其中汉字部分被称为「思源黑体」和「思源宋体」，是由 Adobe + Google 共同开发的
+      source-sans # 无衬线字体，不含汉字。字族名叫 Source Sans 3 和 Source Sans Pro，以及带字重的变体，加上 Source Sans 3 VF
+      source-serif # 衬线字体，不含汉字。字族名叫 Source Code Pro，以及带字重的变体
+      source-han-sans # 思源黑体
+      source-han-serif # 思源宋体
+
       # nerdfonts
+      # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/data/fonts/nerdfonts/shas.nix
       (nerdfonts.override {
         fonts = [
+          # symbols icon only
+          "NerdFontsSymbolsOnly"
+          # Characters
           "FiraCode"
           "JetBrainsMono"
           "Iosevka"
         ];
       })
+      julia-mono
+      dejavu_fonts
     ];
   };
 }

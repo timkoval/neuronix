@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   ###################################################################################
   #
   #  Core configuration for nix-darwin
@@ -10,32 +6,23 @@
   #  All the configuration options are documented here:
   #    https://daiderd.com/nix-darwin/manual/index.html#sec-options
   #
+  # History Issues:
+  #  1. Fixed by replace the determinated nix-installer by the official one:
+  #     https://github.com/LnL7/nix-darwin/issues/149#issuecomment-1741720259
+  #
   ###################################################################################
-
-  # enable flakes globally
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  # Use this instead of services.nix-daemon.enable if you
-  # don't wan't the daemon service to be managed for you.
-  # nix.useDaemon = true;
-
   nix.package = pkgs.nix;
 
-  programs.nix-index.enable = true;
+  # Disable auto-optimise-store because of this issue:
+  #   https://github.com/NixOS/nix/issues/7273
+  # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
+  nix.settings.auto-optimise-store = false;
 
-  # boot.loader.grub.configurationLimit = 10;
-  # do garbage collection weekly to keep disk usage low
-  nix.gc = {
-    automatic = lib.mkDefault true;
-    options = lib.mkDefault "--delete-older-than 1w";
-  };
-
-  # Manual optimise storage: nix-store --optimise
-  # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
-  nix.settings.auto-optimise-store = true;
+  nix.gc.automatic = false;
 }

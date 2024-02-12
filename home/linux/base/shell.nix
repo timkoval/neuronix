@@ -1,10 +1,16 @@
-{config, nushell-scripts, ...}: let
+{
+  config,
+  username,
+  ...
+}: let
   d = config.xdg.dataHome;
   c = config.xdg.configHome;
   cache = config.xdg.cacheHome;
 in rec {
-  # add environment variables
-  systemd.user.sessionVariables = {
+  home.homeDirectory = "/home/${username}";
+
+  # environment variables that always set at login
+  home.sessionVariables = {
     # clean up ~
     LESSHISTFILE = cache + "/less/history";
     LESSKEY = c + "/less/lesskey";
@@ -17,13 +23,8 @@ in rec {
 
     # set default applications
     BROWSER = "firefox";
-    TERM = "xterm-256color";
 
     # enable scrolling in git diff
     DELTA_PAGER = "less -R";
-
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
-
-  home.sessionVariables = systemd.user.sessionVariables;
 }

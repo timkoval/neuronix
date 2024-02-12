@@ -1,7 +1,7 @@
-{
-  imports = [
-    ./apps.nix
-    ./nix-core.nix
-    ./system.nix
-  ];
+{mylib, ...}: {
+  imports =
+    (mylib.scanPaths ./.)
+    ++ [
+      ../base.nix
+    ];
 }

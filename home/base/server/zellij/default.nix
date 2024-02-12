@@ -1,7 +1,12 @@
-{...}: {
+let
+  shellAliases = {
+    "zj" = "zellij";
+  };
+in {
   programs.zellij = {
     enable = true;
   };
-
-  home.file.".config/zellij/config.kdl".source = ./config.kdl;
+  # only works in bash/zsh, not nushell
+  home.shellAliases = shellAliases;
+  programs.nushell.shellAliases = shellAliases;
 }

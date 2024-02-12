@@ -9,16 +9,11 @@
     libnotify
     wireguard-tools # manage wireguard vpn manually, via wg-quick
 
-    # need to run `conda-install` before using it
-    # need to run `conda-shell` before using command `conda`
-    # conda is not available for MacOS
-    conda
-
     # system call monitoring
     strace # system call monitoring
     ltrace # library call monitoring
     bpftrace # powerful tracing tool
-    tcpdump  # network sniffer
+    tcpdump # network sniffer
     lsof # list open files
 
     # system tools
@@ -34,9 +29,6 @@
   # auto mount usb drives
   services = {
     udiskie.enable = true;
-  };
-
-  services = {
     # syncthing.enable = true;
   };
 }
