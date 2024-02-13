@@ -38,7 +38,6 @@ As for Flakes, refer to [Introduction to Flakes - NixOS & Nix Flakes Book](https
 | **Display Manager**         | [GDM][GDM]                                                                                                        | [GDM][GDM]                                                                                                        |
 | **Color Scheme**            | [Catppuccin][Catppuccin]                                                                                          | [Catppuccin][Catppuccin]                                                                                          |
 | **network management tool** | [NetworkManager][NetworkManager]                                                                                  | [NetworkManager][NetworkManager]                                                                                  |
-| **Input method framework**  | [Fcitx5][Fcitx5]                                                                                                  | [Fcitx5][Fcitx5]                                                                                                  |
 | **System resource monitor** | [Btop][Btop]                                                                                                      | [Btop][Btop]                                                                                                      |
 | **File Manager**            | [Yazi][Yazi] + [thunar][thunar]                                                                                   | [Yazi][Yazi] + [thunar][thunar]                                                                                   |
 | **Shell**                   | [Nushell][Nushell] + [Starship][Starship]                                                                         | [Nushell][Nushell] + [Starship][Starship]                                                                         |
@@ -197,7 +196,6 @@ Other dotfiles that inspired me:
 [rofi]: https://github.com/davatorium/rofi
 [anyrun]: https://github.com/Kirottu/anyrun
 [Dunst]: https://github.com/dunst-project/dunst
-[Fcitx5]: https://github.com/fcitx/fcitx5
 [Btop]: https://github.com/aristocratos/btop
 [mpv]: https://github.com/mpv-player/mpv
 [Zellij]: https://github.com/zellij-org/zellij

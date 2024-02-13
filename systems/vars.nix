@@ -216,27 +216,27 @@ in {
   };
 
   # darwin systems
-  darwin_harmonica_modules = {
+  # darwin_harmonica_modules = {
+  #   darwin-modules = [
+  #     ../hosts/darwin_harmonica
+  #
+  #     ../modules/darwin
+  #     # ../secrets/darwin.nix
+  #   ];
+  #   home-module.imports = [
+  #     ../hosts/darwin_harmonica/home.nix
+  #     ../home/darwin
+  #   ];
+  # };
+  darwin_air_modules = {
     darwin-modules = [
-      ../hosts/darwin_harmonica
+      ../hosts/apples/air
 
       ../modules/darwin
       # ../secrets/darwin.nix
     ];
     home-module.imports = [
-      ../hosts/darwin_harmonica/home.nix
-      ../home/darwin
-    ];
-  };
-  darwin_fern_modules = {
-    darwin-modules = [
-      ../hosts/darwin_fern
-
-      ../modules/darwin
-      # ../secrets/darwin.nix
-    ];
-    home-module.imports = [
-      ../hosts/darwin_fern/home.nix
+      ../hosts/apples/air/home.nix
       ../home/darwin
     ];
   };

@@ -9,21 +9,21 @@ with allSystemAttrs; let
 in {
   # macOS's configuration
   darwinConfigurations = {
-    harmonica = macosSystem (
-      attrs.mergeAttrsList [
-        base_args
-        darwin_harmonica_modules
-        {
-          system = allSystemAttrs.x64_darwin;
-          specialArgs = allSystemSpecialArgs.x64_darwin;
-        }
-      ]
-    );
+    # harmonica = macosSystem (
+    #   attrs.mergeAttrsList [
+    #     base_args
+    #     darwin_harmonica_modules
+    #     {
+    #       system = allSystemAttrs.x64_darwin;
+    #       specialArgs = allSystemSpecialArgs.x64_darwin;
+    #     }
+    #   ]
+    # );
 
-    fern = macosSystem (
+    air = macosSystem (
       attrs.mergeAttrsList [
         base_args
-        darwin_fern_modules
+        darwin_air_modules
         {
           system = aarch64_darwin;
           specialArgs = allSystemSpecialArgs.aarch64_darwin;
