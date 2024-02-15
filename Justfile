@@ -74,7 +74,7 @@ ha mode="default":
   darwin-build "harmonica" {{mode}}; \
   darwin-switch "harmonica" {{mode}}
 
-air mode="default": darwin-set-proxy
+air mode="default":
   use utils.nu *; \
   darwin-build "air" {{mode}}; \
   darwin-switch "air" {{mode}}
