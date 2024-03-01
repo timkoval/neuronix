@@ -12,6 +12,10 @@
   # to install chrome, you need to enable unfree packages
   nixpkgs.config.allowUnfree = lib.mkForce true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+  "electron-25.9.0"
+  ];
+
   # for nix server, we do not need to keep too much generations
   boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
 
