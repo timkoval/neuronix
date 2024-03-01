@@ -68,6 +68,7 @@
           "Source Han Sans TC"
         }
 
+        config.window_decorations = "NONE"
         config.hide_tab_bar_if_only_one_tab = true
         config.scrollback_lines = 10000
         config.enable_scroll_bar = true

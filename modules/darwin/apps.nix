@@ -122,6 +122,7 @@ in {
       "aria2" # download tool
       "httpie" # http client
       "wireguard-tools" # wireguard
+      "git-crypt" # files encryption for git
 
       # Usage:
       #  https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS#run-the-tailscaled-daemon
@@ -149,11 +150,15 @@ in {
       "google-chrome"
       "visual-studio-code"
       "zed" # zed editor
+      "wezterm"
+      "kitty"
+      "obsidian" # note taking tool
 
       # IM & audio & remote desktop & meeting
       "telegram"
       "discord"
       "microsoft-remote-desktop"
+      "zoom"
       # "moonlight" # remote desktop client
 #      "rustdesk"
 
@@ -168,7 +173,7 @@ in {
       # Development
       "mitmproxy" # HTTP/HTTPS traffic inspector
       "insomnia" # REST client
-      "wireshark" # network analyzer
+#      "wireshark" # network analyzer
       "jdk-mission-control" # Java Mission Control
       "google-cloud-sdk" # Google Cloud SDK
       "miniforge" # Miniconda's community-driven distribution

@@ -1,5 +1,5 @@
 return {
-  colorscheme = "catppuccin",
+  colorscheme = "gruvbox-baby",
 
   options = {
     opt = {
@@ -34,6 +34,7 @@ return {
     { import = "astrocommunity.motion.leap-nvim" },
     { import = "astrocommunity.motion.flit-nvim" },
     { import = "astrocommunity.scrolling.nvim-scrollbar" },
+    { import = "astrocommunity.editing-support.auto-save-nvim" },
     { import = "astrocommunity.editing-support.todo-comments-nvim" },
     -- Language Support
     ---- Frontend & NodeJS
@@ -65,15 +66,7 @@ return {
     { import = "astrocommunity.pack.helm" },
 
     -- colorscheme
-    { import = "astrocommunity.colorscheme.catppuccin" },
-    {
-      "catppuccin/nvim",
-      name = "catppuccin",
-      opts = function(_, opts)
-        opts.flavour = "mocha"              -- latte, frappe, macchiato, mocha
-        opts.transparent_background = true -- setting the background color.
-      end,
-    },
+    { import = "astrocommunity.colorscheme.gruvbox-baby" },
     -- Language Parser for syntax highlighting / indentation / folding / Incremental selection
     {
       "nvim-treesitter/nvim-treesitter",
