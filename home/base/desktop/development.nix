@@ -60,6 +60,7 @@
     minicom
 
     # notes
+    oxipng
     git-crypt
     pkgs-unstable.obsidian
 
