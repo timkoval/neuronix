@@ -7,24 +7,10 @@
 #
 # Kitty Configuration
 #
-# Useful Hot Keys for macOS:
-#   1. New Tab: `command + t`
-#   2. Close Tab: `command + w`
-#   3. Switch Tab: `shift + command + [` | `shift + command + ]`
-#   4. Increase Font Size: `command + =` | `command + +`
-#   5. Decrease Font Size: `command + -` | `command + _`
-#   6. And Other common shortcuts such as Copy, Paste, Cursor Move, etc.
-#   7. Search in the current window(show_scrollback): `ctrl + shift + h`
-#          This will open a pager, it's defined by `scrollback_pager`, default is `less`
-#        
-#
-# Useful Hot Keys for Linux:
-#   1. New Tab: `ctrl + shift + t`
-#   2. Close Tab: `ctrl + shift + q`
-#   3. Switch Tab: `ctrl + shift + right` | `ctrl + shift + left`
-#   4. Increase Font Size: `ctrl + shift + =` | `ctrl + shift + +`
-#   5. Decrease Font Size: `ctrl + shift + -` | `ctrl + shift + _`
-#   6. And Other common shortcuts such as Copy, Paste, Cursor Move, etc.
+# Useful Hot Keys for Linux(replace `ctrl + shift` with `cmd` on macOS)):
+#   1. Increase Font Size: `ctrl + shift + =` | `ctrl + shift + +`
+#   2. Decrease Font Size: `ctrl + shift + -` | `ctrl + shift + _`
+#   3. And Other common shortcuts such as Copy, Paste, Cursor Move, etc.
 #
 ###########################################################
 {
@@ -43,26 +29,23 @@
         else 13;
     };
 
+    # consistent with wezterm
     keybindings = {
       "ctrl+shift+m" = "toggle_maximized";
+      "ctrl+shift+f" = "show_scrollback"; # search in the current window
     };
 
-    settings =
-      {
-        background_opacity = "0.93";
-        macos_option_as_alt = true; # Option key acts as Alt on macOS
-        scrollback_lines = 10000;
-        enable_audio_bell = false;
-        tab_bar_edge = "top";     # tab bar on top
-      }
-      // (
-        if pkgs.stdenv.isDarwin
-        then {
-          # macOS specific settings, force kitty to use nushell as default shell
-          shell = "/run/current-system/sw/bin/nu";
-        }
-        else {}
-      );
+    settings = {
+      background_opacity = "0.93";
+      macos_option_as_alt = true; # Option key acts as Alt on macOS
+      enable_audio_bell = false;
+      tab_bar_edge = "top"; # tab bar on top
+      #  To resolve issues:
+      #    1. https://github.com/ryan4yin/nix-config/issues/26
+      #    2. https://github.com/ryan4yin/nix-config/issues/8
+      #  Spawn a nushell in login mode via `bash`
+      shell = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
+    };
 
     # macOS specific settings
     darwinLaunchOptions = ["--start-as=maximized"];

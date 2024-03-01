@@ -17,6 +17,6 @@
     poppler_utils
 
     # radio
-    shortwave
+#    shortwave
   ];
 }

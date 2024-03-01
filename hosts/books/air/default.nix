@@ -9,16 +9,11 @@
     ./hardware-configuration.nix
     ./apple-silicon-support
 
-    ../../modules/nixos/fhs-fonts.nix
-    ../../modules/nixos/libvirt.nix
-    ../../modules/nixos/core-desktop.nix
-    ../../modules/nixos/remote-building.nix
-    ../../modules/nixos/user-group.nix
-
-    # ../../secrets/nixos.nix
+    # ../../../secrets/nixos.nix
   ];
   
-  nixpkgs.overlays = import ../../overlays args;
+  nixpkgs.overlays = import ../../../overlays args;
+  # nixpkgs.config.allowUnsupportedSystem = true;
 
   # Bootloader.
   boot.loader = {
@@ -27,13 +22,34 @@
     };
     systemd-boot.enable = true;
   };
+  boot.kernelPatches = [{
+  name = "waydroid";
+  patch = null;
+  extraConfig = ''
+    ANDROID_BINDER_IPC y
+    ANDROID_BINDERFS y
+    ANDROID_BINDER_DEVICES binder,hwbinder,vndbinder
+    CONFIG_ASHMEM y
+    CONFIG_ANDROID_BINDERFS y
+    CONFIG_ANDROID_BINDER_IPC y
+  '';
+}];
   
-  # Remove if you get an error that an x86_64-linux builder is required
-  hardware.asahi.pkgsSystem = "x86_64-linux";
+  hardware = {
+    asahi = {
+      # Remove if you get an error that an x86_64-linux builder is required
+      # pkgsSystem = "x86_64-linux";
+      # Specifying path to peripheral firmware files
+      peripheralFirmwareDirectory = ./firmware;
+      addEdgeKernelConfig = true;
+      useExperimentalGPUDriver = true;
+      experimentalGPUInstallMode = "replace";
+      withRust = true;
+    };
+    opengl.enable = true;
+  };
 
-  # Specifying path to peripheral firmware files
-  hardware.asahi.peripheralFirmwareDirectory = ./firmware;
-  
+
   # boot.kernelModules = [ ];
 
   networking = {

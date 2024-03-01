@@ -1,4 +1,6 @@
-{ nushell-scripts, ...}: {
+{pkgs-unstable, ...}: let
+  inherit (pkgs-unstable) nu_scripts;
+in {
   programs.bash = {
     # load the alias file for work
     bashrcExtra = ''
@@ -19,13 +21,19 @@
     # https://github.com/nushell/nushell/issues/8214
     extraConfig = ''
       source /etc/agenix/alias-for-work.nushell
-      use ${nushell-scripts}/custom-completions/git/git-completions.nu *
-      use ${nushell-scripts}/custom-completions/glow/glow-completions.nu *
-      use ${nushell-scripts}/custom-completions/make/make-completions.nu *
-      use ${nushell-scripts}/custom-completions/nix/nix-completions.nu *
-      use ${nushell-scripts}/custom-completions/man/man-completions.nu *
-      use ${nushell-scripts}/custom-completions/cargo/cargo-completions.nu *
-      use ${nushell-scripts}/custom-completions/zellij/zellij-completions.nu *
+      # completion
+      use ${nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/glow/glow-completions.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/just/just-completions.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/make/make-completions.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/man/man-completions.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/nix/nix-completions.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/cargo/cargo-completions.nu *
+      use ${nu_scripts}/share/nu_scripts/custom-completions/zellij/zellij-completions.nu *
+      # alias
+      use ${nu_scripts}/share/nu_scripts/aliases/git/git-aliases.nu *
+      use ${nu_scripts}/share/nu_scripts/aliases/eza/eza-aliases.nu *
+      # use ${nu_scripts}/share/nu_scripts/aliases/bat/bat-aliases.nu *
     '';
   };
 }

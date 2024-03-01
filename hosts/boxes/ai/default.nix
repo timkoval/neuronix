@@ -9,12 +9,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    ../../../modules/nixos/fhs-fonts.nix
-    ../../../modules/nixos/libvirt.nix
-    ../../../modules/nixos/core-desktop.nix
-    ../../../modules/nixos/remote-building.nix
-    ../../../modules/nixos/user-group.nix
-
   #  ../../../secrets/nixos.nix
   ];
 

@@ -5,7 +5,11 @@
   config = {
     boot.kernelPackages = let
       pkgs' = config.hardware.asahi.pkgs;
+<<<<<<< HEAD
     in
+=======
+    in 
+>>>>>>> air
       pkgs'.linux-asahi.override {
         _kernelPatches = config.boot.kernelPatches;
         _4KBuild = config.hardware.asahi.use4KPages;
