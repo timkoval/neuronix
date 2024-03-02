@@ -79,6 +79,11 @@ air mode="default":
   darwin-build "air" {{mode}}; \
   darwin-switch "air" {{mode}}
 
+pro mode="default":
+  use utils.nu *; \
+  darwin-build "pro" {{mode}}; \
+  darwin-switch "pro" {{mode}}
+
 yabai-reload:
   launchctl kickstart -k "gui/502/org.nixos.yabai";
   launchctl kickstart -k "gui/502/org.nixos.skhd"; 

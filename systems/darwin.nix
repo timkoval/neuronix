@@ -30,5 +30,16 @@ in {
         }
       ]
     );
+    
+    pro = macosSystem (
+      attrs.mergeAttrsList [
+        base_args
+        darwin_pro_modules
+        {
+          system = aarch64_darwin;
+          specialArgs = allSystemSpecialArgs.aarch64_darwin;
+        }
+      ]
+    );
   };
 }

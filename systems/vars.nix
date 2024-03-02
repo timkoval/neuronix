@@ -240,4 +240,17 @@ in {
       ../home/darwin
     ];
   };
+  
+  darwin_pro_modules = {
+    darwin-modules = [
+      ../hosts/apples/pro
+
+      ../modules/darwin
+      # ../secrets/darwin.nix
+    ];
+    home-module.imports = [
+      ../hosts/apples/pro/home.nix
+      ../home/darwin
+    ];
+  };
 }
