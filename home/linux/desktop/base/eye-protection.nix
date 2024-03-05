@@ -11,7 +11,7 @@
   #
   # https://gitlab.com/chinstrap/gammastep
   services.gammastep = {
-    enable = true;
+    enable = false;
     # add a gammastep icon in the system tray
     # has problem with wayland, so disable it
     tray = false;

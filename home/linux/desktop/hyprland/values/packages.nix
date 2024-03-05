@@ -11,6 +11,7 @@
     wlogout # logout menu
     wl-clipboard # copying and pasting
     hyprpicker # color picker
+    brightnessctl # brightness control utility
 
     pkgs-unstable.hyprshot # screen shot
     grim # taking screenshots

@@ -53,6 +53,10 @@
       ];
     };
 
+    brave = {
+      enable = true;
+    };
+
     firefox = {
       enable = true;
       enableGnomeExtensions = false;
