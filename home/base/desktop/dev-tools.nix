@@ -35,31 +35,13 @@
       k6 # load testing tool
       protobuf # protocol buffer compiler
       nix-init # generate nix package from url
-      pkgs-unstable.glances # system monitor
-      #pkgs-unstable.qutebrowser # keyboard-first browser
+      glances # system monitor
+#      #pkgs-unstable.qutebrowser # keyboard-first browser
       rpi-imager # iso flashing tool
       unar # unzip tool
     
-      # debian bootstrap
-      # dpkg
-      pkgs-unstable.debootstrap
-      cacert
-      binutils
-      xorg.xauth
-      xorg.xhost
-
       # solve coding extercises - learn by doing
       exercism
-    
-      # notes
-      oxipng
-      git-crypt
-      obsidian
-
-      # keyboard tools
-      qmk
-      qmk_hid
-      # vial
     ]
     ++ (
       if pkgs.stdenv.isLinux
@@ -74,7 +56,7 @@
         conda
 
         # mitmproxy # http/https proxy tool
-        # insomnia # REST client
+        insomnia # REST client
         wireshark # network analyzer
       ]
       else []

@@ -231,6 +231,7 @@ in {
   darwin_air_modules = {
     darwin-modules = [
       ../hosts/apples/air
+      ../hosts/apples/air/ansi-remapping.nix
 
       ../modules/darwin
       # ../secrets/darwin.nix
@@ -244,6 +245,7 @@ in {
   darwin_pro_modules = {
     darwin-modules = [
       ../hosts/apples/pro
+      ../hosts/apples/pro/iso-remapping.nix
 
       ../modules/darwin
       # ../secrets/darwin.nix

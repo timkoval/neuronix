@@ -24,6 +24,14 @@
     usbutils # lsusb
     hdparm # for disk performance, command
     dmidecode # a tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard
+  
+    # debian bootstrap
+    # dpkg
+    pkgs-unstable.debootstrap
+    cacert
+    binutils
+    xorg.xauth
+    xorg.xhost
   ];
 
   # auto mount usb drives

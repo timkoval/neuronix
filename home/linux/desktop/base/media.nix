@@ -21,6 +21,12 @@
     vdpauinfo
     vulkan-tools
     glxinfo
+      
+    # notes
+    oxipng
+    git-crypt
+    obsidian
+
   ];
 
   # https://github.com/catppuccin/cava

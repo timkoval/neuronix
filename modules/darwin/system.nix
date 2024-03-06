@@ -88,7 +88,7 @@
         NSAutomaticSpellingCorrectionEnabled = false; # disable auto spelling correction(自动拼写检查)
         NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default(保存文件时的路径选择/文件名输入页)
         NSNavPanelExpandedStateForSaveMode2 = true;
-        _HIHideMenuBar = true;
+        _HIHideMenuBar = false;
       };
 
       # customize settings that not supported by nix-darwin directly
@@ -165,15 +165,6 @@
       #
       # disabled, caused only problems!
       swapLeftCommandAndLeftAlt = false;
-
-      userKeyMapping = [
-        # remap escape to caps lock
-        # so we swap caps lock and escape, then we can use caps lock as escape
-        {
-          HIDKeyboardModifierMappingSrc = 30064771113;
-          HIDKeyboardModifierMappingDst = 30064771129;
-        }
-      ];
     };
   };
 
