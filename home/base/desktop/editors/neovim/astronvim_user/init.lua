@@ -1,5 +1,5 @@
 return {
-  colorscheme = "gruvbox-baby",
+  colorscheme = "gruvbox",
 
   options = {
     opt = {
@@ -30,7 +30,7 @@ return {
     -- { import = "astrocommunity.utility.noice-nvim" },
     -- Fully featured & enhanced replacement for copilot.vim
     -- <Tab> work with both auto completion in cmp and copilot
-    { import = "astrocommunity.media.vim-wakatime" },
+    -- { import = "astrocommunity.media.vim-wakatime" },
     { import = "astrocommunity.motion.leap-nvim" },
     { import = "astrocommunity.motion.flit-nvim" },
     { import = "astrocommunity.scrolling.nvim-scrollbar" },
@@ -66,7 +66,7 @@ return {
     { import = "astrocommunity.pack.helm" },
 
     -- colorscheme
-    { import = "astrocommunity.colorscheme.gruvbox-baby" },
+    { import = "astrocommunity.colorscheme.gruvbox-nvim" },
     -- Language Parser for syntax highlighting / indentation / folding / Incremental selection
     {
       "nvim-treesitter/nvim-treesitter",

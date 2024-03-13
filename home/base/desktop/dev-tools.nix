@@ -37,7 +37,6 @@
       nix-init # generate nix package from url
       glances # system monitor
 #      #pkgs-unstable.qutebrowser # keyboard-first browser
-      rpi-imager # iso flashing tool
       unar # unzip tool
     
       # solve coding extercises - learn by doing

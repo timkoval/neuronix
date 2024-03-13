@@ -18,6 +18,8 @@
     # remote desktop(rdp connect)
     remmina
     freerdp # required by remmina
+    
+    rpi-imager # iso flashing tool
 
     # misc
     flameshot
