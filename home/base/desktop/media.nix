@@ -15,7 +15,8 @@
 
     # pdf
     poppler_utils
-
+    
+    yt-dlp 
     # radio
 #    shortwave
   ];
