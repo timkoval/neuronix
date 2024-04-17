@@ -8,6 +8,8 @@
     modemmanager # usb modem stuff
     usb-modeswitch
     usb-modeswitch-data
+    libimobiledevice # iphone usb tethering
+    ifuse
   ];
 
   # PipeWire is a new low-level multimedia framework.
@@ -31,6 +33,9 @@
   sound.enable = false;
   # Disable pulseaudio, it conflicts with pipewire too.
   hardware.pulseaudio.enable = false;
+
+  # iphone usb tethering 
+  services.usbmuxd.enable = true;
 
   #============================= Bluetooth =============================
 

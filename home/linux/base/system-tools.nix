@@ -27,7 +27,7 @@
   
     # debian bootstrap
     # dpkg
-    pkgs-unstable.debootstrap
+    debootstrap
     cacert
     binutils
     xorg.xauth
