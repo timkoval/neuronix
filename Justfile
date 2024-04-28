@@ -84,6 +84,11 @@ pro mode="default":
   darwin-build "pro" {{mode}}; \
   darwin-switch "pro" {{mode}}
 
+prok mode="default":
+  use utils.nu *; \
+  darwin-build "prok" {{mode}}; \
+  darwin-switch "prok" {{mode}}
+
 yabai-reload:
   launchctl kickstart -k "gui/502/org.nixos.yabai";
   launchctl kickstart -k "gui/502/org.nixos.skhd"; 

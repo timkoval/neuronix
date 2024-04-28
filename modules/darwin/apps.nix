@@ -113,6 +113,7 @@ in {
       "homebrew/cask-versions"
 
       "hashicorp/tap"
+      "streamdal/public"
     ];
 
     brews = [
@@ -142,12 +143,17 @@ in {
       "git-trim"
       "terraform"
       "terraformer"
+
+      "plumber" # message queues tool
+      "docker"
+      "trunk" # shipping rust wasm apps
     ];
 
     # `brew install --cask`
     casks = [
       "firefox"
       "google-chrome"
+      "arc"
       "visual-studio-code"
       "zed" # zed editor
       "wezterm"

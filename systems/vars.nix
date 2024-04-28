@@ -255,4 +255,18 @@ in {
       ../home/darwin
     ];
   };
+  
+  darwin_prok_modules = {
+    darwin-modules = [
+      ../hosts/apples/prok
+      ../hosts/apples/prok/iso-remapping.nix
+
+      ../modules/darwin
+      # ../secrets/darwin.nix
+    ];
+    home-module.imports = [
+      ../hosts/apples/prok/home.nix
+      ../home/darwin
+    ];
+  };
 }
