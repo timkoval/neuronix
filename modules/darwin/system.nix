@@ -69,7 +69,7 @@
         "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
 
         # Appearance
-        AppleInterfaceStyle = "Dark"; # dark mode
+        # AppleInterfaceStyle = "Dark"; # dark mode
 
         AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
         ApplePressAndHoldEnabled = true; # enable press and hold
