@@ -194,7 +194,7 @@
     
     # my neovim config
     neuronvim = {
-      url = "github.com:timkoval/neuronvim";
+      url = "github:timkoval/neuronvim";
       flake = false;
     };
 
