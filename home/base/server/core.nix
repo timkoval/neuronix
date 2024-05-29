@@ -67,7 +67,7 @@
     doggo # DNS client for humans
     duf # Disk Usage/Free Utility - a better 'df' alternative
     du-dust # A more intuitive version of `du` in rust
-    ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
+    # ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
     gdu # disk usage analyzer(replacement of `du`)
 
     # nix related

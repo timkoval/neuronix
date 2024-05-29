@@ -191,6 +191,12 @@
       url = "github:ryan4yin/wallpapers";
       flake = false;
     };
+    
+    # my neovim config
+    neuronvim = {
+      url = "github.com:timkoval/neuronvim";
+      flake = false;
+    };
 
     nur-ryan4yin = {
       url = "github:ryan4yin/nur-packages";

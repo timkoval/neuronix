@@ -1,0 +1,3 @@
+[submodule "home/base/desktop/editors/neovim/neuronvim"]
+	path = home/base/desktop/editors/neovim/neuronvim
+	url = git@github.com:timkoval/neuronvim.git
