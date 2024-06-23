@@ -38,6 +38,7 @@
       glances # system monitor
 #      #pkgs-unstable.qutebrowser # keyboard-first browser
       unar # unzip tool
+      leetcode-cli 
     
       # solve coding extercises - learn by doing
       exercism

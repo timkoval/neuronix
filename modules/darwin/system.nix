@@ -28,7 +28,7 @@
     '';
 
     defaults = {
-      menuExtraClock.Show24Hour = true; # show 24 hour clock
+      menuExtraClock.Show24Hour = true;
 
       # customize dock
       dock = {
