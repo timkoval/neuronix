@@ -144,8 +144,9 @@ in {
       "terraform"
       "terraformer"
 
-      "plumber" # message queues tool
+      # "plumber" # message queues tool
       "docker"
+      "colima"  # containers runtime environment
       "trunk" # shipping rust wasm apps
     ];
 
@@ -159,6 +160,8 @@ in {
       "wezterm"
       "kitty"
       "obsidian" # note taking tool
+      "itsycal" # calendar
+      "the-unarchiver"
 
       # IM & audio & remote desktop & meeting
       "telegram"
@@ -184,6 +187,7 @@ in {
       "google-cloud-sdk" # Google Cloud SDK
       "miniforge" # Miniconda's community-driven distribution
       # "flox" # dev envs manager
+      "tableplus" # database client
     ];
   };
 }
