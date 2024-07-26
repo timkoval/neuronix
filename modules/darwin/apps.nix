@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 ##########################################################################
@@ -50,7 +51,6 @@ in {
   #
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
-    neovim
     git
     nushell # my custom shell
     gnugrep # replacee macos's grep

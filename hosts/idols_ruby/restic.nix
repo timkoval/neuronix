@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/backup/restic.nix
+  # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/services/backup/restic.nix
   services.restic.backups = {
     homelab-backup = {
       initialize = true; # Initialize the repository if it doesn't exist.
