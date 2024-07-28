@@ -10,7 +10,7 @@ in {
   home.shellAliases = shellAliases;
 
   programs.nushell = {
-    enable = true;
+    enable = false;
     configFile.source = ./config.nu;
     inherit shellAliases;
   };

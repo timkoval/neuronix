@@ -14,7 +14,6 @@ in {
   };
 
   programs.nushell = {
-    enable = false;
     # load the alias file for work
     # the file must exist, otherwise nushell will complain about it!
     #
