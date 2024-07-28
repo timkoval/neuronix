@@ -84,10 +84,6 @@
     hugo # static site generator
     glow # markdown previewer in terminal
 
-    # docker tui
-    lazydocker
-    oxker
-
   ];
 
   programs = {

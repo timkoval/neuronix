@@ -10,9 +10,6 @@
       ssm-session-manager-plugin # Amazon SSM Session Manager Plugin
       aws-iam-authenticator
       eksctl
-
-      # aliyun
-      aliyun-cli
     ]
     ++ (
       if pkgs.stdenv.isLinux

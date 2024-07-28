@@ -180,11 +180,11 @@ in {
       "sonic-pi" # music programming
 
       # Development
-      "mitmproxy" # HTTP/HTTPS traffic inspector
+      # "mitmproxy" # HTTP/HTTPS traffic inspector
       "insomnia" # REST client
 #      "wireshark" # network analyzer
-      "jdk-mission-control" # Java Mission Control
-      "google-cloud-sdk" # Google Cloud SDK
+      # "jdk-mission-control" # Java Mission Control
+      # "google-cloud-sdk" # Google Cloud SDK
       "miniforge" # Miniconda's community-driven distribution
       # "flox" # dev envs manager
       "tableplus" # database client
