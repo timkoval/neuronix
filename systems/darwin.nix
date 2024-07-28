@@ -42,10 +42,10 @@ in {
       ]
     );
     
-    prok = macosSystem (
+    procs = macosSystem (
       attrs.mergeAttrsList [
         base_args
-        darwin_prok_modules
+        darwin_procs_modules
         {
           system = aarch64_darwin;
           specialArgs = allSystemSpecialArgs.aarch64_darwin;
