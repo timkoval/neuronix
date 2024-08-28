@@ -1,7 +1,7 @@
 rec {
   # user information
-  username = "tkoval";
-  userfullname = "Tim Koval";
+  username = "timur";
+  userfullname = "Tim";
   useremail = "timkoval00@gmail.com";
 
   allSystemAttrs = {

@@ -69,6 +69,7 @@
     du-dust # A more intuitive version of `du` in rust
     # ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
     gdu # disk usage analyzer(replacement of `du`)
+    act # github actions testing tool
 
     # nix related
     #

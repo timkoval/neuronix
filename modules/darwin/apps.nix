@@ -108,9 +108,9 @@ in {
     };
 
     taps = [
-      "homebrew/cask-fonts"
+    #  "homebrew/cask-fonts"
       "homebrew/services"
-      "homebrew/cask-versions"
+    #  "homebrew/cask-versions"
 
       "hashicorp/tap"
       "streamdal/public"
@@ -124,6 +124,7 @@ in {
       "httpie" # http client
       "wireguard-tools" # wireguard
       "git-crypt" # files encryption for git
+      "gh" # GitHub CLI tool
 
       # Usage:
       #  https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS#run-the-tailscaled-daemon
@@ -144,6 +145,7 @@ in {
       "terraform"
       "terraformer"
 
+      "qmk/qmk/qmk" # keyboard management
       # "plumber" # message queues tool
       "docker"
       "colima"  # containers runtime environment
@@ -164,10 +166,10 @@ in {
       "the-unarchiver"
 
       # IM & audio & remote desktop & meeting
-      "telegram"
-      "discord"
-      "microsoft-remote-desktop"
-      "zoom"
+    #  "telegram"
+     # "discord"
+     # "microsoft-remote-desktop"
+      #"zoom"
       # "moonlight" # remote desktop client
 #      "rustdesk"
 
