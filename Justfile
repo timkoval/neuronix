@@ -18,16 +18,6 @@ hypr mode="default":
   nixos-switch ai_hyprland {{mode}}
 
 
-s-i3 mode="default":
-  use utils.nu *; \
-  nixos-switch shoukei_i3 {{mode}}
-
-
-s-hypr mode="default":
-  use utils.nu *; \
-  nixos-switch shoukei_hyprland {{mode}}
-
-
 up:
   nix flake update
 
@@ -69,11 +59,6 @@ darwin-rollback:
   use utils.nu *; \
   darwin-rollback
 
-ha mode="default":
-  use utils.nu *; \
-  darwin-build "harmonica" {{mode}}; \
-  darwin-switch "harmonica" {{mode}}
-
 air mode="default":
   use utils.nu *; \
   darwin-build "air" {{mode}}; \
@@ -88,84 +73,6 @@ procs mode="default":
   use utils.nu *; \
   darwin-build "procs" {{mode}}; \
   darwin-switch "procs" {{mode}}
-
-yabai-reload:
-  launchctl kickstart -k "gui/502/org.nixos.yabai";
-  launchctl kickstart -k "gui/502/org.nixos.skhd"; 
-
-############################################################################
-#
-#  Colmena - Remote NixOS deployment
-#
-############################################################################
-
-colmena-ssh-key:
-  ssh-add /etc/agenix/ssh-key-romantic
-
-dist:
-  colmena apply --on '@dist-build'
-
-dist-debug:
-  colmena apply --on '@dist-build' --verbose --show-trace
-
-aqua:
-  colmena apply --on '@aqua'
-
-ruby:
-  colmena apply --on '@ruby'
-
-kana:
-  colmena apply --on '@kana'
-
-tailscale_gw:
-  colmena apply --on '@tailscale_gw'
-
-pve-image:
-  nom build .#tailscale_gw
-  rsync -avz --progress --copy-links result root@s500plus:/var/lib/vz/dump/vzdump-qemu-tailscale_gw.vma.zst
-
-  nom build .#aquamarine
-  rsync -avz --progress --copy-links result root@s500plus:/var/lib/vz/dump/vzdump-qemu-aquamarine.vma.zst
-
-  nom build .#ruby
-  rsync -avz --progress --copy-links result root@gtr5:/var/lib/vz/dump/vzdump-qemu-ruby.vma.zst
-
-  nom build .#kana
-  rsync -avz --progress --copy-links result root@um560:/var/lib/vz/dump/vzdump-qemu-kana.vma.zst
-
-
-############################################################################
-#
-#  RISC-V related commands
-#
-############################################################################
-
-roll:
-  colmena apply --on '@riscv'
-
-roll-debug:
-  colmena apply --on '@dist-build' --verbose --show-trace
-
-nozomi:
-  colmena apply --on '@nozomi'
-
-yukina:
-  colmena apply --on '@yukina'
-
-############################################################################
-#
-# Aarch64 related commands
-#
-############################################################################
-
-aarch:
-  colmena apply --on '@aarch'
-
-suzu:
-  colmena apply --on '@suzu'
-
-suzu-debug:
-  colmena apply --on '@suzu' --verbose --show-trace
 
 ############################################################################
 #

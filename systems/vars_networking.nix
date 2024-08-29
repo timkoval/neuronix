@@ -11,38 +11,6 @@
       inherit prefixLength;
       address = "192.168.5.100";
     };
-    "aquamarine" = {
-      inherit prefixLength;
-      address = "192.168.5.101";
-    };
-    "ruby" = {
-      inherit prefixLength;
-      address = "192.168.5.102";
-    };
-    "kana" = {
-      inherit prefixLength;
-      address = "192.168.5.103";
-    };
-    "nozomi" = {
-      inherit prefixLength;
-      address = "192.168.5.104";
-    };
-    "yukina" = {
-      inherit prefixLength;
-      address = "192.168.5.105";
-    };
-    "chiaya" = {
-      inherit prefixLength;
-      address = "192.168.5.106";
-    };
-    "suzu" = {
-      inherit prefixLength;
-      address = "192.168.5.107";
-    };
-    "tailscale_gw" = {
-      inherit prefixLength;
-      address = "192.168.5.192";
-    };
   };
 
   ssh = {
@@ -85,9 +53,7 @@
         publicKey = value.publicKey;
       })
       {
-        aquamarine.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0EzzjnuHBE9xEOZupLmaAj9xbYxkUDeLbMqFZ7YPjU";
-        ruby.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHrDXNQXELnbevZ1rImfXwmQHkRcd3TDNLsQo33c2tUf";
-        kana.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJMVX05DQD1XJ0AqFZzsRsqgeUOlZ4opAI+8tkVXyjq+";
+        # aquamarine.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0EzzjnuHBE9xEOZupLmaAj9xbYxkUDeLbMqFZ7YPjU";
       };
   };
 }
