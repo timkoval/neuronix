@@ -10,7 +10,6 @@
 
   specialArgsForSystem = system:
     {
-      inherit (constants) username userfullname useremail;
       inherit mylib vars_networking;
       # use unstable branch for some packages to get the latest updates
       pkgs-unstable = import inputs.nixpkgs-unstable {

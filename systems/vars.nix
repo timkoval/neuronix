@@ -256,16 +256,16 @@ in {
     ];
   };
   
-  darwin_prok_modules = {
+  darwin_procs_modules = {
     darwin-modules = [
-      ../hosts/apples/prok
-      ../hosts/apples/prok/iso-remapping.nix
+      ../hosts/apples/procs
+      ../hosts/apples/procs/iso-remapping.nix
 
       ../modules/darwin
       # ../secrets/darwin.nix
     ];
     home-module.imports = [
-      ../hosts/apples/prok/home.nix
+      ../hosts/apples/procs/home.nix
       ../home/darwin
     ];
   };

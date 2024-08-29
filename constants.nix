@@ -1,9 +1,4 @@
 rec {
-  # user information
-  username = "tkoval";
-  userfullname = "Tim Koval";
-  useremail = "timkoval00@gmail.com";
-
   allSystemAttrs = {
     # linux systems
     x64_system = "x86_64-linux";

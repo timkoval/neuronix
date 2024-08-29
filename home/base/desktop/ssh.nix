@@ -63,8 +63,9 @@
           IdentityFile ~/.ssh/gl_rsa
           IdentitiesOnly yes
 
-      Host git.ftc.ru
-          IdentityFile ~/.ssh/qp_rsa
+      Host github-un
+          HostName github.com
+          IdentityFile ~/.ssh/un_rsa
           IdentitiesOnly yes
 
       Host ai

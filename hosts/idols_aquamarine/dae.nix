@@ -1,4 +1,4 @@
-# https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/networking/dae.nix
+# https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/services/networking/dae.nix
 {
   services.dae = {
     enable = true;

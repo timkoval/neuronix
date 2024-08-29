@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 ##########################################################################
@@ -50,7 +51,6 @@ in {
   #
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
-    neovim
     git
     nushell # my custom shell
     gnugrep # replacee macos's grep
@@ -108,9 +108,9 @@ in {
     };
 
     taps = [
-      "homebrew/cask-fonts"
+    #  "homebrew/cask-fonts"
       "homebrew/services"
-      "homebrew/cask-versions"
+    #  "homebrew/cask-versions"
 
       "hashicorp/tap"
       "streamdal/public"
@@ -124,6 +124,7 @@ in {
       "httpie" # http client
       "wireguard-tools" # wireguard
       "git-crypt" # files encryption for git
+      "gh" # GitHub CLI tool
 
       # Usage:
       #  https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS#run-the-tailscaled-daemon
@@ -144,8 +145,10 @@ in {
       "terraform"
       "terraformer"
 
-      "plumber" # message queues tool
+      "qmk/qmk/qmk" # keyboard management
+      # "plumber" # message queues tool
       "docker"
+      "colima"  # containers runtime environment
       "trunk" # shipping rust wasm apps
     ];
 
@@ -154,17 +157,20 @@ in {
       "firefox"
       "google-chrome"
       "arc"
+      "qutebrowser"
       "visual-studio-code"
       "zed" # zed editor
       "wezterm"
       "kitty"
       "obsidian" # note taking tool
+      "itsycal" # calendar
+      "the-unarchiver"
 
       # IM & audio & remote desktop & meeting
-      "telegram"
-      "discord"
-      "microsoft-remote-desktop"
-      "zoom"
+    #  "telegram"
+     # "discord"
+     # "microsoft-remote-desktop"
+      #"zoom"
       # "moonlight" # remote desktop client
 #      "rustdesk"
 
@@ -177,13 +183,14 @@ in {
       "sonic-pi" # music programming
 
       # Development
-      "mitmproxy" # HTTP/HTTPS traffic inspector
+      # "mitmproxy" # HTTP/HTTPS traffic inspector
       "insomnia" # REST client
 #      "wireshark" # network analyzer
-      "jdk-mission-control" # Java Mission Control
-      "google-cloud-sdk" # Google Cloud SDK
+      # "jdk-mission-control" # Java Mission Control
+      # "google-cloud-sdk" # Google Cloud SDK
       "miniforge" # Miniconda's community-driven distribution
       # "flox" # dev envs manager
+      "tableplus" # database client
     ];
   };
 }

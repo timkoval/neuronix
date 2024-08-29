@@ -40,11 +40,11 @@
     # ---------------------------------------------
 
     # .age means the decrypted file is still encrypted by age(via a passphrase)
-    "ryan4yin-gpg-subkeys.priv.age" =
-      {
-        file = "${mysecrets}/ryan4yin-gpg-subkeys-2024-01-27.priv.age.age";
-      }
-      // noaccess;
+    # "ryan4yin-gpg-subkeys.priv.age" =
+    #   {
+    #     file = "${mysecrets}/ryan4yin-gpg-subkeys-2024-01-27.priv.age.age";
+    #   }
+    #   // noaccess;
 
     # ---------------------------------------------
     # only root can read this file.

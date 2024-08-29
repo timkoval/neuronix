@@ -14,7 +14,7 @@
     graphviz
 
     # pdf
-    poppler_utils
+    # poppler_utils
     
     yt-dlp 
     # radio

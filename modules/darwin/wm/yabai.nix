@@ -10,7 +10,7 @@
 in {
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/darwin/yabai/default.nix
   services.yabai = {
-    enable = true;
+    enable = false;
     # temporary workaround for https://github.com/ryan4yin/nix-config/issues/51
     package = pkgs-unstable.yabai.overrideAttrs (oldAttrs: rec {
       version = "6.0.7";

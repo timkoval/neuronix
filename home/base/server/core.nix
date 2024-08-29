@@ -67,8 +67,9 @@
     doggo # DNS client for humans
     duf # Disk Usage/Free Utility - a better 'df' alternative
     du-dust # A more intuitive version of `du` in rust
-    ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
+    # ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
     gdu # disk usage analyzer(replacement of `du`)
+    act # github actions testing tool
 
     # nix related
     #
@@ -84,10 +85,6 @@
     hugo # static site generator
     glow # markdown previewer in terminal
 
-    # docker tui
-    lazydocker
-    oxker
-
   ];
 
   programs = {
@@ -95,7 +92,6 @@
     # useful in bash/zsh prompt, not in nushell.
     eza = {
       enable = true;
-      enableAliases = false; # do not enable aliases in nushell!
       git = true;
       icons = true;
     };

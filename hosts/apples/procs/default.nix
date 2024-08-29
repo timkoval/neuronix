@@ -5,7 +5,7 @@ _:
 #
 #############################################################
 let
-  hostname = "apple-prok";
+  hostname = "Timurs-MacBook-Pro";
 in {
   networking.hostName = hostname;
   networking.computerName = hostname;
