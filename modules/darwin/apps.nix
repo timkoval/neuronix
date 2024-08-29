@@ -114,6 +114,7 @@ in {
 
       "hashicorp/tap"
       "streamdal/public"
+      "qmk/qmk"
     ];
 
     brews = [
