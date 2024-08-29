@@ -157,6 +157,7 @@ in {
       "firefox"
       "google-chrome"
       "arc"
+      "qutebrowser"
       "visual-studio-code"
       "zed" # zed editor
       "wezterm"
