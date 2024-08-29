@@ -37,7 +37,7 @@ in {
         darwin_pro_modules
         {
           system = aarch64_darwin;
-          specialArgs = allSystemSpecialArgs.aarch64_darwin;
+          specialArgs = allSystemSpecialArgs.aarch64_darwin // {username="tkoval"; userfullname="Tim Koval"; useremail="timkoval00@gmail.com";};
         }
       ]
     );
