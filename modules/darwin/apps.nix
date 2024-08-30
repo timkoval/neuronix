@@ -128,6 +128,7 @@ in {
       "wireguard-tools" # wireguard
       "git-crypt" # files encryption for git
       "gh" # GitHub CLI tool
+      # "borders" # window borders
 
       # Usage:
       #  https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS#run-the-tailscaled-daemon
@@ -163,7 +164,7 @@ in {
       "qutebrowser"
       "visual-studio-code"
       "zed" # zed editor
-      "aerospace" # tiling window manager 
+      "aerospace" # tiling window manager
       "wezterm"
       "kitty"
       "obsidian" # note taking tool
