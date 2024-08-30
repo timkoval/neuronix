@@ -115,6 +115,8 @@ in {
       "hashicorp/tap"
       "streamdal/public"
       "qmk/qmk"
+      "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
+      "FelixKratz/formulae" # janky borders - highlight active window borders
     ];
 
     brews = [
@@ -161,6 +163,7 @@ in {
       "qutebrowser"
       "visual-studio-code"
       "zed" # zed editor
+      "aerospace" # tiling window manager 
       "wezterm"
       "kitty"
       "obsidian" # note taking tool
