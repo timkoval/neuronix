@@ -890,7 +890,7 @@ config.load_autoconfig(False)
 ##   - none: Disable access to clipboard.
 ##   - access: Allow reading from and writing to the clipboard.
 ##   - access-paste: Allow accessing the clipboard and pasting clipboard content.
-# c.content.javascript.clipboard = 'none'
+c.content.javascript.clipboard = 'access'
 
 ## Enable JavaScript.
 ## Type: Bool
@@ -2278,10 +2278,10 @@ c.url.searchengines = {
 # config.bind('D', 'tab-close -o')
 # config.bind('F', 'hint all tab')
 # config.bind('G', 'scroll-to-perc')
-# config.bind('H', 'back')
-# config.bind('J', 'tab-next')
-# config.bind('K', 'tab-prev')
-# config.bind('L', 'forward')
+config.bind('H', 'back')
+config.bind('T', 'tab-next')
+config.bind('N', 'tab-prev')
+config.bind('S', 'forward')
 # config.bind('M', 'bookmark-add')
 # config.bind('N', 'search-prev')
 # config.bind('O', 'cmd-set-text -s :open -t')
@@ -2400,8 +2400,8 @@ c.url.searchengines = {
 # config.bind('yy', 'yank')
 # config.bind('{{', 'navigate prev -t')
 # config.bind('}}', 'navigate next -t')
-config.bind('<right>', 'tab-next', mode='normal')
-config.bind('<left>', 'tab-prev', mode='normal')
+# config.bind('<Ctrl-right>', 'tab-next', mode='normal')
+# config.bind('<Ctrl-left>', 'tab-prev', mode='normal')
 
 ## Bindings for caret mode
 # config.bind('$', 'move-to-end-of-line', mode='caret')

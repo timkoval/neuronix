@@ -537,11 +537,11 @@
     "neuronvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1724396756,
-        "narHash": "sha256-1YRqwaNrJhgrm3ROg92i59mBKTC1rIs21BeqJ+THFRc=",
+        "lastModified": 1726733259,
+        "narHash": "sha256-40njByUopUz/+8uSRiIzJAie1X6yy2c0XDrb7YJLB8Q=",
         "owner": "timkoval",
         "repo": "neuronvim",
-        "rev": "66eb4a46c2a4343d2969cfeb6cf1cdc51c20a332",
+        "rev": "3059ee7cacc3fa4ba2c60fc12b0d28ba17e713bd",
         "type": "github"
       },
       "original": {

@@ -25,6 +25,22 @@ in {
         ++ desktop_base_modules.home-module.imports;
     };
 
+    # Cloud Hetzner TK
+    cloud_hetzner_tk_modules = {
+      nixos-modules =
+        [
+          ../modules/nixos/server/server.nix
+          ../modules/nixos/server/kubevirt-hardware-configuration.nix
+          ../hosts/clouds/hetzner
+          {modules.desktop.wayland.enable = false;}
+        ]
+      home-module.imports =
+        [
+          ../home/linux/server.nix
+          {modules.desktop.hyprland.enable = false;}
+        ]
+    } 
+
     # Book HP 450
     book_hp_450_modules_hyprland = {
       nixos-modules =
