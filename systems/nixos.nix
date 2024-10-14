@@ -6,7 +6,7 @@ with allSystemAttrs; let
     inherit home-manager nixos-generators;
     inherit nixpkgs; # or nixpkgs-unstable
     system = x64_system;
-    specialArgs = allSystemSpecialArgs.x64_system;
+    specialArgs = allSystemSpecialArgs.x64_system // {username="tkoval"; userfullname="Tim Koval"; useremail="timkoval00@gmail.com";};
   };
 in {
   nixosConfigurations = {
@@ -23,6 +23,7 @@ in {
     ai_hyprland = nixosSystem (ai_modules_hyprland // base_args);
     # ai with i3 window manager
     # ai_i3 = nixosSystem (idol_ai_modules_i3 // base_args);
+    hetzner_tk = nixosSystem (hetzner_tk_modules // base_args);
   };
 
   # https://github.com/nix-community/nixos-generators
@@ -33,6 +34,7 @@ in {
         "hp_450_hyprland"
         "air_hyprland"
         "ai_hyprland"
+        "hetzner_tk"
       ]
       # generate iso image for hosts with desktop environment
       (host: self.nixosConfigurations.${host}.config.formats.iso)

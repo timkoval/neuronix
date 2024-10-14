@@ -75,6 +75,12 @@
           IdentitiesOnly yes
           RequestTTY yes
           RemoteCommand /run/current-system/sw/bin/bash
+      
+      Host hetzner-tk
+          HostName 5.75.140.70
+          User root
+          IdentityFile ~/.ssh/hn_rsa
+          IdentitiesOnly yes
     '';
   };
 }

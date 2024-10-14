@@ -1,9 +1,10 @@
 {
   lib,
   mylib,
-  myvars,
+  vars_networking,
   pkgs,
   disko,
+  modulesPath,
   ...
 }:
 #############################################################
@@ -17,7 +18,9 @@ in {
   imports =
     (mylib.scanPaths ./.)
     ++ [
-      disko.nixosModules.default
+        disko.nixosModules.default
+        (toString modulesPath + "/installer/scan/not-detected.nix")
+        (toString modulesPath + "/profiles/qemu-guest.nix")
     ];
 
   # supported file systems, so we can mount any removable disks with these filesystems
@@ -43,8 +46,8 @@ in {
 
   networking = {
     inherit hostName;
-    inherit (myvars.networking) defaultGateway nameservers;
-    inherit (myvars.networking.hostsInterface.${hostName}) interfaces;
+    inherit (vars_networking) defaultGateway nameservers;
+    # inherit (vars_networking.hostsAddress.${hostName}) ;:w
     networkmanager.enable = false;
   };
 

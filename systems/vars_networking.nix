@@ -11,6 +11,10 @@
       inherit prefixLength;
       address = "192.168.5.100";
     };
+    "hetzner-tk" = {
+      inherit prefixLength;
+      address = "5.75.140.70";
+    };
   };
 
   ssh = {
