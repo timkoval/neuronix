@@ -78,7 +78,7 @@
       
       Host hetzner-tk
           HostName 5.75.140.70
-          User root
+          User tkoval
           IdentityFile ~/.ssh/hn_rsa
           IdentitiesOnly yes
     '';
