@@ -52,7 +52,7 @@ in {
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
     git
-    nushell # my custom shell
+    # nushell # my custom shell
     gnugrep # replacee macos's grep
     gnutar # replacee macos's tar
 
@@ -80,7 +80,7 @@ in {
   programs.zsh.enable = true;
   environment.shells = [
     pkgs.zsh
-    pkgs.nushellFull # my custom shell
+    # pkgs.nushellFull # my custom shell
   ];
 
   # homebrew need to be installed manually, see https://brew.sh
@@ -114,7 +114,7 @@ in {
 
       "hashicorp/tap"
       "streamdal/public"
-      "qmk/qmk"
+      # "qmk/qmk"
       "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
       "FelixKratz/formulae" # janky borders - highlight active window borders
     ];
@@ -149,7 +149,7 @@ in {
       "terraform"
       "terraformer"
 
-      "qmk/qmk/qmk" # keyboard management
+      # "qmk/qmk/qmk" # keyboard management
       # "plumber" # message queues tool
       "docker"
       "colima"  # containers runtime environment

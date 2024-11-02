@@ -7,6 +7,8 @@
     neofetch
     ranger # terminal file manager(batteries included, with image preview support)
 
+    colmena
+
     # networking tools
     mtr # A network diagnostic tool
     iperf3

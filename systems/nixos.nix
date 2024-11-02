@@ -23,7 +23,7 @@ in {
     ai_hyprland = nixosSystem (ai_modules_hyprland // base_args);
     # ai with i3 window manager
     # ai_i3 = nixosSystem (idol_ai_modules_i3 // base_args);
-    hetzner_tk = nixosSystem (cloud_hetzner_tk_modules // base_args);
+    # hetzner_tk = nixosSystem (cloud_hetzner_tk_modules // base_args);
   };
 
   # https://github.com/nix-community/nixos-generators

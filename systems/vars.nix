@@ -37,6 +37,7 @@ in {
           ../home/linux/server.nix
         ];
     };
+    cloud_hetzner_tk_tags = ["hetzner"];
 
     # Book HP 450
     book_hp_450_modules_hyprland = {

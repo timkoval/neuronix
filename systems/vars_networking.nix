@@ -3,6 +3,7 @@
   nameservers = [
     "119.29.29.29" # DNSPod
     "223.5.5.5" # AliDNS
+    "1.1.1.1" # Cloudflare
   ];
   prefixLength = 24;
 

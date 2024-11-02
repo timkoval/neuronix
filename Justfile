@@ -17,6 +17,10 @@ hypr mode="default":
   use utils.nu *; \
   nixos-switch ai_hyprland {{mode}}
 
+hetzner-tk mode="default":
+  use utils.nu *; \
+  nixos-switch ai_hyprland {{mode}} -- --target-host hetzner-tk
+
 
 up:
   nix flake update
