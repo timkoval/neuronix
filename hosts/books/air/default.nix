@@ -18,7 +18,7 @@
   # Bootloader.
   boot.loader = {
     efi = {
-      canTouchEfiVariables = true;
+      canTouchEfiVariables = false;
     };
     systemd-boot.enable = true;
   };

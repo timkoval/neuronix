@@ -121,7 +121,7 @@ cmd-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 cmd-1 = 'workspace 1Kitty'
-cmd-2 = 'workspace 2Qutebrowser'
+cmd-2 = 'workspace 2Firefox'
 cmd-3 = 'workspace 3Obsidian'
 cmd-4 = 'workspace 4Work'
 cmd-5 = 'workspace 5'
@@ -134,7 +134,7 @@ cmd-0 = 'workspace 10'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 cmd-shift-1 = 'move-node-to-workspace 1Kitty'
-cmd-shift-2 = 'move-node-to-workspace 2Qutebrowser'
+cmd-shift-2 = 'move-node-to-workspace 2Firefox'
 cmd-shift-3 = 'move-node-to-workspace 3Obsidian'
 cmd-shift-4 = 'move-node-to-workspace 4Work'
 cmd-shift-5 = 'move-node-to-workspace 5'
@@ -200,8 +200,8 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = 'move-node-to-workspace 1Kitty'
 
 [[on-window-detected]]
-if.app-id = 'org.qutebrowser.qutebrowser'
-run = 'move-node-to-workspace 2Qutebrowser'
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace 2Firefox'
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
