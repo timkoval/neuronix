@@ -57,18 +57,18 @@ in {
     
     # Book MacBook Air
     book_air_modules_hyprland = {
-      nixos-modules =
-        [
-          ../hosts/books/air
+    nixos-modules =
+      [
+        ../hosts/books/air
           {modules.desktop.wayland.enable = true;}
-        ]
-        ++ desktop_base_modules.nixos-modules;
-      home-module.imports =
-        [
-          ../hosts/books/air/home.nix
+      ]
+      ++ desktop_base_modules.nixos-modules;
+    home-module.imports =
+      [
+        ../hosts/books/air/home.nix
           {modules.desktop.hyprland.enable = true;}
-        ]
-        ++ desktop_base_modules.home-module.imports;
+      ]
+      ++ desktop_base_modules.home-module.imports;
     };
     
     book_air_modules_i3 = {

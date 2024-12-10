@@ -32,9 +32,9 @@ in {
 
   programs = {
     neovim = {
-      enable = true;
+      enable = false;
       
-      package = pkgs-unstable.neovim-unwrapped;
+      package = pkgs-unstable.neovim;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;

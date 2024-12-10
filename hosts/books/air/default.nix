@@ -41,7 +41,7 @@
       # pkgsSystem = "x86_64-linux";
       # Specifying path to peripheral firmware files
       peripheralFirmwareDirectory = ./firmware;
-      addEdgeKernelConfig = true;
+#      addEdgeKernelConfig = true;
       useExperimentalGPUDriver = true;
       experimentalGPUInstallMode = "replace";
       withRust = true;
@@ -76,6 +76,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
 

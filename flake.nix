@@ -77,11 +77,11 @@
     # substituers will be appended to the default substituters when fetching packages
     extra-substituters = [
       # "https://nixpkgs-wayland.cachix.org"
-       "https://cache.flox.dev"
+      # "https://cache.flox.dev"
     ];
     extra-trusted-public-keys = [
       # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+     # "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
     ];
   };
 
@@ -214,5 +214,10 @@
 
     # aarch64 SBCs
     nixos-rk3588.url = "github:ryan4yin/nixos-rk3588";
+
+    nixos-cosmic = { 
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

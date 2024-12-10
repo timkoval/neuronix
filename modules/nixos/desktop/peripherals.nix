@@ -67,7 +67,7 @@
       android-udev-rules # required by adb
       openfpgaloader
       qmk-udev-rules # for qmk keyboard
-      vial # for vial support
+    #  vial # for vial support
     ];
 
     # A key remapping daemon for linux.

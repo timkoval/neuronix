@@ -55,7 +55,7 @@
         conda
 
         # mitmproxy # http/https proxy tool
-        insomnia # REST client
+  #      insomnia # REST client
         wireshark # network analyzer
       ]
       else []

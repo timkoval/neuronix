@@ -1,10 +1,12 @@
 { lib
 , fetchFromGitLab
-, mesa
+, pkgs
+, meson
 , llvmPackages
 }:
 
-(mesa.override {
+# don't bother to provide Darwin deps
+((pkgs.callPackage ./vendor { OpenGL = null; Xplugin = null; }).override {
   galliumDrivers = [ "swrast" "asahi" ];
   vulkanDrivers = [ "swrast" ];
   enableGalliumNine = false;
@@ -13,14 +15,14 @@
 }).overrideAttrs (oldAttrs: {
   # version must be the same length (i.e. no unstable or date)
   # so that system.replaceRuntimeDependencies can work
-  version = "24.0.0";
+  version = "24.2.0";
   src = fetchFromGitLab {
     # tracking: https://pagure.io/fedora-asahi/mesa/commits/asahi
     domain = "gitlab.freedesktop.org";
     owner = "asahi";
     repo = "mesa";
-    rev = "asahi-20231213";
-    hash = "sha256-hl0JtwWEXaCkhCMQJ393mzfw/eEx6m9DYNS+spQ3Vhs=";
+    rev = "asahi-20240727";
+    hash = "sha256-XXhmiedwJwjKTZeApDE/GdAzIteteoi78J4LJ3WBJsY=";
   };
 
   mesonFlags =
@@ -33,6 +35,7 @@
       "-Dgallium-xa=disabled"
       # does not make any sense
       "-Dandroid-libbacktrace=disabled"
+      "-Dintel-rt=disabled"
       # do not want to add the dependencies
       "-Dlibunwind=disabled"
       "-Dlmsensors=disabled"

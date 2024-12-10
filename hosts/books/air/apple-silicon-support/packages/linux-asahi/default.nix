@@ -3,9 +3,7 @@
 , callPackage
 , writeShellScriptBin
 , writeText
-, removeReferencesTo
 , linuxPackagesFor
-, _4KBuild ? false
 , withRust ? false
 , _kernelPatches ? [ ]
 }:
@@ -72,7 +70,7 @@ let
           ${lib.strings.concatStringsSep "\n" extraConfigText}
         '';
       # final config as an attrset
-      config = let
+      configAttrs = let
         makePair = t: lib.nameValuePair (i t 0) (i t 1);
         configList = (parseConfig origConfigText) ++ extraConfig;
       in builtins.listToAttrs (map makePair (lib.lists.reverseList configList));
@@ -88,70 +86,38 @@ let
     (linuxKernel.manualConfig rec {
       inherit stdenv lib;
 
-      version = "6.6.0-asahi";
+      version = "6.10.6-asahi";
       modDirVersion = version;
-      extraMeta.branch = "6.6";
+      extraMeta.branch = "6.10";
 
       src = fetchFromGitHub {
         # tracking: https://github.com/AsahiLinux/linux/tree/asahi-wip (w/ fedora verification)
         owner = "AsahiLinux";
         repo = "linux";
-        rev = "asahi-6.6-14";
-        hash = "sha256-+ydX2XXIbcVfq27WC68EPP8n3bf+WD5fDG7FBq3QJi4=";
+        rev = "asahi-6.10.6-1";
+        hash = "sha256-qm+0YYHehR2GP/MNAnTSPCBhb1vpnR50bbpfap74BRc=";
       };
 
       kernelPatches = [
-        # speaker enablement; we assert on the relevant lsp-plugins patch
-        # before installing speakersafetyd to let the speakers work
-        { name = "speakers-1";
-          patch = fetchpatch {
-            url = "https://github.com/AsahiLinux/linux/commit/385ea7b5023486aba7919cec8b6b3f6a843a1013.patch";
-            hash = "sha256-u7IzhJbUgBPfhJXAcpHw1I6OPzPHc1UKYjH91Ep3QHQ=";
-          };
+        { name = "coreutils-fix";
+          patch = ./0001-fs-fcntl-accept-more-values-as-F_DUPFD_CLOEXEC-args.patch;
         }
-        { name = "speakers-2";
-          patch = fetchpatch {
-            url = "https://github.com/AsahiLinux/linux/commit/6a24102c06c95951ab992e2d41336cc6d4bfdf23.patch";
-            hash = "sha256-wn5x2hN42/kCp/XHBvLWeNLfwlOBB+T6UeeMt2tSg3o=";
-          };
-        }
-      ] ++ lib.optionals (rustAtLeast "1.75.0") [
-        { name = "rustc-1.75.0";
-          patch = ./0001-check-in-new-alloc-for-1.75.0.patch;
-        }
-      ] ++ lib.optionals _4KBuild [
-        # thanks to Sven Peter
-        # https://lore.kernel.org/linux-iommu/20211019163737.46269-1-sven@svenpeter.dev/
-        { name = "sven-iommu-4k";
-          patch = ./sven-iommu-4k.patch;
-        }
-        (builtins.throw "The Asahi 4K kernel patch is currently broken. Contributions to fix are welcome.")
-      ] ++ lib.optionals (!_4KBuild) [
-        # patch the kernel to set the default size to 16k instead of modifying
-        # the config so we don't need to convert our config to the nixos
-        # infrastructure or patch it and thus introduce a dependency on the host
-        # system architecture
-        { name = "default-pagesize-16k";
-          patch = ./default-pagesize-16k.patch;
+      ] ++ lib.optionals (rustAtLeast "1.82.0") [
+        { name = "rustc_1.82.0";
+          patch = ./rustc_1.82.0.patch;
         }
       ] ++ _kernelPatches;
 
-      inherit configfile config;
+      inherit configfile;
+      # hide Rust support from the nixpkgs infra to avoid it re-adding the rust packages.
+      # we can't use it until it's in stable and until we've evaluated the cross-compilation impact.
+      config = configAttrs // { "CONFIG_RUST" = "n"; };
     } // (args.argsOverride or {})).overrideAttrs (old: if withRust then {
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
         rust-bindgen
         rustfmt
         rustc
-        removeReferencesTo
       ];
-      # HACK: references shouldn't have been there in the first place
-      # TODO: remove once 23.05 is obsolete
-      postFixup = (old.postFixup or "") + ''
-        if [ -f $dev/lib/modules/${old.version}/build/vmlinux ]; then
-          remove-references-to -t $out $dev/lib/modules/${old.version}/build/vmlinux
-        fi
-        remove-references-to -t $dev $out/Image
-      '';
       RUST_LIB_SRC = rustPlatform.rustLibSrc;
     } else {});
 

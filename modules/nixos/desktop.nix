@@ -72,7 +72,6 @@ in {
         xserver = {
           enable = true;
           displayManager = {
-            lightdm.enable = true;
             autoLogin = {
               enable = true;
               user = username;
