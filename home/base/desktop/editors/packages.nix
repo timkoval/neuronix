@@ -20,7 +20,7 @@
       lldb
 
       #-- python
-      nodePackages.pyright # python language server
+      pyright # python language server
       (python311.withPackages (
         ps:
           with ps; [
@@ -62,19 +62,19 @@
       alejandra # Nix Code Formatter
 
       #-- golang
-      go
-      gomodifytags
-      iferr # generate error handling code for go
-      impl # generate function implementation for go
-      gotools # contains tools like: godoc, goimports, etc.
-      gopls # go language server
-      delve # go debugger
+      # go
+      # gomodifytags
+      # iferr # generate error handling code for go
+      # impl # generate function implementation for go
+      # gotools # contains tools like: godoc, goimports, etc.
+      # gopls # go language server
+      # delve # go debugger
 
       # -- java
-      jdk17
-      gradle
-      maven
-      spring-boot-cli
+      # jdk17
+      # gradle
+      # maven
+      # spring-boot-cli
 
       #-- lua
       stylua
@@ -122,7 +122,7 @@
       glow # markdown previewer
       fzf
       pandoc # document converter
-      hugo # static site generator
+      # hugo # static site generator
 
       #-- Optional Requirements:
       gdu # disk usage analyzer, required by AstroNvim

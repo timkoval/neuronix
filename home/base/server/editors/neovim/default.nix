@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   programs = {
     neovim = {
-      enable = false;
+      enable = true;
 
       defaultEditor = true;
       viAlias = true;

@@ -7,28 +7,28 @@
     # GUI apps
     # e-book viewer(.epub/.mobi/...)
     # do not support .pdf
-    foliate
+    # foliate
 
     # instant messaging
-    telegram-desktop
+    # telegram-desktop
     # discord
  #    pkgs-unstable.qq # https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/networking/instant-messengers/qq
-    teams-for-linux
+    # teams-for-linux
 
     # remote desktop(rdp connect)
-    remmina
-    freerdp # required by remmina
+    # remmina
+    # freerdp # required by remmina
     
-    rpi-imager # iso flashing tool
+    # rpi-imager # iso flashing tool
 
     # misc
     flameshot
-    ventoy # multi-boot usb creator
+    # ventoy # multi-boot usb creator
   ];
 
   # GitHub CLI tool
   programs.gh = {
-    enable = true;
+    enable = false;
   };
 
   # allow fontconfig to discover fonts and configurations installed through home.packages

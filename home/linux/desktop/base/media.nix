@@ -16,7 +16,7 @@
     # nvtop
 
     # video/audio tools
-    cava # for visualizing audio
+    # cava # for visualizing audio
     libva-utils
     vdpauinfo
     vulkan-tools
@@ -24,17 +24,17 @@
       
     # notes
     oxipng
-    git-crypt
+    # git-crypt
     obsidian
 
   ];
 
-  # https://github.com/catppuccin/cava
-  xdg.configFile."cava/config".text =
-    ''
-      # custom cava config
-    ''
-    + builtins.readFile "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-cava}/mocha.cava";
+  # # https://github.com/catppuccin/cava
+  # xdg.configFile."cava/config".text =
+  #   ''
+  #     # custom cava config
+  #   ''
+  #   + builtins.readFile "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-cava}/mocha.cava";
 
   programs = {
     mpv = {

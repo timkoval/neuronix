@@ -17,7 +17,7 @@
   home.packages = with pkgs;
     [
       # db related
-      mycli
+      # mycli
       pgcli
       mongosh
       sqlite
@@ -26,10 +26,9 @@
       minicom
 
       # ai related
-      python311Packages.huggingface-hub # huggingface-cli
+      # python311Packages.huggingface-hub # huggingface-cli
 
       # misc
-      pkgs-unstable.devbox
       bfg-repo-cleaner # remove large files from git history
       k6 # load testing tool
       protobuf # protocol buffer compiler
@@ -37,9 +36,9 @@
       glances # system monitor
 #      #pkgs-unstable.qutebrowser # keyboard-first browser
       unar # unzip tool
-      leetcode-cli 
     
       # solve coding extercises - learn by doing
+      leetcode-cli 
       exercism
     ]
     ++ (
@@ -52,11 +51,11 @@
         # need to run `conda-install` before using it
         # need to run `conda-shell` before using command `conda`
         # conda is not available for MacOS
-        conda
+        # conda
 
         # mitmproxy # http/https proxy tool
-  #      insomnia # REST client
-        wireshark # network analyzer
+        # insomnia # REST client
+        # wireshark # network analyzer
       ]
       else []
     );

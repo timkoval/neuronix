@@ -1,13 +1,13 @@
 {pkgs, ...}: {
   # Linux Only Packages, not available on Darwin
   home.packages = with pkgs; [
-    nmon
-    iotop
-    iftop
+    # nmon
+    # iotop
+    # iftop
 
     # misc
     libnotify
-    wireguard-tools # manage wireguard vpn manually, via wg-quick
+    # wireguard-tools # manage wireguard vpn manually, via wg-quick
 
     # system call monitoring
     strace # system call monitoring
@@ -27,7 +27,7 @@
   
     # debian bootstrap
     # dpkg
-    debootstrap
+    # debootstrap
     cacert
     binutils
     xorg.xauth

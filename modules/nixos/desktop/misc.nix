@@ -7,7 +7,7 @@
   # add user's shell into /etc/shells
   environment.shells = with pkgs; [
     bashInteractive
-    nushellFull
+    nushell
   ];
   # set user's default shell system-wide
   users.defaultUserShell = pkgs.bashInteractive;

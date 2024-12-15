@@ -14,7 +14,7 @@
     # i3.nvidia = true;
   };
   modules.editors.emacs = {
-    enable = true;
+    enable = false;
   };
 
   programs.ssh = {

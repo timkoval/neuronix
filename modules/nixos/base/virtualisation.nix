@@ -19,7 +19,7 @@
       enableOnBoot = true;
     };
 
-    waydroid.enable = true;
-    lxd.enable = true;
+    waydroid.enable = false;
+    lxd.enable = false;
   };
 }

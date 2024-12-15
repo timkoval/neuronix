@@ -37,7 +37,7 @@ in {
   #   2. For others, launching the game through gamemoderun: `gamemoderun ./game`
   #   3. For steam: `gamemoderun steam-runtime`
   programs.gamemode = {
-    enable = true;
+    enable = false;
     settings = {
       general = {
         softrealtime = "auto";

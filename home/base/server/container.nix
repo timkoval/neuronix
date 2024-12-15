@@ -10,14 +10,14 @@
     dive # explore docker layers
     lazydocker # Docker terminal UI.
 
-    kubectl
-    istioctl
-    kubernetes-helm
+    # kubectl
+    # istioctl
+    # kubernetes-helm
   ];
 
   programs = {
     k9s = {
-      enable = true;
+      enable = false;
       # skin = let
       #   skin_file = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-k9s}/dist/mocha.yml"; # theme - catppuccin mocha
       #   skin_attr = builtins.fromJSON (

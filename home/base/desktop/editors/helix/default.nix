@@ -7,7 +7,7 @@
   xdg.configFile."helix/themes".source = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-helix}/themes/default";
 
   programs.helix = {
-    enable = true;
+    enable = false;
     package = pkgs.helix;
     settings = {
       theme = "catppuccin_mocha";
