@@ -181,8 +181,10 @@
     "spacing": 5
   },
   "battery": {
-    "bat": "BAT0",
-    "adapter": "ADP0",
+    // "bat": "BAT0",
+    // "adapter": "ADP0",
+    "bat": "macsmc-battery",
+    "adapter": "macsmc-ac",
     "interval": 60,
     "states": {
       "warning": 30,

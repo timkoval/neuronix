@@ -1,0 +1,5 @@
+theme = GruvboxLight
+font-size = 14
+window-decoration = false
+background-opacity = 0.93
+command = "bash --login -c 'nu --login --interactive'"

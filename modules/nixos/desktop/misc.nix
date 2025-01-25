@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  ghostty,
   ...
 }: {
   # add user's shell into /etc/shells
@@ -27,6 +28,7 @@
     gnumake
 
     colmena # nixos's remote deployment tool
+    ghostty.packages."${pkgs.system}".default
   ];
 
   services = {

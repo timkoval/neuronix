@@ -15,6 +15,7 @@
 
     # pdf
     # poppler_utils
+    okular
     
     yt-dlp 
     # radio
