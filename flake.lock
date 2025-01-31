@@ -544,10 +544,10 @@
     "mysecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1738330001,
-        "narHash": "sha256-aGFDo5m45x07tdRqvtOP1InrQ9CGISTbFqdN93EzAk4=",
+        "lastModified": 1738353118,
+        "narHash": "sha256-tkS0623B149G2nnXUMEK8tf73LO3VBUc+bfq4FYqmZY=",
         "ref": "main",
-        "rev": "50e60735045781f50f080c42d7cf0d91ca816af4",
+        "rev": "cb7abd7ba5df32b8223b77e3ac65c5cdce7c994e",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/timkoval/nix-secrets.git"

@@ -29,6 +29,7 @@ in {
     cloud_hetzner_tk_modules = {
       nixos-modules =
         [
+          ../secrets/nixos.nix
           ../modules/nixos/server/server.nix
           ../hosts/clouds/hetzner
         ];
