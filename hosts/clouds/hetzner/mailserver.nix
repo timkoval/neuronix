@@ -16,7 +16,7 @@
       };
     };
 
-    certificateScheme = "acme-nginx";
+    certificateScheme = "acme";
   };
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "timkoval00@gmail.com";
