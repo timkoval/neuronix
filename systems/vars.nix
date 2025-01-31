@@ -1,7 +1,7 @@
 let
   desktop_base_modules = {
     nixos-modules = [
-      # ../secrets/nixos.nix
+      ../secrets/nixos.nix
       ../modules/nixos/desktop.nix
     ];
     home-module.imports = [

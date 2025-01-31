@@ -183,14 +183,18 @@
       flake = false;
     };
 
+    nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.11";
+    };
+
     ########################  My own repositories  #########################################
 
     # my private secrets, it's a private repository, you need to replace it with your own.
     # use ssh protocol to authenticate via ssh-agent/ssh-key, and shallow clone to save time
-    # mysecrets = {
-    #   url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1";
-    #   flake = false;
-    # };
+    mysecrets = {
+      url = "git+ssh://git@github.com/timkoval/nix-secrets.git?ref=main&shallow=1";
+      flake = false;
+    };
 
     # my wallpapers
     wallpapers = {
