@@ -27,6 +27,7 @@
     # git-crypt
     obsidian
 
+    okular # pdf viewer
   ];
 
   # # https://github.com/catppuccin/cava

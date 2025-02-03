@@ -6,6 +6,6 @@
   };
 
   modules.editors.emacs = {
-    enable = true;
+    enable = false;
   };
 }
