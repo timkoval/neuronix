@@ -128,7 +128,8 @@ in {
       "wireguard-tools" # wireguard
       "git-crypt" # files encryption for git
       "gh" # GitHub CLI tool
-      # "borders" # window borders
+      "borders" # window borders
+      "sketchybar" # custom bar
 
       # Usage:
       #  https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS#run-the-tailscaled-daemon
