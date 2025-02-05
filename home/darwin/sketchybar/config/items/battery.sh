@@ -1,11 +1,12 @@
+#!/bin/bash
+
 sketchybar --add item battery right \
            --set battery update_freq=120 \
                  script="$PLUGIN_DIR/battery.sh" \
                  background.border_width=0 \
-                 icon.font="$FONTMesloLGL Nerd Font Mono:Mono:15.0"\
            --subscribe battery system_woke power_source_change
 
-PERCENTAGE=$(pmset -g batt | grep -Po "\d+%" | cut -d% -f1)
+PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
 CHARGING=$(pmset -g batt | grep 'AC Power')
 
 if [ $PERCENTAGE = "" ]; then
@@ -28,6 +29,3 @@ if [[ $CHARGING != "" ]]; then
   ICON="󱐌"
 fi
 
-# The item invoking this script (name $NAME) will get its icon and label
-# updated with the current battery status
-sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%" icon.font="MesloLGL Nerd Font Mono:Mono:15.0"
