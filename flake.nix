@@ -119,7 +119,7 @@
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    
     ghostty = {
       url = "github:ghostty-org/ghostty/main";
       inputs.nixpkgs-stable.follows = "nixpkgs";

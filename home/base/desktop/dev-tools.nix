@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  ghostty,
   ...
 }: {
   #############################################################
@@ -40,6 +41,8 @@
       # solve coding extercises - learn by doing
       leetcode-cli 
       exercism
+      ghostty
+
     ]
     ++ (
       if pkgs.stdenv.isLinux

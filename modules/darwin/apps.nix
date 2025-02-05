@@ -173,6 +173,7 @@ in {
       "obsidian" # note taking tool
       "itsycal" # calendar
       "the-unarchiver"
+      "ghostty" # terminal 
 
       # IM & audio & remote desktop & meeting
     #  "telegram"
