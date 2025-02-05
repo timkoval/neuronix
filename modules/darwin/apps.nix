@@ -187,6 +187,7 @@ in {
       "stats" # beautiful system status monitor in menu bar
       # "reaper"  # audio editor
       "sonic-pi" # music programming
+      "font-hack-nerd-font" # font
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector
