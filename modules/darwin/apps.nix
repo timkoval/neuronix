@@ -155,6 +155,8 @@ in {
       "docker"
       "colima"  # containers runtime environment
       "trunk" # shipping rust wasm apps
+      "ical-buddy" # calendar cli helper
+      "cairo" # 2d graphics lib
     ];
 
     # `brew install --cask`
@@ -187,7 +189,7 @@ in {
       "stats" # beautiful system status monitor in menu bar
       # "reaper"  # audio editor
       "sonic-pi" # music programming
-      "font-hack-nerd-font" # font
+      "font-meslo-lg-nerd-font" # font
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector
@@ -198,6 +200,7 @@ in {
       "miniforge" # Miniconda's community-driven distribution
       # "flox" # dev envs manager
       "tableplus" # database client
+      "font-sketchybar-app-font" # sketchybar app font
     ];
   };
 }
