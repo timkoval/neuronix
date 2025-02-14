@@ -190,7 +190,8 @@ in {
       "stats" # beautiful system status monitor in menu bar
       # "reaper"  # audio editor
       "sonic-pi" # music programming
-      "font-meslo-lg-nerd-font" # font
+      "font-zed-mono-nerd-font"
+      "font-zed-sans"
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector

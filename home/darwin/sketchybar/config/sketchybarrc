@@ -7,7 +7,7 @@ source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 ITEM_DIR="$CONFIG_DIR/items"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
-FONT="MesloLGL Nerd Font Mono" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
+FONT="ZedMono Nerd Font Mono" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 
 ##### Bar Appearance #####
 # Configuring the general appearance of the bar, these are only some of the
