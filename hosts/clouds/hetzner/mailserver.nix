@@ -91,7 +91,7 @@
   networking.firewall.allowedTCPPorts = [ 25 465 587 993 8080 ];
 
   # Ensure Stalwart can access ACME certificates
-  users.users.stalwart-mail.extraGroups = [ "acme" "keys" ];
+  users.users.stalwart-mail.extraGroups = [ "acme" "users" ];
 
   # Set up a reload service for Stalwart when certificates are renewed
   systemd.services."acme-mail.timkoval.rs".postStart = ''
