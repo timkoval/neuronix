@@ -4,7 +4,7 @@
   # Enable ACME for automatic certificate management
   security.acme = {
     acceptTerms = true;
-    defaults.email = "admin@example.com";
+    defaults.email = "timkoval00@gmail.com";
   };
 
   # Configure Stalwart Mail Server
