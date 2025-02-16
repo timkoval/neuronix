@@ -67,13 +67,13 @@
           {
             class = "individual";
             name = "Tim Koval";
-            secret = "%{file:/etc/agenix/iam-email}%";
+            secret = "%{file:${config.age.secrets."iam-email".path}}%";
             email = ["iam@timkoval.rs"];
           }
           {
             class = "individual";
             name = "postmaster";
-            secret = "%{file:/etc/agenix/iam-email}%";
+            secret = "%{file:${config.age.secrets."iam-email".path}}%";
             email = ["postmaster@timkoval.rs"];
           }
         ];
@@ -82,7 +82,7 @@
       # Fallback admin configuration
       authentication.fallback-admin = {
         user = "admin";
-        secret = "%{file:/etc/agenix/iam-email}%";
+        secret = "%{file:${config.age.secrets."iam-email".path}}%";
       };
     };
   };
@@ -91,7 +91,7 @@
   networking.firewall.allowedTCPPorts = [ 25 465 587 993 8080 ];
 
   # Ensure Stalwart can access ACME certificates
-  users.users.stalwart-mail.extraGroups = [ "acme" "root" ];
+  users.users.stalwart-mail.extraGroups = [ "acme" "keys" ];
 
   # Set up a reload service for Stalwart when certificates are renewed
   systemd.services."acme-mail.timkoval.rs".postStart = ''
