@@ -72,15 +72,21 @@
     #   }
     #   // high_security;
     #
-    "iam-email" =
-      {
-        file = "${mysecrets}/iam-email.age";
-      }
-      // high_security;
+    # "iam-email" =
+    #   {
+    #     file = "${mysecrets}/iam-email.age";
+    #   }
+    #   // high_security;
 
     # ---------------------------------------------
     # user can read this file.
     # ---------------------------------------------
+
+    "iam-email" =
+      {
+        file = "${mysecrets}/iam-email.age";
+      }
+      // user_readable;
 
     # "ssh-key-romantic" =
     #   {
