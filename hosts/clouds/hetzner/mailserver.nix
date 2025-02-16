@@ -44,7 +44,7 @@
         directory = "https://acme-v02.api.letsencrypt.org/directory";
         challenge = "tls-alpn-01";
         contact = ["timkoval00@gmail.com"];
-        domains = ["mail.timkoval.rs", "imap.timkoval.rs", "smtp.timkoval.rs"];
+        domains = ["mail.timkoval.rs" "imap.timkoval.rs" "smtp.timkoval.rs"];
         cache = "%{BASE_PATH}%/etc/acme";
         renew-before = "30d";
       };
