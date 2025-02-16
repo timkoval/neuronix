@@ -31,11 +31,11 @@
             protocol = "imap";
             bind = "[::]:993";
           };
-          jmap = {
-            protocol = "jmap";
-            bind = "[::]:8080";
-            url = "https://mail.timkoval.rs";
-          };
+          # jmap = {
+          #   protocol = "jmap";
+          #   bind = "[::]:8080";
+          #   url = "https://mail.timkoval.rs";
+          # };
         };
       };
 
