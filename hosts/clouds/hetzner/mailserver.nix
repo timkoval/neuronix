@@ -1,9 +1,3 @@
-
-    loginAccounts = {
-      "iam@timkoval.rs" = {
-        hashedPasswordFile = "/etc/agenix/iam-email";
-      };
-    };
 { config, pkgs, ... }:
 
 {
