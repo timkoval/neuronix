@@ -76,7 +76,7 @@
       {
         file = "${mysecrets}/iam-email.age";
       }
-      // high_security;
+      // user_readable;
 
     # ---------------------------------------------
     # user can read this file.

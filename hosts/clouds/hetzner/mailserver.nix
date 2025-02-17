@@ -25,18 +25,6 @@
     webroot = "/var/lib/acme/acme-challenge";
     email = "mail+timkoval00@gmail.com";
     group = "users";
-    extraLegoFlags = [
-      "--exec-before"
-      "${pkgs.writeScript "pre-renewal-script" ''
-        #!${pkgs.stdenv.shell}
-        systemctl stop neurogate.service
-      ''}"
-      "--exec-after"
-      "${pkgs.writeScript "post-renewal-script" ''
-        #!${pkgs.stdenv.shell}
-        systemctl start neurogate.service
-      ''}"
-    ];
   };
   users.users.tkoval.extraGroups = [ "acme" ];
 }
