@@ -183,10 +183,6 @@
       flake = false;
     };
 
-    nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.11";
-    };
-
     ########################  My own repositories  #########################################
 
     # my private secrets, it's a private repository, you need to replace it with your own.

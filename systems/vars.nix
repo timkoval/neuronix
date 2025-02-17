@@ -108,7 +108,7 @@ in {
       ../hosts/apples/pro/iso-remapping.nix
 
       ../modules/darwin
-      # ../secrets/darwin.nix
+      ../secrets/darwin.nix
     ];
     home-module.imports = [
       ../hosts/apples/pro/home.nix

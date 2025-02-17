@@ -62,22 +62,6 @@
         "type": "github"
       }
     },
-    "blobs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1604995301,
-        "narHash": "sha256-wcLzgLec6SGJA8fx1OEN1yV/Py5b+U5iyYpksUY/yLw=",
-        "owner": "simple-nixos-mailserver",
-        "repo": "blobs",
-        "rev": "2cccdf1ca48316f2cfd1c9a0017e8de5a7156265",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "simple-nixos-mailserver",
-        "repo": "blobs",
-        "type": "gitlab"
-      }
-    },
     "crane": {
       "inputs": {
         "flake-compat": [
@@ -203,22 +187,6 @@
       }
     },
     "flake-compat_3": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696426674,
-        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
-    "flake-compat_4": {
       "flake": false,
       "locked": {
         "lastModified": 1696426674,
@@ -544,10 +512,10 @@
     "mysecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1738353118,
-        "narHash": "sha256-tkS0623B149G2nnXUMEK8tf73LO3VBUc+bfq4FYqmZY=",
+        "lastModified": 1739742332,
+        "narHash": "sha256-d59F3Xg68Tj5IkEB40nYb5Ei1OwBnLSK1p1Q8YShIgY=",
         "ref": "main",
-        "rev": "cb7abd7ba5df32b8223b77e3ac65c5cdce7c994e",
+        "rev": "fa039784f07ea9c917bfeec5066bbf77099fb132",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/timkoval/nix-secrets.git"
@@ -722,33 +690,11 @@
         "type": "github"
       }
     },
-    "nixos-mailserver": {
-      "inputs": {
-        "blobs": "blobs",
-        "flake-compat": "flake-compat_3",
-        "nixpkgs": "nixpkgs_3",
-        "nixpkgs-24_11": "nixpkgs-24_11"
-      },
-      "locked": {
-        "lastModified": 1734884447,
-        "narHash": "sha256-HA9fAmGNGf0cOYrhgoa+B6BxNVqGAYXfLyx8zIS0ZBY=",
-        "owner": "simple-nixos-mailserver",
-        "repo": "nixos-mailserver",
-        "rev": "63209b1def2c9fc891ad271f474a3464a5833294",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "simple-nixos-mailserver",
-        "ref": "nixos-24.11",
-        "repo": "nixos-mailserver",
-        "type": "gitlab"
-      }
-    },
     "nixos-rk3588": {
       "inputs": {
         "flake-utils": "flake-utils_3",
         "nixos-generators": "nixos-generators_2",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
@@ -779,21 +725,6 @@
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
-      }
-    },
-    "nixpkgs-24_11": {
-      "locked": {
-        "lastModified": 1734083684,
-        "narHash": "sha256-5fNndbndxSx5d+C/D0p/VF32xDiJCJzyOqorOYW4JEo=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "314e12ba369ccdb9b352a4db26ff419f7c49fa84",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-24.11",
-        "type": "indirect"
       }
     },
     "nixpkgs-darwin": {
@@ -906,21 +837,6 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1732014248,
-        "narHash": "sha256-y/MEyuJ5oBWrWAic/14LaIr/u5E0wRVzyYsouYY3W6w=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "23e89b7da85c3640bbc2173fe04f4bd114342367",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-unstable",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
         "lastModified": 1729256560,
         "narHash": "sha256-/uilDXvCIEs3C9l73JTACm4quuHUsIHcns1c+cHUJwA=",
         "owner": "NixOS",
@@ -935,7 +851,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1733808091,
         "narHash": "sha256-KWwINTQelKOoQgrXftxoqxmKFZb9pLVfnRvK270nkVk=",
@@ -951,7 +867,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1701436327,
         "narHash": "sha256-tRHbnoNI8SIM5O5xuxOmtSLnswEByzmnQcGGyNRjxsE=",
@@ -965,7 +881,7 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1.%2A.tar.gz"
       }
     },
-    "nixpkgs_7": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1702921762,
         "narHash": "sha256-O/rP7gulApQAB47u6szEd8Pn8Biw0d84j5iuP2tcxzY=",
@@ -983,7 +899,7 @@
     },
     "nuenv": {
       "inputs": {
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_5",
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
@@ -1002,7 +918,7 @@
     },
     "nur-ryan4yin": {
       "inputs": {
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1728350869,
@@ -1100,7 +1016,7 @@
     },
     "pre-commit-hooks_2": {
       "inputs": {
-        "flake-compat": "flake-compat_4",
+        "flake-compat": "flake-compat_3",
         "gitignore": "gitignore_3",
         "nixpkgs": [
           "nixpkgs"
@@ -1139,9 +1055,8 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-licheepi4a": "nixos-licheepi4a",
-        "nixos-mailserver": "nixos-mailserver",
         "nixos-rk3588": "nixos-rk3588",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
