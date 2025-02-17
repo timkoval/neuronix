@@ -35,7 +35,8 @@
 
       # ACME configuration for automatic certificate management
       acme."letsencrypt" = {
-        directory = "https://acme-v02.api.letsencrypt.org/directory";
+        # directory = "https://acme-v02.api.letsencrypt.org/directory";
+        directory = "https://acme-staging-v02.api.letsencrypt.org/directory";
         challenge = "tls-alpn-01";
         contact = ["timkoval00@gmail.com"];
         domains = ["mail.timkoval.rs" "imap.timkoval.rs" "smtp.timkoval.rs"];
