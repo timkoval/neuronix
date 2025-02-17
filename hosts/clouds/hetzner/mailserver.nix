@@ -20,6 +20,7 @@
   };
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "mail+timkoval00@gmail.com";
+  security.acme.defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
   security.acme.certs."mail.timkoval.rs" = {
     webroot = "/var/lib/acme/acme-challenge";
     email = "mail+timkoval00@gmail.com";
