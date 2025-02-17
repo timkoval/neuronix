@@ -5,6 +5,10 @@
   security.acme = {
     acceptTerms = true;
     defaults.email = "timkoval00@gmail.com";
+    certs."mail.timkoval.rs" = {
+      extraDomainNames = ["imap.timkoval.rs" "smtp.timkoval.rs"];
+      group = "stalwart-mail";
+    };
   };
 
   # Configure Stalwart Mail Server
@@ -39,14 +43,10 @@
         };
       };
 
-      # ACME configuration for automatic certificate management
-      acme."letsencrypt" = {
-        directory = "https://acme-v02.api.letsencrypt.org/directory";
-        challenge = "tls-alpn-01";
-        contact = ["timkoval00@gmail.com"];
-        domains = ["mail.timkoval.rs" "imap.timkoval.rs" "smtp.timkoval.rs"];
-        cache = "%{BASE_PATH}%/etc/acme";
-        renew-before = "30d";
+      certificate.default = {
+        cert = "%{file:${config.security.acme.certs."mail.timkoval.rs".directory}/fullchain.pem}%";
+        private-key = "%{file:${config.security.acme.certs."mail.timkoval.rs".directory}/key.pem}%";
+        default = true;
       };
 
       # Authentication configuration
@@ -90,8 +90,13 @@
   # Open necessary ports in the firewall
   networking.firewall.allowedTCPPorts = [ 25 465 587 993 8080 ];
 
+  # Rules for acme cert access
+  systemd.tmpfiles.rules = [
+    "d /var/lib/acme 0750 root acme - -"
+  ];
+
   # Ensure Stalwart can access ACME certificates
-  users.users.stalwart-mail.extraGroups = [ "acme" "users" ];
+  users.users.stalwart-mail.extraGroups = [ "acme" "users" "keys" ];
 
   # Set up a reload service for Stalwart when certificates are renewed
   systemd.services."acme-mail.timkoval.rs".postStart = ''
