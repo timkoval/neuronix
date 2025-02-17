@@ -23,7 +23,9 @@
   security.acme.certs."mail.timkoval.rs" = {
     webroot = "/var/lib/acme/acme-challenge";
     email = "mail+timkoval00@gmail.com";
-    group = "tkoval";
+    group = "users";
+    preRenewalCommand = "systemctl stop neurogate.service";
+    postRenewalCommand = "systemctl start neurogate.service";
   };
   users.users.tkoval.extraGroups = [ "acme" ];
 }
