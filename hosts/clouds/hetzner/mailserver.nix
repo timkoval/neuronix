@@ -39,14 +39,14 @@
         challenge = "tls-alpn-01";
         contact = ["timkoval00@gmail.com"];
         domains = ["mail.timkoval.rs" "imap.timkoval.rs" "smtp.timkoval.rs"];
-        cache = "%{BASE_PATH}%/etc/acme";
+        cache = "/etc/acme";
         renew-before = "30d";
       };
 
       # Certificate configuration
       certificate.default = {
-        cert = "%{BASE_PATH}%/etc/acme/fullchain.pem";
-        private-key = "%{BASE_PATH}%/etc/acme/key.pem";
+        cert = "/etc/acme/fullchain.pem";
+        private-key = "/etc/acme/key.pem";
         default = true;
       };
 
