@@ -39,14 +39,14 @@
         challenge = "tls-alpn-01";
         contact = ["timkoval00@gmail.com"];
         domains = ["mail.timkoval.rs" "imap.timkoval.rs" "smtp.timkoval.rs"];
-        cache = "/etc/acme";
+        cache = "%{BASE_PATH}%/etc/acme";
         renew-before = "30d";
       };
 
       # Certificate configuration
       certificate.default = {
-        cert = "/etc/acme/fullchain.pem";
-        private-key = "/etc/acme/key.pem";
+        cert = "%{BASE_PATH}%/etc/acme/fullchain.pem";
+        private-key = "%{BASE_PATH}%/etc/acme/key.pem";
         default = true;
       };
 
@@ -89,7 +89,7 @@
   };
 
   # Open necessary ports in the firewall
-  networking.firewall.allowedTCPPorts = [ 25 465 587 993 8080 ];
+  networking.firewall.allowedTCPPorts = [ 25 80 443 465 587 993 8080 ];
 
   # Ensure Stalwart can access ACME certificates
   users.users.stalwart-mail.extraGroups = [ "acme" "users" "keys" ];
