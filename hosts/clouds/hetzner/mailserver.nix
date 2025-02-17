@@ -43,12 +43,12 @@
         renew-before = "30d";
       };
 
-      # Certificate configuration
-      certificate.default = {
-        cert = "%{BASE_PATH}%/etc/acme/fullchain.pem";
-        private-key = "%{BASE_PATH}%/etc/acme/key.pem";
-        default = true;
-      };
+      # # Certificate configuration
+      # certificate.default = {
+      #   cert = "%{BASE_PATH}%/etc/acme/fullchain.pem";
+      #   private-key = "%{BASE_PATH}%/etc/acme/key.pem";
+      #   default = true;
+      # };
 
       # Authentication configuration
       session.auth = {
