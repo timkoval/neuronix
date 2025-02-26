@@ -117,6 +117,7 @@ in {
       # "qmk/qmk"
       "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
       "FelixKratz/formulae" # janky borders - highlight active window borders
+      "zackelia/formulae" # battery optimizer control
     ];
 
     brews = [
@@ -157,6 +158,7 @@ in {
       "trunk" # shipping rust wasm apps
       "ical-buddy" # calendar cli helper
       "cairo" # 2d graphics lib
+      "bclm" # battery control
     ];
 
     # `brew install --cask`
