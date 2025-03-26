@@ -194,6 +194,8 @@ in {
       "sonic-pi" # music programming
       "font-zed-mono-nerd-font"
       "font-zed-sans"
+      "font-open-sans"
+      "vial" # keyboard firmware
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector

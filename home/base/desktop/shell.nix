@@ -1,5 +1,5 @@
-{pkgs-unstable, ...}: let
-  inherit (pkgs-unstable) nu_scripts;
+{pkgs, ...}: let
+  inherit (pkgs) nu_scripts;
 in {
   programs.bash = {
     # load the alias file for work
