@@ -130,7 +130,7 @@ cmd-1 = 'workspace 1Ghostty'
 cmd-2 = 'workspace 2Firefox'
 cmd-3 = 'workspace 3Obsidian'
 cmd-4 = 'workspace 4Work'
-cmd-5 = 'workspace 5'
+cmd-5 = 'workspace 5Zed'
 cmd-6 = 'workspace 6'
 cmd-7 = 'workspace 7'
 cmd-8 = 'workspace 8'
@@ -143,7 +143,7 @@ cmd-shift-1 = 'move-node-to-workspace 1Ghostty'
 cmd-shift-2 = 'move-node-to-workspace 2Firefox'
 cmd-shift-3 = 'move-node-to-workspace 3Obsidian'
 cmd-shift-4 = 'move-node-to-workspace 4Work'
-cmd-shift-5 = 'move-node-to-workspace 5'
+cmd-shift-5 = 'move-node-to-workspace 5Zed'
 cmd-shift-6 = 'move-node-to-workspace 6'
 cmd-shift-7 = 'move-node-to-workspace 7'
 cmd-shift-8 = 'move-node-to-workspace 8'
@@ -212,6 +212,10 @@ run = 'move-node-to-workspace 2Firefox'
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace 3Obsidian'
+
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = 'move-node-to-workspace 5Zed'
 
 # Make all windows float by default
 [[on-window-detected]]
