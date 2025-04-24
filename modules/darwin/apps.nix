@@ -117,7 +117,7 @@ in {
       # "qmk/qmk"
       "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
       "FelixKratz/formulae" # janky borders - highlight active window borders
-      "zackelia/formulae" # battery optimizer control
+      "mhaeuser/mhaeuser" # battery optimizer control
     ];
 
     brews = [
@@ -158,7 +158,7 @@ in {
       "trunk" # shipping rust wasm apps
       "ical-buddy" # calendar cli helper
       "cairo" # 2d graphics lib
-      "bclm" # battery control
+      # "battery-toolkit" # battery control
     ];
 
     # `brew install --cask`
@@ -196,6 +196,7 @@ in {
       "font-zed-sans"
       "font-open-sans"
       "vial" # keyboard firmware
+      "aldente" # battery control
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector
