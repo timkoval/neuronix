@@ -7,8 +7,16 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-3.7-sonnet-thought"
+    },
+    "default_profile": "ask",
+    "version": "2"
+  },
   "features": {
-    "edit_prediction_provider": "zed"
+    "edit_prediction_provider": "copilot"
   },
   "theme": "Gruvbox Light",
   "vim_mode": true,
