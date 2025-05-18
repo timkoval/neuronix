@@ -200,6 +200,7 @@ in {
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector
+      "kicad"
       "insomnia" # REST client
 #      "wireshark" # network analyzer
       # "jdk-mission-control" # Java Mission Control
