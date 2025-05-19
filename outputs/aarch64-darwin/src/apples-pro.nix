@@ -5,12 +5,14 @@
   inputs,
   lib,
   mylib,
-  myvars,
   system,
   genSpecialArgs,
   ...
 } @ args: let
   name = "pro";
+
+  # Import host-specific variables from the host directory
+  hostVariables = import (mylib.relativeToRoot "hosts/darwin-${name}/variables.nix");
 
   modules = {
     darwin-modules =
@@ -29,7 +31,7 @@
     ];
   };
 
-  systemArgs = modules // args;
+  systemArgs = modules // args // { inherit hostVariables; };
 in {
   # macOS's configuration
   darwinConfigurations.${name} = mylib.macosSystem systemArgs;
