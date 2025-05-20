@@ -1,5 +1,4 @@
 {
-  vars_networking,
   hostVars,
   nuenv,
   ...

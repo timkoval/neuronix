@@ -1,13 +1,13 @@
 {
   config,
-  username,
+  hostVars,
   ...
 }: let
   d = config.xdg.dataHome;
   c = config.xdg.configHome;
   cache = config.xdg.cacheHome;
 in rec {
-  home.homeDirectory = "/home/${username}";
+  home.homeDirectory = "/home/${hostVars.username}";
 
   # environment variables that always set at login
   home.sessionVariables = {

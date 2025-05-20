@@ -12,23 +12,27 @@
 } @ args: let
   # 星野 アイ, Hoshino Ai
   name = "ai";
+
+  # Import host-specific variables from the host directory
+  hostVars = import (mylib.relativeToRoot "hosts/apples/${name}/variables.nix");
+  
   base-modules = {
     nixos-modules = map mylib.relativeToRoot [
       # common
       "secrets/nixos.nix"
       "modules/nixos/desktop.nix"
       # host specific
-      "hosts/idols-${name}"
+      "hosts/boxes/${name}"
       # nixos hardening
       # "hardening/profiles/default.nix"
-      "hardening/nixpaks"
+      # "hardening/nixpaks"
       # "hardening/apparmor"
     ];
     home-modules = map mylib.relativeToRoot [
       # common
       "home/linux/gui.nix"
       # host specific
-      "hosts/idols-${name}/home.nix"
+      "hosts/boxes/${name}/home.nix"
     ];
   };
 
@@ -51,7 +55,7 @@
 in {
   nixosConfigurations = {
     # host with hyprland compositor
-    "${name}-hyprland" = mylib.nixosSystem (modules-hyprland // args);
+    "${name}-hyprland" = mylib.nixosSystem (modules-hyprland // args // { inherit hostVars; });
   };
 
   # generate iso image for hosts with desktop environment

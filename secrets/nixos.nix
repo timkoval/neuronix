@@ -3,7 +3,7 @@
   pkgs,
   agenix,
   mysecrets,
-  username,
+  hostVars,
   ...
 }: {
   imports = [
@@ -34,7 +34,7 @@
     };
     user_readable = {
       mode = "0500";
-      owner = username;
+      owner = hostVars.username;
     };
   in {
     # ---------------------------------------------
