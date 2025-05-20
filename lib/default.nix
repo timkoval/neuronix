@@ -3,6 +3,9 @@
   macosSystem = import ./macosSystem.nix;
   nixosSystem = import ./nixosSystem.nix;
   attrs = import ./attrs.nix {inherit lib;};
+
+
+  relativeToRoot = lib.path.append ../.;
   scanPaths = path:
     builtins.map
     (f: (path + "/${f}"))

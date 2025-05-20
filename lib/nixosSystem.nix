@@ -1,40 +1,43 @@
 {
-  nixpkgs,
-  home-manager,
-  nixos-generators,
-  system,
-  specialArgs,
+  lib,
+  inputs,
   nixos-modules,
-  home-module ? null,
+  home-modules ? [],
+  system,
+  hostVars,
+  genSpecialArgs,
+  specialArgs ? (genSpecialArgs system),
+  ...
 }: let
-  inherit (specialArgs) username;
+  inherit (inputs) nixpkgs home-manager nixos-generators;
 in
   nixpkgs.lib.nixosSystem {
-    inherit system specialArgs;
+    inherit system;
+    specialArgs = specialArgs // { 
+      # We set 'myvars = hostVars' for backward compatibility
+      myvars = hostVars; 
+      inherit hostVars;
+    };
     modules =
       nixos-modules
       ++ [
         nixos-generators.nixosModules.all-formats
-        {
-          # formatConfigs.iso = {config, ...}: {};
-          formatConfigs.proxmox = {config, ...}: {
-            # custom proxmox's image name
-            proxmox.qemuConf.name = "${config.networking.hostName}-nixos-${config.system.nixos.label}";
-          };
-        }
       ]
       ++ (
-        if (home-module != null)
-        then [
+        lib.optionals ((lib.lists.length home-modules) > 0)
+        [
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "home-manager.backup";
 
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users."${username}" = home-module;
+            home-manager.extraSpecialArgs = specialArgs // { 
+              myvars = hostVars;
+              inherit hostVars;
+            };
+            home-manager.users."${hostVars.username}".imports = home-modules;
           }
         ]
-        else []
       );
   }

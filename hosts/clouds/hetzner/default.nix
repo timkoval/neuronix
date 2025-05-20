@@ -1,7 +1,6 @@
 {
   lib,
   mylib,
-  vars_networking,
   pkgs,
   disko,
   modulesPath,
