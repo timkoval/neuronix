@@ -4,7 +4,7 @@
   darwin-modules,
   home-modules ? [],
   system,
-  hostVariables,
+  hostVars,
   genSpecialArgs,
   specialArgs ? (genSpecialArgs system),
   ...
@@ -13,12 +13,11 @@
 in
   nix-darwin.lib.darwinSystem {
     inherit system;
-    # Include hostVariables in specialArgs to make them available in all modules
+    # Include hostVars in specialArgs to make them available in all modules
     specialArgs = specialArgs // { 
-      # We set 'myvars = hostVariables' for backward compatibility
-      myvars = hostVariables; 
-      # Also include a new direct reference for modules that want to use it explicitly
-      hostVariables = hostVariables;
+      # We set 'myvars = hostVars' for backward compatibility
+      myvars = hostVars; 
+      inherit hostVars;
     };
     modules =
       darwin-modules
@@ -41,10 +40,10 @@ in
             home-manager.backupFileExtension = "home-manager.backup";
 
             home-manager.extraSpecialArgs = specialArgs // { 
-              myvars = hostVariables;
-              hostVariables = hostVariables; 
+              myvars = hostVars;
+              inherit hostVars;
             };
-            home-manager.users."${hostVariables.username}".imports = home-modules;
+            home-manager.users."${hostVars.username}".imports = home-modules;
           }
         ]
       );

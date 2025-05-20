@@ -12,13 +12,13 @@
   name = "pro";
 
   # Import host-specific variables from the host directory
-  hostVariables = import (mylib.relativeToRoot "hosts/darwin-${name}/variables.nix");
+  hostVars = import (mylib.relativeToRoot "hosts/apples/${name}/variables.nix");
 
   modules = {
     darwin-modules =
       (map mylib.relativeToRoot [
         # common
-        "secrets/darwin.nix"
+        # "secrets/darwin.nix"
         "modules/darwin"
         # host specific
         "hosts/apples/${name}"
@@ -31,7 +31,7 @@
     ];
   };
 
-  systemArgs = modules // args // { inherit hostVariables; };
+  systemArgs = modules // args // { inherit hostVars; };
 in {
   # macOS's configuration
   darwinConfigurations.${name} = mylib.macosSystem systemArgs;
