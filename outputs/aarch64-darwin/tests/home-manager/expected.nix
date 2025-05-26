@@ -2,9 +2,10 @@
   hostVars,
   lib,
 }: let
-  username = hostVars.username;
+  username = "test";
   hosts = [
-    "fern"
+    "pro"
+    "procs"
   ];
 in
   lib.genAttrs hosts (_: "/Users/${username}")

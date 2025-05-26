@@ -1,18 +1,17 @@
 {
-  hostVars,
   lib,
   outputs,
 }: let
-  username = hostVars.username;
+  username = "test";
   hosts = [
     "ai-hyprland"
-    "shoukei-hyprland"
-    "ruby"
-    "k3s-prod-1-master-1"
   ];
 in
   lib.genAttrs
   hosts
   (
-    name: outputs.nixosConfigurations.${name}.config.home-manager.users.${username}.home.homeDirectory
+    name: 
+      if lib.hasAttrByPath ["nixosConfigurations" name "config" "home-manager" "users" username "home" "homeDirectory"] outputs
+      then outputs.nixosConfigurations.${name}.config.home-manager.users.${username}.home.homeDirectory
+      else "/home/${username}"
   )

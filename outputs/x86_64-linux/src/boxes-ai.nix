@@ -13,7 +13,7 @@
   name = "ai";
 
   # Import host-specific variables from the host directory
-  hostVars = import (mylib.relativeToRoot "hosts/boxes/${name}/variables.nix");
+  hostVars = import (mylib.relativeToRoot "hosts/boxes/${name}/variables.nix") { inherit lib; };
   
   base-modules = {
     nixos-modules = map mylib.relativeToRoot [
@@ -29,7 +29,7 @@
     ];
     home-modules = map mylib.relativeToRoot [
       # common
-      "home/linux/gui.nix"
+      "home/linux/desktop.nix" # to refactor like gui.nix
       # host specific
       "hosts/boxes/${name}/home.nix"
     ];
