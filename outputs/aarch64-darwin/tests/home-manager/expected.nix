@@ -1,8 +1,8 @@
 {
-  myvars,
+  hostVars,
   lib,
 }: let
-  username = myvars.username;
+  username = hostVars.username;
   hosts = [
     "fern"
   ];

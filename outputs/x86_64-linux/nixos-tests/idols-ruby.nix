@@ -6,7 +6,7 @@
   nixos-modules,
   # TODO: test home-manager too.
   home-modules ? [],
-  myvars,
+  hostVars,
   ...
 }: let
   pkgs = import inputs.nixpkgs {

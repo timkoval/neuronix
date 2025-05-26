@@ -15,8 +15,6 @@ in
     inherit system;
     # Include hostVars in specialArgs to make them available in all modules
     specialArgs = specialArgs // { 
-      # We set 'myvars = hostVars' for backward compatibility
-      myvars = hostVars; 
       inherit hostVars;
     };
     modules =
@@ -40,7 +38,6 @@ in
             home-manager.backupFileExtension = "home-manager.backup";
 
             home-manager.extraSpecialArgs = specialArgs // { 
-              myvars = hostVars;
               inherit hostVars;
             };
             home-manager.users."${hostVars.username}".imports = home-modules;

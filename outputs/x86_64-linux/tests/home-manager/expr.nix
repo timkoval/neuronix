@@ -1,9 +1,9 @@
 {
-  myvars,
+  hostVars,
   lib,
   outputs,
 }: let
-  username = myvars.username;
+  username = hostVars.username;
   hosts = [
     "ai-hyprland"
     "shoukei-hyprland"

@@ -14,8 +14,6 @@ in
   nixpkgs.lib.nixosSystem {
     inherit system;
     specialArgs = specialArgs // { 
-      # We set 'myvars = hostVars' for backward compatibility
-      myvars = hostVars; 
       inherit hostVars;
     };
     modules =
@@ -33,7 +31,6 @@ in
             home-manager.backupFileExtension = "home-manager.backup";
 
             home-manager.extraSpecialArgs = specialArgs // { 
-              myvars = hostVars;
               inherit hostVars;
             };
             home-manager.users."${hostVars.username}".imports = home-modules;

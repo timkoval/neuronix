@@ -3,6 +3,7 @@
   mylib,
   pkgs,
   disko,
+  vars_networking,
   modulesPath,
   ...
 }:

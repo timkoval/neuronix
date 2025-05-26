@@ -6,14 +6,13 @@
 } @ inputs: let
   inherit (inputs.nixpkgs) lib;
   mylib = import ../lib {inherit lib;};
-  myvars = import ../vars {inherit lib;};
 
   # Add my custom lib, vars, nixpkgs instance, and all the inputs to specialArgs,
   # so that I can use them in all my nixos/home-manager/darwin modules.
   genSpecialArgs = system:
     inputs
     // {
-      inherit mylib myvars;
+      inherit mylib;
 
       # use unstable branch for some packages to get the latest updates
       pkgs-unstable = import inputs.nixpkgs-unstable {
@@ -29,7 +28,7 @@
     };
 
   # This is the args for all the haumea modules in this folder.
-  args = {inherit inputs lib mylib myvars genSpecialArgs;};
+  args = {inherit inputs lib mylib genSpecialArgs;};
 
   # modules for each supported system
   nixosSystems = {

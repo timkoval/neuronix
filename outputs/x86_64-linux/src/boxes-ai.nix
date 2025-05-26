@@ -4,7 +4,6 @@
   # and these arguments are used in the functions like `mylib.nixosSystem`, `mylib.colmenaSystem`, etc.
   inputs,
   lib,
-  myvars,
   mylib,
   system,
   genSpecialArgs,
@@ -14,12 +13,12 @@
   name = "ai";
 
   # Import host-specific variables from the host directory
-  hostVars = import (mylib.relativeToRoot "hosts/apples/${name}/variables.nix");
+  hostVars = import (mylib.relativeToRoot "hosts/boxes/${name}/variables.nix");
   
   base-modules = {
     nixos-modules = map mylib.relativeToRoot [
       # common
-      "secrets/nixos.nix"
+      # "secrets/nixos.nix"
       "modules/nixos/desktop.nix"
       # host specific
       "hosts/boxes/${name}"
@@ -41,8 +40,8 @@
       [
         {
           modules.desktop.wayland.enable = true;
-          modules.secrets.desktop.enable = true;
-          modules.secrets.impermanence.enable = true;
+          # modules.secrets.desktop.enable = true;
+          # modules.secrets.impermanence.enable = true;
         }
       ]
       ++ base-modules.nixos-modules;
