@@ -28,30 +28,6 @@
         # required to prevent sending default identity files first.
         IdentitiesOnly yes
 
-      Host gtr5
-        HostName 192.168.5.172
-        Port 22
-
-      Host um560
-        HostName 192.168.5.173
-        Port 22
-
-      Host s500plus
-        HostName 192.168.5.174
-        Port 22
-
-      Host k8s-main
-        HostName 192.168.5.181
-        ForwardAgent yes
-
-      Host k8s-data1
-        HostName 192.168.5.182
-        ForwardAgent yes
-
-      Host k8s-data2
-        HostName 192.168.5.183
-        ForwardAgent yes
-
       Host github.com
           # github is controlled by gluttony~
           IdentityFile ~/.ssh/gh_rsa
