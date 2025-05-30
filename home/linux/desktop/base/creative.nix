@@ -29,7 +29,7 @@
   programs = {
     # live streaming
     obs-studio = {
-      enable = true;
+      enable = false;
       plugins = with pkgs-stable.obs-studio-plugins; [
         # screen capture
         wlrobs

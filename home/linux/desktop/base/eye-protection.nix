@@ -36,9 +36,9 @@
         # dusk-time = "18:35-20:15";
       };
       manual = {
-        # China, Shenzhen
-        lat = "22.5"; # latitude
-        lon = "114.1"; # longitude
+        # UAE, GST
+        lat = "24.4"; # latitude
+        lon = "54.4"; # longitude
       };
     };
   };
