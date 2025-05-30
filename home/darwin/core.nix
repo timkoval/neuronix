@@ -1,3 +1,3 @@
-{username, ...}: {
-  home.homeDirectory = "/Users/${username}";
+{hostVars, ...}: {
+  home.homeDirectory = "/Users/${hostVars.username}";
 }
