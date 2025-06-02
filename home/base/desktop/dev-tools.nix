@@ -31,11 +31,9 @@
 
       # misc
       bfg-repo-cleaner # remove large files from git history
-      k6 # load testing tool
       protobuf # protocol buffer compiler
       nix-init # generate nix package from url
       glances # system monitor
-#      #pkgs-unstable.qutebrowser # keyboard-first browser
       unar # unzip tool
     
       # solve coding extercises - learn by doing
