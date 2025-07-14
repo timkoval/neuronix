@@ -35,7 +35,7 @@
       nix-init # generate nix package from url
       glances # system monitor
       unar # unzip tool
-      qmk # QMK firmware for mechanical keyboard
+      qmk # keyboard firmware development
     
       # solve coding extercises - learn by doing
       leetcode-cli 
