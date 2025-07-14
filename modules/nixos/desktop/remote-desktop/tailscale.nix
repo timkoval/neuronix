@@ -34,7 +34,7 @@
 
   # enable the tailscale service
   services.tailscale = {
-    enable = true;
+    enable = false;
     port = 41641;
     interfaceName = "tailscale0";
     # allow the Tailscale UDP port through the firewall

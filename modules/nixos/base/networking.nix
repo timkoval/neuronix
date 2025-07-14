@@ -1,14 +1,14 @@
 {
   lib,
-  vars_networking,
+  hostVars,
   ...
-}: {
+} @ args: {
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = lib.mkDefault false;
 
-  programs.ssh = vars_networking.ssh;
+  # programs.ssh = hostVars.networking.ssh; TODO: fix assignment
 
   # Enable the OpenSSH daemon.
   services.openssh = {

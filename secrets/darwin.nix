@@ -3,7 +3,7 @@
   pkgs,
   agenix,
   mysecrets,
-  username,
+  hostVars,
   ...
 }: {
   imports = [
@@ -32,7 +32,7 @@
     };
     user_readable = {
       mode = "0500";
-      owner = username;
+      owner = hostVars.username;
     };
   in {
     # ---------------------------------------------
@@ -129,7 +129,7 @@
   system.activationScripts.postActivation.text = ''
     ${pkgs.nushell}/bin/nu -c '
       if (ls /etc/agenix/ | length) > 0 {
-        sudo chown ${username} /etc/agenix/*
+        sudo chown ${hostVars.username} /etc/agenix/*
       }
     '
   '';

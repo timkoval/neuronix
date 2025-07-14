@@ -1,9 +1,9 @@
 {
   lib,
   mylib,
-  vars_networking,
   pkgs,
   disko,
+  vars_networking,
   modulesPath,
   ...
 }:

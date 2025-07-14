@@ -78,13 +78,10 @@
     # it provides the command `nom` works just like `nix
     # with more details log output
     nix-output-monitor
-    # nodejs_18 # node for vscode-server
-    nodePackages.node2nix
 
     # productivity
     caddy # A webserver with automatic HTTPS via Let's Encrypt(replacement of nginx)
     croc # File transfer between computers securely and easily
-    hugo # static site generator
     glow # markdown previewer in terminal
 
   ];
