@@ -45,23 +45,6 @@
         "type": "github"
       }
     },
-    "astronvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1705337239,
-        "narHash": "sha256-jF+D2CdnSJ5at9HYrDGHKYodVL4VBdqA94OPBu4ESUo=",
-        "owner": "AstroNvim",
-        "repo": "AstroNvim",
-        "rev": "c58489a292fc2ebbc662c54a45213b01f7401f41",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AstroNvim",
-        "ref": "v3.41.2",
-        "repo": "AstroNvim",
-        "type": "github"
-      }
-    },
     "blobs": {
       "flake": false,
       "locked": {
@@ -151,22 +134,6 @@
         "owner": "nix-community",
         "ref": "v1.6.1",
         "repo": "disko",
-        "type": "github"
-      }
-    },
-    "doomemacs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1741115618,
-        "narHash": "sha256-3a1cfxzaM/jvrrODgYdxyji9KN0rQZjPJzgPFNRiBIw=",
-        "owner": "doomemacs",
-        "repo": "doomemacs",
-        "rev": "8846d151814ebbf7fb90d9d5dd16cd737257408e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "doomemacs",
-        "repo": "doomemacs",
         "type": "github"
       }
     },
@@ -286,6 +253,27 @@
         "owner": "hercules-ci",
         "repo": "flake-parts",
         "rev": "f4330d22f1c5d2ba72d3d22df5597d123fdb60a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_4": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixpak",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743550720,
+        "narHash": "sha256-hIshGgKZCgWh6AYJpJmRgFdR3WUbkY04o82X05xqQiY=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "c621e8422220273271f52058f618c94e405bb0f5",
         "type": "github"
       },
       "original": {
@@ -459,6 +447,52 @@
         "type": "github"
       }
     },
+    "haumea": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1685133229,
+        "narHash": "sha256-FePm/Gi9PBSNwiDFq3N+DWdfxFq0UKsVVTJS3cQPn94=",
+        "owner": "nix-community",
+        "repo": "haumea",
+        "rev": "34dd58385092a23018748b50f9b23de6266dffc2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "v0.2.2",
+        "repo": "haumea",
+        "type": "github"
+      }
+    },
+    "hercules-ci-effects": {
+      "inputs": {
+        "flake-parts": [
+          "nixpak",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpak",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744693102,
+        "narHash": "sha256-1Z4WPGVky4w3lrhrgs89OKsLzPdtkbi1bPLNFWsoLfY=",
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "rev": "5b6cec51c9ec095a0d3fd4c8eeb53eb5c59ae33e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -564,11 +598,11 @@
     "neuronvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1738766864,
-        "narHash": "sha256-4ZN16EnU6brnNTetMsy+KnUAInkHst6htXbBEyhqi90=",
+        "lastModified": 1755511798,
+        "narHash": "sha256-yNWJiPUvBb7eAA0g/DIlty2ERwRd6D51V9wT5X8Bhxo=",
         "owner": "timkoval",
         "repo": "neuronvim",
-        "rev": "e9b97f12b5b939f3644e430e4a46e83c0afc2a21",
+        "rev": "999dcfe1914055c0411cc4ed2be0cb038d112e36",
         "type": "github"
       },
       "original": {
@@ -767,6 +801,28 @@
         "type": "github"
       }
     },
+    "nixpak": {
+      "inputs": {
+        "flake-parts": "flake-parts_4",
+        "hercules-ci-effects": "hercules-ci-effects",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747276388,
+        "narHash": "sha256-+jgSt/rniQU2bH5rNLcGVWhFV+HNbo/6YFTbOza+6XE=",
+        "owner": "nixpak",
+        "repo": "nixpak",
+        "rev": "7696752fc3a231823039256cfffe7390e9effdfe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixpak",
+        "repo": "nixpak",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1741310760,
@@ -863,11 +919,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1741379970,
-        "narHash": "sha256-Wh7esNh7G24qYleLvgOSY/7HlDUzWaL/n4qzlBePpiw=",
+        "lastModified": 1754725699,
+        "narHash": "sha256-iAcj9T/Y+3DBy2J0N+yF9XQQQ8IEb5swLFzs23CdP88=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "36fd87baa9083f34f7f5027900b62ee6d09b1f2f",
+        "rev": "85dbfc7aaf52ecb755f87e577ddbe6dbbdbc1054",
         "type": "github"
       },
       "original": {
@@ -1113,10 +1169,9 @@
       "inputs": {
         "agenix": "agenix",
         "anyrun": "anyrun",
-        "astronvim": "astronvim",
         "disko": "disko",
-        "doomemacs": "doomemacs",
         "ghostty": "ghostty",
+        "haumea": "haumea",
         "home-manager": "home-manager_2",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
@@ -1129,6 +1184,7 @@
         "nixos-licheepi4a": "nixos-licheepi4a",
         "nixos-mailserver": "nixos-mailserver",
         "nixos-rk3588": "nixos-rk3588",
+        "nixpak": "nixpak",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable_2",
