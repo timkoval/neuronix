@@ -598,11 +598,11 @@
     "neuronvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1751973886,
-        "narHash": "sha256-Y0CXo8+t+rSpy/VRgohsp11cZxU4jC3UBvoY3M4TwzI=",
+        "lastModified": 1755511798,
+        "narHash": "sha256-yNWJiPUvBb7eAA0g/DIlty2ERwRd6D51V9wT5X8Bhxo=",
         "owner": "timkoval",
         "repo": "neuronvim",
-        "rev": "2c830c0ac845908204a74907ee75b4c8b3320345",
+        "rev": "999dcfe1914055c0411cc4ed2be0cb038d112e36",
         "type": "github"
       },
       "original": {
@@ -919,11 +919,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1741379970,
-        "narHash": "sha256-Wh7esNh7G24qYleLvgOSY/7HlDUzWaL/n4qzlBePpiw=",
+        "lastModified": 1754725699,
+        "narHash": "sha256-iAcj9T/Y+3DBy2J0N+yF9XQQQ8IEb5swLFzs23CdP88=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "36fd87baa9083f34f7f5027900b62ee6d09b1f2f",
+        "rev": "85dbfc7aaf52ecb755f87e577ddbe6dbbdbc1054",
         "type": "github"
       },
       "original": {

@@ -17,6 +17,8 @@
 
   home.packages = with pkgs;
     [
+      devenv # development environment manager
+
       # db related
       # mycli
       pgcli
@@ -36,12 +38,13 @@
       glances # system monitor
       unar # unzip tool
       qmk # keyboard firmware development
-    
+      pkgs-unstable.python313Packages.oathtool # generate TOTP codes
+      openconnect # openconnect client for Cisco VPN
+
       # solve coding extercises - learn by doing
       leetcode-cli 
       exercism
       ghostty
-
     ]
     ++ (
       if pkgs.stdenv.isLinux

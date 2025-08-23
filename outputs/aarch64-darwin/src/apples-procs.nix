@@ -22,7 +22,7 @@
         "modules/darwin"
         # host specific
         "hosts/apples/${name}"
-        "hosts/apples/iso-remapping.nix"
+#        "hosts/apples/iso-remapping.nix"
       ])
       ++ [];
     home-modules = map mylib.relativeToRoot [

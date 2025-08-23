@@ -109,7 +109,7 @@ in {
 
     taps = [
     #  "homebrew/cask-fonts"
-      "homebrew/services"
+    #  "homebrew/services"
     #  "homebrew/cask-versions"
 
       "hashicorp/tap"

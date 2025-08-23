@@ -39,9 +39,14 @@
           IdentityFile ~/.ssh/gl_rsa
           IdentitiesOnly yes
 
-      Host github-un
-          HostName github.com
-          IdentityFile ~/.ssh/un_rsa
+      Host gitlab-at
+          HostName gitlab.test2pay.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
+      
+      Host gitlab-ag
+          HostName gitlab.corp.algento.com
+          IdentityFile ~/.ssh/at_rsa
           IdentitiesOnly yes
 
       Host ai
