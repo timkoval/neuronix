@@ -17,7 +17,7 @@
 
   home.packages = with pkgs;
     [
-      devenv # development environment manager
+      pkgs-unstable.devenv # development environment manager
 
       # db related
       # mycli
