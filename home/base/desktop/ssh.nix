@@ -43,8 +43,23 @@
           HostName gitlab.test2pay.com
           IdentityFile ~/.ssh/at_rsa
           IdentitiesOnly yes
+
+      Host gitlab.test2pay.com
+          HostName gitlab.test2pay.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
       
       Host gitlab-ag
+          HostName gitlab.corp.algento.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
+      
+      Host mock.gitlab.corp.algento.com
+          HostName gitlab.corp.algento.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
+
+      Host gitlab.corp.algento.com
           HostName gitlab.corp.algento.com
           IdentityFile ~/.ssh/at_rsa
           IdentitiesOnly yes

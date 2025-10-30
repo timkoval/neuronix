@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   nur-ryan4yin,
   ...
 }: {
@@ -83,6 +84,7 @@
     caddy # A webserver with automatic HTTPS via Let's Encrypt(replacement of nginx)
     croc # File transfer between computers securely and easily
     glow # markdown previewer in terminal
+    pkgs-unstable.github-copilot-cli # GitHub Copilot CLI tool
 
   ];
 

@@ -30,8 +30,8 @@
     includes = [
       {
         # use diffrent email & name for work
-        path = "~/work/.gitconfig";
-        condition = "gitdir:~/work/";
+        path = "~/git-local/at/.gitconfig";
+        condition = "gitdir:~/git-local/at/";
       }
     ];
 
