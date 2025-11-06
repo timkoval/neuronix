@@ -34,7 +34,7 @@ in {
       # use ${nu_scripts}/share/nu_scripts/aliases/git/git-aliases.nu *
       use ${nu_scripts}/share/nu_scripts/aliases/eza/eza-aliases.nu *
       use ${nu_scripts}/share/nu_scripts/aliases/bat/bat-aliases.nu *
-      use ${nu_scripts}/share/nu_scripts/themes/nu-themes/gruvbox-light-medium.nu *
+      # use ${nu_scripts}/share/nu_scripts/themes/nu-themes/gruvbox-light-medium.nu *
     '';
   };
 }

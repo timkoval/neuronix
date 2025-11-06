@@ -1,4 +1,4 @@
-theme = GruvboxLight
+theme = "Gruvbox Light"
 font-family = "ZedMono Nerd Font Mono"
 font-size = 14
 window-decoration = false
