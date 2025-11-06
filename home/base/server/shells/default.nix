@@ -9,6 +9,7 @@
   localBin = "${config.home.homeDirectory}/.local/bin";
   rustBin = "${config.home.homeDirectory}/.cargo/bin";
   npmBin = "${config.home.homeDirectory}/.npm/bin";
+  opencodeBin = "${config.home.homeDirectory}/.opencode/bin";
 in {
   # only works in bash/zsh, not nushell
   home.shellAliases = shellAliases;
@@ -18,7 +19,7 @@ in {
     enable = true;
     enableCompletion = true;
     bashrcExtra = ''
-      export PATH="$PATH:${localBin}:${rustBin}:${npmBin}"
+      export PATH="$PATH:${localBin}:${rustBin}:${npmBin}:${opencodeBin}"
     '';
   };
 

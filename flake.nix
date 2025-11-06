@@ -151,6 +151,11 @@
       url = "github:ryan4yin/nur-packages";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    nur-timkoval = {
+      url = "github:timkoval/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # riscv64 SBCs
     nixos-licheepi4a.url = "github:ryan4yin/nixos-licheepi4a";

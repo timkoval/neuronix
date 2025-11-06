@@ -1063,6 +1063,26 @@
         "type": "github"
       }
     },
+    "nur-timkoval": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1761897735,
+        "narHash": "sha256-gHiuSMvGyQCMiy5tHF4PHueMGaGF/3qj6wmHoEGcY4Q=",
+        "owner": "timkoval",
+        "repo": "nur-packages",
+        "rev": "eddcb885d41e4057117a752875f21dcac7f3b9e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "timkoval",
+        "repo": "nur-packages",
+        "type": "github"
+      }
+    },
     "polybar-themes": {
       "flake": false,
       "locked": {
@@ -1191,6 +1211,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nuenv": "nuenv",
         "nur-ryan4yin": "nur-ryan4yin",
+        "nur-timkoval": "nur-timkoval",
         "polybar-themes": "polybar-themes",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "wallpapers": "wallpapers"
