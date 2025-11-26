@@ -159,6 +159,7 @@ in {
       "ical-buddy" # calendar cli helper
       "cairo" # 2d graphics lib
       # "battery-toolkit" # battery control
+      "opencode"
     ];
 
     # `brew install --cask`
