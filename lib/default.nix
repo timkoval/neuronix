@@ -16,6 +16,7 @@
             (_type == "directory") # include directories
             || (
               (path != "default.nix") # ignore default.nix
+              && (path != "variables.nix") # ignore variables.nix (host-specific vars, not a module)
               && (lib.strings.hasSuffix ".nix" path) # include .nix files
             )
         )

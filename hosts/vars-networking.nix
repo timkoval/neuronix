@@ -45,7 +45,7 @@
 
     # define the host key for remote builders so that nix can verify all the remote builders
     # this config will be written to /etc/ssh/ssh_known_hosts
-    knownHosts =
+    knownHosts = {};
       # Update only the values of the given attribute set.
       #
       #   mapAttrs

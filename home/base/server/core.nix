@@ -87,7 +87,7 @@
     glow # markdown previewer in terminal
     md-tui
     pkgs-unstable.github-copilot-cli # GitHub Copilot CLI tool
-    nur-timkoval.packages.${pkgs.system}.openspec
+    # nur-timkoval.packages.${pkgs.system}.openspec  # Commented out for servers - requires network access during build
   ];
 
   programs = {

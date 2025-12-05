@@ -3,7 +3,7 @@
   mylib,
   pkgs,
   disko,
-  vars_networking,
+  hostVars,
   modulesPath,
   ...
 }:
@@ -12,9 +12,7 @@
 #  Hetzner TK - A NixOS VM running in Hetzner Cloud
 #
 #############################################################
-let
-  hostName = "hetzner-tk"; # Define your hostname.
-in {
+{
   imports =
     (mylib.scanPaths ./.)
     ++ [
@@ -45,9 +43,8 @@ in {
   # boot.extraModprobeConfig = "options kvm_amd nested=1"; # for amd cpu
 
   networking = {
-    inherit hostName;
-    inherit (vars_networking) defaultGateway nameservers;
-    # inherit (vars_networking.hostsAddress.${hostName}) ;:w
+    hostName = hostVars.hostname;
+    inherit (hostVars.networking) defaultGateway nameservers;
     networkmanager.enable = false;
   };
 
