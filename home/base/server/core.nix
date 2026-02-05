@@ -8,6 +8,7 @@
   home.packages = with pkgs; [
     neofetch
     ranger # terminal file manager(batteries included, with image preview support)
+    atuin # shell history sync
 
     colmena
 
@@ -150,7 +151,7 @@
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      enableNushellIntegration = true;
+      enableFishIntegration = true;
     };
 
     # Atuin replaces your existing shell history with a SQLite database,
@@ -161,7 +162,7 @@
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      enableNushellIntegration = true;
+      enableFishIntegration = true;
     };
   };
 }

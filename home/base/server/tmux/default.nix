@@ -23,8 +23,8 @@ in {
         }
       ];
     extraConfig = ''
-      set-option -g default-shell ${pkgs.nushell}/bin/nu
-      set-option -g default-command "${pkgs.nushell}/bin/nu -i"
+      set-option -g default-shell ${pkgs.fish}/bin/fish
+      set-option -g default-command "${pkgs.fish}/bin/fish -i"
 
       unbind r
       bind r   source-file ${config.xdg.configHome}/tmux/tmux.conf
@@ -47,8 +47,7 @@ in {
 
       '';
   };
-  # only works in bash/zsh, not nushell
+  # only works in bash/zsh/fish, not nushell
   home.shellAliases = shellAliases;
-  programs.nushell.shellAliases = shellAliases;
 
 }

@@ -52,7 +52,7 @@ in {
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
     git
-    # nushell # my custom shell
+    fish # my custom shell
     gnugrep # replacee macos's grep
     gnutar # replacee macos's tar
 
@@ -80,7 +80,7 @@ in {
   programs.zsh.enable = true;
   environment.shells = [
     pkgs.zsh
-    # pkgs.nushellFull # my custom shell
+    pkgs.fish # my custom shell
   ];
 
   # homebrew need to be installed manually, see https://brew.sh

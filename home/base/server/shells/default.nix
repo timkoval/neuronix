@@ -23,10 +23,16 @@ in {
     '';
   };
 
-  programs.nushell = {
+  programs.fish = {
     enable = true;
-    # configFile.source = ./config.nu;
-    inherit shellAliases;
+    interactiveShellInit = ''
+      # Ensure nix profile paths are available early
+      # Needed for atuin, zoxide, and other nix-installed tools
+      # when fish is launched directly by terminals (ghostty, kitty, etc.)
+      set -gx PATH /etc/profiles/per-user/$USER/bin $PATH
+      set -gx PATH /nix/var/nix/profiles/default/bin $PATH
+      set -gx PATH /run/current-system/sw/bin $PATH
+    '';
   };
 
 }

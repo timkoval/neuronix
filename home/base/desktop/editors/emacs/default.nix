@@ -63,7 +63,6 @@ in {
       programs.bash.bashrcExtra = envExtra;
       programs.zsh.envExtra = envExtra;
       home.shellAliases = shellAliases;
-      programs.nushell.shellAliases = shellAliases;
 
       xdg.configFile."doom" = {
         source = ./doom;
