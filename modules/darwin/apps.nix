@@ -118,6 +118,7 @@ in {
       "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
       "FelixKratz/formulae" # janky borders - highlight active window borders
       "mhaeuser/mhaeuser" # battery optimizer control
+      "anomalyco/tap" # opencode tap
     ];
 
     brews = [
@@ -200,6 +201,7 @@ in {
       "font-monaspace-nf"
       "vial" # keyboard firmware
       "aldente" # battery control
+      "ollama" # local LLMs management
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector
