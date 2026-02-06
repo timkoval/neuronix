@@ -185,6 +185,7 @@ in {
       #"zoom"
       # "moonlight" # remote desktop client
 #      "rustdesk"
+      "localsend" # file transfer tool
 
       # Misc
       "shadowsocksx-ng" # proxy tool
@@ -196,6 +197,7 @@ in {
       "font-zed-mono-nerd-font"
       "font-zed-sans"
       "font-open-sans"
+      "font-monaspace-nf"
       "vial" # keyboard firmware
       "aldente" # battery control
 
