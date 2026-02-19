@@ -1,11 +1,12 @@
 # Project Context
 
 ## Purpose
-A comprehensive NixOS & macOS (nix-darwin) configuration flake that manages Tim Koval's personal and work machines. The goal is reproducible, declarative system configurations across multiple hosts including:
+ A comprehensive NixOS & macOS (nix-darwin) configuration flake that manages Tim Koval's personal and work machines. The goal is reproducible, declarative system configurations across multiple hosts including:
 - macOS laptops (MacBook Air M1, MacBook Pro M3, MacBook Pro Intel)
 - NixOS desktops (gaming/daily-use workstation with Ryzen 5600X + RTX 3050)
 - NixOS laptops (MacBook Air with Asahi Linux, HP ProBook)
 - Cloud servers (Hetzner)
+- ARM nodes / thin devices (Raspberry Pi style nodes)
 
 ## Tech Stack
 - **Nix/NixOS**: Core declarative configuration language and OS (version 24.11)
@@ -48,12 +49,14 @@ neuronix/
 ├── flake.nix          # Entry point, inputs only - outputs delegated to ./outputs
 ├── outputs/           # Flake outputs organized by architecture
 │   ├── aarch64-darwin/  # macOS ARM configurations
+│   ├── aarch64-linux/   # Linux ARM configurations (nodes, SBCs)
 │   └── x86_64-linux/    # Linux x86_64 configurations
 ├── hosts/             # Machine-specific configurations
 │   ├── apples/        # macOS machines
 │   ├── books/         # Linux laptops
 │   ├── boxes/         # Linux desktops
-│   └── clouds/        # Cloud/server machines
+│   ├── clouds/        # Cloud/server machines
+│   └── nodes/         # Thin/ARM edge nodes
 ├── home/              # Home Manager modules
 │   ├── base/          # Cross-platform (Linux & macOS)
 │   ├── darwin/        # macOS-specific
@@ -62,16 +65,19 @@ neuronix/
 │   ├── nixos/         # NixOS modules
 │   ├── darwin/        # nix-darwin modules
 │   └── base.nix       # Common to both
+├── images/            # Reusable image modules (sd-card profiles)
 ├── lib/               # Helper functions for reducing boilerplate
 ├── secrets/           # agenix secret declarations
 └── overlays/          # Nixpkgs overlays
 ```
 
 #### Key Patterns
-1. **Layered Configuration**: base -> os-specific -> host-specific
+1. **Layered Configuration**: base -> os-specific -> profile -> host-specific
 2. **Helper Functions**: `lib/` contains `nixosSystem.nix`, `macosSystem.nix`, `colmenaSystem.nix` to reduce duplication
 3. **Separation of Concerns**: System config (`modules/`) vs user config (`home/`)
 4. **Private Secrets Repository**: Secrets stored in separate `nix-secrets` repo, referenced as flake input
+5. **Profile-Driven NixOS**: `modules/nixos/profiles/` provides `minimal`, `server`, `desktop`, `embedded`, and `thin-client` roles
+6. **Home Manager Tiers**: `home/base/minimal/` is the shared lightweight layer for thin and server machines
 
 ### Testing Strategy
 - GitHub Actions workflow for `nix flake check` on push/PR
@@ -90,12 +96,15 @@ neuronix/
 - **books/**: Linux laptops
 - **boxes/**: Linux desktops (ai = main workstation)
 - **clouds/**: Cloud/server deployments (hetzner)
+- **nodes/**: ARM and thin-client nodes (rpi4-example)
 
 ### Deployment Commands
 ```bash
 # NixOS
 just i3           # Deploy with i3 window manager
 just hypr         # Deploy with Hyprland compositor
+just build-image rpi4-example      # Build ARM SD card image package
+just flash-image rpi4-example /dev/sdX  # Flash image to device
 
 # macOS
 just air          # MacBook Air M1

@@ -78,6 +78,36 @@ See [./home/base/desktop/editors/emacs/](./home/base/desktop/editors/emacs/) for
 
 See [./hosts](./hosts) for details.
 
+Current host groups include:
+
+- `hosts/apples` for darwin hosts
+- `hosts/boxes` and `hosts/books` for Linux desktops/laptops
+- `hosts/clouds` for VPS and server hosts
+- `hosts/nodes` for thin and ARM edge hosts (example: `rpi4-example`)
+
+## Profiles and ARM Images
+
+NixOS machine roles are now profile-driven under `modules/nixos/profiles/`:
+
+- `minimal`
+- `server`
+- `desktop`
+- `embedded`
+- `thin-client`
+
+ARM image builds are exposed as flake packages. Example:
+
+```bash
+nix build .#packages.aarch64-linux.rpi4-example-sd-aarch64
+```
+
+Or via `just`:
+
+```bash
+just build-image rpi4-example
+just flash-image rpi4-example /dev/sdX
+```
+
 ## Secrets Management
 
 See [./secrets](./secrets) for details.
