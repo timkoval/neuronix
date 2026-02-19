@@ -5,6 +5,10 @@
   nur-timkoval,
   ...
 }: {
+  imports = [
+    ../minimal
+  ];
+
   home.packages = with pkgs; [
     neofetch
     ranger # terminal file manager(batteries included, with image preview support)
@@ -31,32 +35,19 @@
     # misc
     tldr
     cowsay
-    file
     findutils
     which
-    tree
     gnutar
     zstd
     gnupg
-    rsync
 
     # Text Processing
     # Docs: https://github.com/learnbyexample/Command-line-text-processing
 
-    gnugrep # GNU grep, provides `grep`/`egrep`/`fgrep`
-    gnused # GNU sed, very powerful(mainly for replacing text in files)
     gnumake
     gawk # GNU awk, a pattern scanning and processing language
-    jq # A lightweight and flexible command-line JSON processor
 
     # morden cli tools, replacement of grep/sed/...
-
-    # Interactively filter its input using fuzzy searching, not limit to filenames.
-    fzf
-    # search for files by name, faster than find
-    fd
-    # search for files by its content, replacement of grep
-    (ripgrep.override {withPCRE2 = true;})
 
     # A fast and polyglot tool for code searching, linting, rewriting at large scale
     # supported languages: only some mainstream languages currently(do not support nix/nginx/yaml/toml/...)
@@ -92,68 +83,6 @@
   ];
 
   programs = {
-    # A modern replacement for ‘ls’
-    # useful in bash/zsh prompt, not in nushell.
-    eza = {
-      enable = true;
-      git = true;
-      icons = true;
-    };
-
-    # a cat(1) clone with syntax highlighting and Git integration.
-    bat = {
-      enable = true;
-      config = {
-        pager = "less -FR";
-        theme = "gruvbox-light";
-      };
-    };
-
-    # A command-line fuzzy finder
-    fzf = {
-      enable = true;
-      # https://github.com/catppuccin/fzf
-      # catppuccin-mocha
-      colors = {
-        "bg+" = "#313244";
-        "bg" = "#1e1e2e";
-        "spinner" = "#f5e0dc";
-        "hl" = "#f38ba8";
-        "fg" = "#cdd6f4";
-        "header" = "#f38ba8";
-        "info" = "#cba6f7";
-        "pointer" = "#f5e0dc";
-        "marker" = "#f5e0dc";
-        "fg+" = "#cdd6f4";
-        "prompt" = "#cba6f7";
-        "hl+" = "#f38ba8";
-      };
-    };
-
-    # zoxide is a smarter cd command, inspired by z and autojump.
-    # It remembers which directories you use most frequently,
-    # so you can "jump" to them in just a few keystrokes.
-    # zoxide works on all major shells.
-    #
-    #   z foo              # cd into highest ranked directory matching foo
-    #   z foo bar          # cd into highest ranked directory matching foo and bar
-    #   z foo /            # cd into a subdirectory starting with foo
-    #
-    #   z ~/foo            # z also works like a regular cd command
-    #   z foo/             # cd into relative path
-    #   z ..               # cd one level up
-    #   z -                # cd into previous directory
-    #
-    #   zi foo             # cd with interactive selection (using fzf)
-    #
-    #   z foo<SPACE><TAB>  # show interactive completions (zoxide v0.8.0+, bash 4.4+/fish/zsh only)
-    zoxide = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      enableFishIntegration = true;
-    };
-
     # Atuin replaces your existing shell history with a SQLite database,
     # and records additional context for your commands.
     # Additionally, it provides optional and fully encrypted
