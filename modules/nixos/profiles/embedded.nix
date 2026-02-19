@@ -13,7 +13,6 @@
   };
 
   documentation.enable = lib.mkDefault false;
-  environment.noXlibs = lib.mkDefault true;
   xdg = {
     autostart.enable = lib.mkDefault false;
     icons.enable = lib.mkDefault false;

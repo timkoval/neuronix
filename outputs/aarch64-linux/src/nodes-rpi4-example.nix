@@ -13,6 +13,7 @@
 
   modules = {
     nixos-modules = map mylib.relativeToRoot [
+      "images/sd-card-minimal.nix"
       "modules/nixos/profiles/embedded.nix"
       "hosts/nodes/${name}"
     ];
@@ -25,6 +26,8 @@
   systemArgs = modules // args // {inherit hostVars;};
 in {
   nixosConfigurations.${name} = mylib.nixosSystem systemArgs;
+
+  packages."${name}-sd-aarch64" = inputs.self.nixosConfigurations.${name}.config.formats.sd-aarch64;
 
   colmenaMeta = {
     nodeNixpkgs.${name} = import inputs.nixpkgs {inherit system;};

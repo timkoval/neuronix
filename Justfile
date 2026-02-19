@@ -35,6 +35,16 @@ up:
 upp input:
   nix flake lock --update-input {{input}}
 
+# Build aarch64 SD card image package
+# Usage: just build-image rpi4-example
+build-image host="rpi4-example":
+  nix build .#packages.aarch64-linux."{{host}}-sd-aarch64"
+
+# Build and flash SD card image to a target block device
+# Usage: just flash-image rpi4-example /dev/sdX
+flash-image host device:
+  bash -lc 'set -euo pipefail; nix build .#packages.aarch64-linux."{{host}}-sd-aarch64"; image=$(ls result/sd-image/*.img* | head -n1); echo "Flashing ${image} -> {{device}}"; sudo dd if="$image" of="{{device}}" bs=8M conv=fsync status=progress; sync'
+
 history:
   nix profile history --profile /nix/var/nix/profiles/system
 
