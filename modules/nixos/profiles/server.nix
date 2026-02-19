@@ -1,11 +1,6 @@
 {lib, ...}: {
   imports = [
     ./minimal.nix
-    ../base/packages.nix
-    ../base/power.nix
-    ../base/virtualisation.nix
-    ../base/zram.nix
-    ../base/btrbk.nix
   ];
 
   neuronix = {

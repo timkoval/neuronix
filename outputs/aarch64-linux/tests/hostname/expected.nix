@@ -1,6 +1,5 @@
 {
   lib,
   outputs,
-}: {
-  arm-template = "arm-template";
-}
+}:
+lib.genAttrs (builtins.attrNames outputs.nixosConfigurations) (name: name)
