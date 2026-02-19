@@ -1,37 +1,38 @@
 {
+  config,
   lib,
   hostVars,
   ...
-} @ args: {
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = lib.mkDefault false;
+}: {
+  options.neuronix.networking.avahi.enable = lib.mkEnableOption "Avahi mDNS service";
 
-  # programs.ssh = hostVars.networking.ssh; TODO: fix assignment
+  config = lib.mkMerge [
+    {
+      neuronix.networking.avahi.enable = lib.mkDefault true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    settings = {
-      X11Forwarding = true;
-      PermitRootLogin = "no"; # disable root login
-      PasswordAuthentication = false; # disable password login
-    };
-    openFirewall = true;
-  };
+      networking.firewall.enable = lib.mkDefault false;
 
-  # Network discovery, mDNS
-  # With this enabled, you can access your machine at <hostname>.local
-  # it's more convenient than using the IP address.
-  # https://avahi.org/
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    publish = {
-      enable = true;
-      domain = true;
-      userServices = true;
-    };
-  };
+      # programs.ssh = hostVars.networking.ssh; TODO: fix assignment
+      services.openssh = {
+        enable = true;
+        settings = {
+          X11Forwarding = true;
+          PermitRootLogin = "no";
+          PasswordAuthentication = false;
+        };
+        openFirewall = true;
+      };
+    }
+    (lib.mkIf config.neuronix.networking.avahi.enable {
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        publish = {
+          enable = true;
+          domain = true;
+          userServices = true;
+        };
+      };
+    })
+  ];
 }
