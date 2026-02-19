@@ -29,8 +29,14 @@
         IdentitiesOnly yes
 
       Host github.com
-          # github is controlled by gluttony~
           IdentityFile ~/.ssh/gh_rsa
+          # Specifies that ssh should only use the identity file explicitly configured above
+          # required to prevent sending default identity files first.
+          IdentitiesOnly yes
+      
+      Host github-at
+          HostName github.com
+          IdentityFile ~/.ssh/gh_astg
           # Specifies that ssh should only use the identity file explicitly configured above
           # required to prevent sending default identity files first.
           IdentitiesOnly yes

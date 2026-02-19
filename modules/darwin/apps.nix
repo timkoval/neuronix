@@ -187,6 +187,7 @@ in {
       # "moonlight" # remote desktop client
 #      "rustdesk"
       "localsend" # file transfer tool
+      "gitbutler" # better git 
 
       # Misc
       "shadowsocksx-ng" # proxy tool
