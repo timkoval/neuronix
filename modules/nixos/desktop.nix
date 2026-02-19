@@ -10,10 +10,7 @@ with lib; let
   cfgXorg = config.modules.desktop.xorg;
 in {
   imports = [
-    ./base
-    ../base.nix
-
-    ./desktop
+    ./profiles/desktop.nix
   ];
 
   options.modules.desktop = {

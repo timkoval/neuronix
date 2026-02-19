@@ -13,15 +13,14 @@ in {
 
   options.neuronix.docker.enable = lib.mkEnableOption "Docker runtime";
 
-  config = lib.mkMerge [
+  config =
     {
-      neuronix.docker.enable = lib.mkDefault true;
       virtualisation = {
         waydroid.enable = false;
         lxd.enable = false;
       };
     }
-    (lib.mkIf cfg.enable {
+    // lib.mkIf cfg.enable {
       virtualisation.docker = {
         enable = true;
         daemon.settings = {
@@ -34,6 +33,5 @@ in {
         # This is required for containers which are created with the `--restart=always` flag to work.
         enableOnBoot = true;
       };
-    })
-  ];
+    };
 }

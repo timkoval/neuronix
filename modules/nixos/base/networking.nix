@@ -8,8 +8,6 @@
 
   config = lib.mkMerge [
     {
-      neuronix.networking.avahi.enable = lib.mkDefault true;
-
       networking.firewall.enable = lib.mkDefault false;
 
       # programs.ssh = hostVars.networking.ssh; TODO: fix assignment

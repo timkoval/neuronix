@@ -4,12 +4,7 @@
   # =========================================================================
 
   imports = [
-    ../base/i18n.nix
-    ../base/misc.nix
-    ../base/user-group.nix
-
-    ../../base.nix
-    
+    ../profiles/server.nix
     ./security.nix
   ];
 
@@ -45,21 +40,4 @@
     zellij
     docker-compose
   ];
-
-  virtualisation.docker = {
-    enable = true;
-    # start dockerd on boot.
-    # This is required for containers which are created with the `--restart=always` flag to work.
-    enableOnBoot = true;
-  };
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      X11Forwarding = true;
-      PermitRootLogin = "prohibit-password"; # disable root login with password
-      PasswordAuthentication = false; # disable password login
-    };
-    openFirewall = true;
-  };
 }

@@ -1,8 +1,6 @@
 {
   imports = [
-    ../base
-    ../../base.nix
-
+    ../profiles/server.nix
     ./security.nix
   ];
 }
