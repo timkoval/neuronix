@@ -28,33 +28,15 @@
         # required to prevent sending default identity files first.
         IdentitiesOnly yes
 
-      Host gtr5
-        HostName 192.168.5.172
-        Port 22
-
-      Host um560
-        HostName 192.168.5.173
-        Port 22
-
-      Host s500plus
-        HostName 192.168.5.174
-        Port 22
-
-      Host k8s-main
-        HostName 192.168.5.181
-        ForwardAgent yes
-
-      Host k8s-data1
-        HostName 192.168.5.182
-        ForwardAgent yes
-
-      Host k8s-data2
-        HostName 192.168.5.183
-        ForwardAgent yes
-
       Host github.com
-          # github is controlled by gluttony~
           IdentityFile ~/.ssh/gh_rsa
+          # Specifies that ssh should only use the identity file explicitly configured above
+          # required to prevent sending default identity files first.
+          IdentitiesOnly yes
+      
+      Host github-at
+          HostName github.com
+          IdentityFile ~/.ssh/gh_astg
           # Specifies that ssh should only use the identity file explicitly configured above
           # required to prevent sending default identity files first.
           IdentitiesOnly yes
@@ -63,9 +45,29 @@
           IdentityFile ~/.ssh/gl_rsa
           IdentitiesOnly yes
 
-      Host github-un
-          HostName github.com
-          IdentityFile ~/.ssh/un_rsa
+      Host gitlab-at
+          HostName gitlab.test2pay.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
+
+      Host gitlab.test2pay.com
+          HostName gitlab.test2pay.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
+      
+      Host gitlab-ag
+          HostName gitlab.corp.algento.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
+      
+      Host mock.gitlab.corp.algento.com
+          HostName gitlab.corp.algento.com
+          IdentityFile ~/.ssh/at_rsa
+          IdentitiesOnly yes
+
+      Host gitlab.corp.algento.com
+          HostName gitlab.corp.algento.com
+          IdentityFile ~/.ssh/at_rsa
           IdentitiesOnly yes
 
       Host ai

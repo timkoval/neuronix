@@ -17,6 +17,8 @@
 
   home.packages = with pkgs;
     [
+      pkgs-unstable.devenv # development environment manager
+
       # db related
       # mycli
       pgcli
@@ -31,18 +33,18 @@
 
       # misc
       bfg-repo-cleaner # remove large files from git history
-      k6 # load testing tool
       protobuf # protocol buffer compiler
       nix-init # generate nix package from url
       glances # system monitor
-#      #pkgs-unstable.qutebrowser # keyboard-first browser
       unar # unzip tool
-    
+      qmk # keyboard firmware development
+      pkgs-unstable.python313Packages.oathtool # generate TOTP codes
+      openconnect # openconnect client for Cisco VPN
+
       # solve coding extercises - learn by doing
       leetcode-cli 
       exercism
       ghostty
-
     ]
     ++ (
       if pkgs.stdenv.isLinux

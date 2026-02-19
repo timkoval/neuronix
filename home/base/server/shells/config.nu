@@ -4,7 +4,7 @@
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
-  # color_config: $catppuccin_theme  # <-- this is the theme
+  # color_config: $gruvbox  # <-- this is the theme
   use_ansi_coloring: true
 
   # true or false to enable or disable the welcome banner at startup
@@ -56,7 +56,7 @@ $env.config = {
   float_precision: 2 # the precision for displaying floats in tables
   # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
   bracketed_paste: true # enable bracketed paste, currently useless on windows
-  edit_mode: emacs # emacs, vi
+  edit_mode: vi # emacs, vi
   shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
   render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
 }

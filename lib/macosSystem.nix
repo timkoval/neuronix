@@ -1,37 +1,47 @@
 {
-  nixpkgs,
-  nix-darwin,
-  home-manager,
-  system,
-  specialArgs,
+  lib,
+  inputs,
   darwin-modules,
-  home-module,
+  home-modules ? [],
+  system,
+  hostVars,
+  genSpecialArgs,
+  specialArgs ? (genSpecialArgs system),
+  ...
 }: let
-  inherit (specialArgs) username;
+  inherit (inputs) nixpkgs-darwin home-manager nix-darwin;
 in
   nix-darwin.lib.darwinSystem {
-    inherit system specialArgs;
+    inherit system;
+    # Include hostVars in specialArgs to make them available in all modules
+    specialArgs = specialArgs // { 
+      inherit hostVars;
+    };
     modules =
       darwin-modules
       ++ [
         ({lib, ...}: {
-          nixpkgs.pkgs = import nixpkgs {inherit system;};
-          # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
-          nix.registry.nixpkgs.flake = nixpkgs;
-
-          environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
-          # make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
-          # discard all the default paths, and only use the one from this flake.
-          nix.nixPath = lib.mkForce ["/etc/nix/inputs"];
+          nixpkgs.pkgs = import nixpkgs-darwin {
+            inherit system; # refer the `system` parameter form outer scope recursively
+            # To use chrome, we need to allow the installation of non-free software
+            config.allowUnfree = true;
+          };
         })
+      ]
+      ++ (
+        lib.optionals ((lib.lists.length home-modules) > 0)
+        [
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "home-manager.backup";
 
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users."${username}" = home-module;
-        }
-      ];
+            home-manager.extraSpecialArgs = specialArgs // { 
+              inherit hostVars;
+            };
+            home-manager.users."${hostVars.username}".imports = home-modules;
+          }
+        ]
+      );
   }

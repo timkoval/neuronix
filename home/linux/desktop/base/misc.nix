@@ -22,7 +22,7 @@
     # rpi-imager # iso flashing tool
 
     # misc
-    flameshot
+    # flameshot
     # ventoy # multi-boot usb creator
   ];
 

@@ -1,36 +1,40 @@
 # colmena - Remote Deployment via SSH
 {
-  nixpkgs,
-  home-manager,
-  specialArgs,
+  inputs,
+  lib,
   nixos-modules,
-  home-module ? null,
-  host_tags,
-  targetUser ? specialArgs.username,
+  home-modules ? [],
+  system,
+  hostVars,
+  genSpecialArgs,
+  specialArgs ? (genSpecialArgs system),
+  tags,
+  ssh-user ? hostVars.username,
+  ...
 }: let
-  inherit (specialArgs) username;
+  inherit (inputs) home-manager;
 in
   {name, ...}: {
     deployment = {
-      inherit targetUser;
+      targetUser = ssh-user;
       targetHost = name; # hostName or IP address
-      tags = host_tags;
+      tags = tags;
     };
 
     imports =
       nixos-modules
       ++ (
-        if (home-module != null)
-        then [
+        lib.optionals ((lib.lists.length home-modules) > 0)
+        [
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "home-manager.backup";
 
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users."${username}" = home-module;
+            home-manager.extraSpecialArgs = specialArgs // { inherit hostVars; };
+            home-manager.users."${hostVars.username}".imports = home-modules;
           }
         ]
-        else []
       );
   }

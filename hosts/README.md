@@ -9,4 +9,7 @@
 3. `books`: linux laptops
    1. `air`: MacBook Air 13-inch M1 16G, my previous personal laptop with (Asahi NixOS config)
    2. `hp450`: HP Probook 450 G9 i7 32G, my former work laptop (NixOS)
+4. `clouds`: cloud/server deployments
+   1. `hetzner-tk`: Hetzner Cloud VPS (NixOS) - deployed via Colmena
+
 

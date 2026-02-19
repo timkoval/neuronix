@@ -52,7 +52,7 @@ in {
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
     git
-    # nushell # my custom shell
+    fish # my custom shell
     gnugrep # replacee macos's grep
     gnutar # replacee macos's tar
 
@@ -80,7 +80,7 @@ in {
   programs.zsh.enable = true;
   environment.shells = [
     pkgs.zsh
-    # pkgs.nushellFull # my custom shell
+    pkgs.fish # my custom shell
   ];
 
   # homebrew need to be installed manually, see https://brew.sh
@@ -109,7 +109,7 @@ in {
 
     taps = [
     #  "homebrew/cask-fonts"
-      "homebrew/services"
+    #  "homebrew/services"
     #  "homebrew/cask-versions"
 
       "hashicorp/tap"
@@ -118,6 +118,7 @@ in {
       "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
       "FelixKratz/formulae" # janky borders - highlight active window borders
       "mhaeuser/mhaeuser" # battery optimizer control
+      "anomalyco/tap" # opencode tap
     ];
 
     brews = [
@@ -159,6 +160,7 @@ in {
       "ical-buddy" # calendar cli helper
       "cairo" # 2d graphics lib
       # "battery-toolkit" # battery control
+      "opencode"
     ];
 
     # `brew install --cask`
@@ -184,6 +186,8 @@ in {
       #"zoom"
       # "moonlight" # remote desktop client
 #      "rustdesk"
+      "localsend" # file transfer tool
+      "gitbutler" # better git 
 
       # Misc
       "shadowsocksx-ng" # proxy tool
@@ -195,8 +199,10 @@ in {
       "font-zed-mono-nerd-font"
       "font-zed-sans"
       "font-open-sans"
+      "font-monaspace-nf"
       "vial" # keyboard firmware
       "aldente" # battery control
+      "ollama" # local LLMs management
 
       # Development
       # "mitmproxy" # HTTP/HTTPS traffic inspector

@@ -1,11 +1,14 @@
 {
   pkgs,
+  pkgs-unstable,
   nur-ryan4yin,
+  nur-timkoval,
   ...
 }: {
   home.packages = with pkgs; [
     neofetch
     ranger # terminal file manager(batteries included, with image preview support)
+    atuin # shell history sync
 
     colmena
 
@@ -78,15 +81,14 @@
     # it provides the command `nom` works just like `nix
     # with more details log output
     nix-output-monitor
-    # nodejs_18 # node for vscode-server
-    nodePackages.node2nix
 
     # productivity
     caddy # A webserver with automatic HTTPS via Let's Encrypt(replacement of nginx)
     croc # File transfer between computers securely and easily
-    hugo # static site generator
     glow # markdown previewer in terminal
-
+    md-tui
+    pkgs-unstable.github-copilot-cli # GitHub Copilot CLI tool
+    # nur-timkoval.packages.${pkgs.system}.openspec  # Commented out for servers - requires network access during build
   ];
 
   programs = {
@@ -149,7 +151,7 @@
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      enableNushellIntegration = true;
+      enableFishIntegration = true;
     };
 
     # Atuin replaces your existing shell history with a SQLite database,
@@ -160,7 +162,7 @@
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      enableNushellIntegration = true;
+      enableFishIntegration = true;
     };
   };
 }

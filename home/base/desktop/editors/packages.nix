@@ -34,11 +34,7 @@
             pyquery
             pyyaml
 
-            ## emacs's lsp-bridge dependenciesge
-            epc
             orjson
-            sexpdata
-            six
             setuptools
             paramiko
             rapidfuzz
@@ -104,7 +100,7 @@
 
       # -- Lisp like Languages
       guile
-      racket-minimal
+      # racket-minimal
       fnlfmt # fennel
 
       #-- Others

@@ -28,7 +28,6 @@ in {
   };
 
   home.shellAliases = shellAliases;
-  programs.nushell.shellAliases = shellAliases;
 
   programs = {
     neovim = {
@@ -37,6 +36,8 @@ in {
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
+
+      package = pkgs-unstable.neovim-unwrapped;
 
       # currently we use lazy.nvim as neovim's package manager, so comment this one.
       # Install packages that will compile locally or download FHS binaries via Nix!

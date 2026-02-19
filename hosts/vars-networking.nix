@@ -1,4 +1,4 @@
-{lib, ...}: rec {
+{lib}: rec {
   defaultGateway = "192.168.5.201";
   nameservers = [
     "119.29.29.29" # DNSPod
@@ -45,20 +45,20 @@
 
     # define the host key for remote builders so that nix can verify all the remote builders
     # this config will be written to /etc/ssh/ssh_known_hosts
-    knownHosts =
+    knownHosts = {};
       # Update only the values of the given attribute set.
       #
       #   mapAttrs
       #   (name: value: ("bar-" + value))
       #   { x = "a"; y = "b"; }
       #     => { x = "bar-a"; y = "bar-b"; }
-      lib.attrsets.mapAttrs
-      (host: value: {
-        hostNames = [host hostAddress.${host}.address];
-        publicKey = value.publicKey;
-      })
-      {
-        # aquamarine.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0EzzjnuHBE9xEOZupLmaAj9xbYxkUDeLbMqFZ7YPjU";
-      };
+      # lib.attrsets.mapAttrs
+      # (host: value: {
+      #   hostNames = [host hostAddress.${host}.address];
+      #   publicKey = value.publicKey;
+      # })
+      # {
+      #   aquamarine.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0EzzjnuHBE9xEOZupLmaAj9xbYxkUDeLbMqFZ7YPjU";
+      # };
   };
 }

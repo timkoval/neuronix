@@ -2,8 +2,7 @@
   config,
   lib,
   pkgs,
-  userfullname,
-  useremail,
+  hostVars,
   ...
 }: {
   # `programs.git` will generate the config file: ~/.config/git/config
@@ -25,14 +24,14 @@
     enable = true;
     lfs.enable = true;
 
-    userName = userfullname;
-    userEmail = useremail;
+    userName = hostVars.userfullname;
+    userEmail = hostVars.useremail;
 
     includes = [
       {
         # use diffrent email & name for work
-        path = "~/work/.gitconfig";
-        condition = "gitdir:~/work/";
+        path = "~/git-local/at/.gitconfig";
+        condition = "gitdir:~/git-local/at/";
       }
     ];
 

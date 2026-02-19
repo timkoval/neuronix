@@ -13,28 +13,33 @@ in {
     '';
   };
 
-  programs.nushell = {
-    # load the alias file for work
-    # the file must exist, otherwise nushell will complain about it!
-    #
-    # currently, nushell does not support conditional sourcing of files
-    # https://github.com/nushell/nushell/issues/8214
-    extraConfig = ''
-      # source /etc/agenix/alias-for-work.nushell
-      # completion
-      use ${nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu *
-      use ${nu_scripts}/share/nu_scripts/custom-completions/glow/glow-completions.nu *
-      use ${nu_scripts}/share/nu_scripts/custom-completions/just/just-completions.nu *
-      use ${nu_scripts}/share/nu_scripts/custom-completions/make/make-completions.nu *
-      use ${nu_scripts}/share/nu_scripts/custom-completions/man/man-completions.nu *
-      use ${nu_scripts}/share/nu_scripts/custom-completions/nix/nix-completions.nu *
-      use ${nu_scripts}/share/nu_scripts/custom-completions/cargo/cargo-completions.nu *
-      use ${nu_scripts}/share/nu_scripts/custom-completions/zellij/zellij-completions.nu *
-      # alias
-      # use ${nu_scripts}/share/nu_scripts/aliases/git/git-aliases.nu *
-      use ${nu_scripts}/share/nu_scripts/aliases/eza/eza-aliases.nu *
-      use ${nu_scripts}/share/nu_scripts/aliases/bat/bat-aliases.nu *
-      use ${nu_scripts}/share/nu_scripts/themes/nu-themes/gruvbox-light-medium.nu *
-    '';
-  };
+  # Fish configuration is in home/base/server/shells/
+  # Note: fish has excellent built-in completions, no need for nu_scripts equivalents
+
+  # Nushell configuration - currently disabled in favor of fish
+  # To re-enable: set programs.nushell.enable = true in home/base/server/shells/default.nix
+  # programs.nushell = {
+  #   # load the alias file for work
+  #   # the file must exist, otherwise nushell will complain about it!
+  #   #
+  #   # currently, nushell does not support conditional sourcing of files
+  #   # https://github.com/nushell/nushell/issues/8214
+  #   extraConfig = ''
+  #     # source /etc/agenix/alias-for-work.nushell
+  #     # completion
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu *
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/glow/glow-completions.nu *
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/just/just-completions.nu *
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/make/make-completions.nu *
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/man/man-completions.nu *
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/nix/nix-completions.nu *
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/cargo/cargo-completions.nu *
+  #     use ${nu_scripts}/share/nu_scripts/custom-completions/zellij/zellij-completions.nu *
+  #     # alias
+  #     # use ${nu_scripts}/share/nu_scripts/aliases/git/git-aliases.nu *
+  #     use ${nu_scripts}/share/nu_scripts/aliases/eza/eza-aliases.nu *
+  #     use ${nu_scripts}/share/nu_scripts/aliases/bat/bat-aliases.nu *
+  #     # use ${nu_scripts}/share/nu_scripts/themes/nu-themes/gruvbox-light-medium.nu *
+  #   '';
+  # };
 }

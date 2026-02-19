@@ -7,6 +7,7 @@
     description = "Neurogate - Custom Server Gateway";
 
     serviceConfig = {
+      WorkingDirectory = "/home/tkoval/neurogate";
       ExecStart = "/home/tkoval/neurogate/result/bin/neurogate --production";  # Path to your application
       # WorkingDirectory = "/path/to/your/project";  # Adjust this path if needed
       Restart = "always";  # Restart on failure

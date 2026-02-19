@@ -1,6 +1,7 @@
-theme = GruvboxLight
-font-family = "ZedMono Nerd Font Mono"
+theme = "Gruvbox Light"
+font-family = "Monaspace Neon NF"
 font-size = 14
 window-decoration = false
 background-opacity = 0.93
-command = "bash --login -c 'nu --login --interactive'"
+# Use absolute path to fish
+command = "/etc/profiles/per-user/tkoval/bin/fish"
