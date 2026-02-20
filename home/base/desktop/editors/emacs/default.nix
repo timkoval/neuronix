@@ -10,11 +10,11 @@
   config,
   lib,
   pkgs,
-  doomemacs,
   ...
-}:
+} @ args:
 with lib; let
   cfg = config.modules.editors.emacs;
+  doomemacs = args.doomemacs or null;
   envExtra = ''
     export PATH="${config.xdg.configHome}/emacs/bin:$PATH"
   '';
@@ -70,7 +70,7 @@ in {
       };
 
       home.activation.installDoomEmacs = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        ${pkgs.rsync}/bin/rsync -avz --chmod=D2755,F744 ${doomemacs}/ ${config.xdg.configHome}/emacs/
+        ${lib.optionalString (doomemacs != null) "${pkgs.rsync}/bin/rsync -avz --chmod=D2755,F744 ${doomemacs}/ ${config.xdg.configHome}/emacs/"}
 
         # librime for emacs-rime
         mkdir -p ${librime-dir}

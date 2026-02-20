@@ -8,6 +8,8 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0"
+    "emacs-pgtk-29.4"
+    "emacs-pgtk-with-packages-29.4"
   ];
 
   boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;

@@ -7,21 +7,19 @@
   useremail = "timkoval00@gmail.com";
 
   networking = import ../../vars-networking.nix {inherit lib;};
-  
+
   hostname = "hostname";
-  
+
   # Security
   # Generate with `mkpasswd -m scrypt` or import from a private file
-  # initialHashedPassword = "$7$CU..../....EXAMPLE_HASH_HERE";
-  
+  initialHashedPassword = "$7$CU..../..../hELzB4HHWG842OCf3Rb01$PfwC0y5b0j2dXBCnDwC9NJt0o.o2WBYjU56k8DbLXVD";
+
   # SSH keys - add your authorized keys here
-  # mainSshAuthorizedKeys = [
-  #   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyHere user@machine"
-  # ];
-  
+  mainSshAuthorizedKeys = [];
+
   # secondaryAuthorizedKeys = [
   #   # Add any secondary keys here
   # ];
-  
+
   # Add any other host-specific variables needed for your configuration
 }

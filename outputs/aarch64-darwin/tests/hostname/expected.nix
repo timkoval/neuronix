@@ -3,5 +3,5 @@
   outputs,
 }: {
   pro = "apple-pro";
-  procs = "Timurs-MacBook-Pro";
+  procs = "A0AL0175";
 }

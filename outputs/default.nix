@@ -90,9 +90,20 @@ in {
   evalTests = lib.lists.all (it: it.evalTests == {}) allSystemValues;
 
   checks = forAllSystems (
-    system: {
+    system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+      evalOk = allSystems.${system}.evalTests == {};
+    in {
       # eval-tests per system
-      eval-tests = allSystems.${system}.evalTests == {};
+      eval-tests =
+        pkgs.runCommand "eval-tests-${system}" {}
+        ''
+          if [ "${if evalOk then "1" else "0"}" != "1" ]; then
+            echo "eval-tests failed for ${system}" >&2
+            exit 1
+          fi
+          touch "$out"
+        '';
 
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
         src = mylib.relativeToRoot ".";

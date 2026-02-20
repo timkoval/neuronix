@@ -9,7 +9,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-  #  ../../../secrets/nixos.nix
+    #  ../../../secrets/nixos.nix
   ];
 
   nixpkgs.overlays = import ../../../overlays args;
@@ -47,7 +47,7 @@
     networkmanager.enable = true;
   };
 
-#  virtualisation.docker.storageDriver = "btrfs";
+  #  virtualisation.docker.storageDriver = "btrfs";
 
   # for Nvidia GPU
   services.xserver.videoDrivers = ["nvidia"]; # will install nvidia-vaapi-driver by default
@@ -63,25 +63,24 @@
 
     powerManagement.enable = true;
   };
-  virtualisation.docker.enableNvidia = true; # for nvidia-docker
+  hardware.nvidia-container-toolkit.enable = true; # for nvidia-docker
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    # if hardware.opengl.driSupport is enabled, mesa is installed and provides Vulkan for supported hardware.
-    driSupport = true;
     # needed by nvidia-docker
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
-  
-    boot.kernelModules = [ "88x2bu" ];
-  boot.extraModulePackages = [    
+
+  boot.kernelModules = ["88x2bu"];
+  boot.extraModulePackages = [
     (config.boot.kernelPackages.rtl88x2bu.overrideAttrs (old: {
-      prePatch = old.prePatch + ''
-        substituteInPlace Makefile --replace "CONFIG_CONCURRENT_MODE = n" "CONFIG_CONCURRENT_MODE = y"
-      '';
+      prePatch =
+        old.prePatch
+        + ''
+          substituteInPlace Makefile --replace "CONFIG_CONCURRENT_MODE = n" "CONFIG_CONCURRENT_MODE = y"
+        '';
     }))
   ];
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

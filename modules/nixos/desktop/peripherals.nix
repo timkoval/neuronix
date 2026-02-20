@@ -1,4 +1,8 @@
-{pkgs, pkgs-unstable, ...}: {
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   #============================= Audio(PipeWire) =======================
 
   # List packages installed in system profile. To search, run:
@@ -32,7 +36,7 @@
   # Disable pulseaudio, it conflicts with pipewire too.
   hardware.pulseaudio.enable = false;
 
-  # iphone usb tethering 
+  # iphone usb tethering
   services.usbmuxd.enable = true;
 
   #============================= Bluetooth =============================
@@ -59,13 +63,13 @@
     geoclue2.enable = true; # Enable geolocation services.
 
     udev.packages = with pkgs; [
-      gnome.gnome-settings-daemon
+      gnome-settings-daemon
       platformio # udev rules for platformio
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
       android-udev-rules # required by adb
       openfpgaloader
       qmk-udev-rules # for qmk keyboard
-    #  vial # for vial support
+      #  vial # for vial support
     ];
 
     # A key remapping daemon for linux.
