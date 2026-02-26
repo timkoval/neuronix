@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    neovim
+    # neovim is managed by programs.neovim in server/desktop editors modules
     git
     curl
     file
