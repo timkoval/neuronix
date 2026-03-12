@@ -12,11 +12,10 @@
   #
   ###################################################################################
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Allow unfree packages - set via nixpkgs.pkgs import in macosSystem.nix
+  # (nixpkgs.config cannot be set when using an externally created instance)
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # nix-daemon is managed automatically by nix-darwin in 25.11+
   nix.package = pkgs.nix;
 
   # Disable auto-optimise-store because of this issue:

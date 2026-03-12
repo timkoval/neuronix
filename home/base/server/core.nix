@@ -62,7 +62,7 @@
     gping # ping, but with a graph(TUI)
     doggo # DNS client for humans
     duf # Disk Usage/Free Utility - a better 'df' alternative
-    du-dust # A more intuitive version of `du` in rust
+    dust # A more intuitive version of `du` in rust
     # ncdu # analyzer your disk usage Interactively, via TUI(replacement of `du`)
     gdu # disk usage analyzer(replacement of `du`)
     act # github actions testing tool

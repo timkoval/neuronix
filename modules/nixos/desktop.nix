@@ -29,7 +29,6 @@ in {
       ####################################################################
       xdg.portal = {
         enable = true;
-        wlr.enable = true;
         extraPortals = with pkgs; [
           xdg-desktop-portal-wlr
         ];
@@ -66,17 +65,18 @@ in {
         gvfs.enable = true; # Mount, trash, and other functionalities
         tumbler.enable = true; # Thumbnail support for images
 
+        displayManager = {
+          autoLogin = {
+            enable = true;
+            user = hostVars.username;
+          };
+          # use a fake session to skip desktop manager
+          # and let Home Manager take care of the X session
+          defaultSession = "hm-session";
+        };
+
         xserver = {
           enable = true;
-          displayManager = {
-            autoLogin = {
-              enable = true;
-              user = hostVars.username;
-            };
-            # use a fake session to skip desktop manager
-            # and let Home Manager take care of the X session
-            defaultSession = "hm-session";
-          };
           desktopManager = {
             runXdgAutostartIfNone = true;
             session = [

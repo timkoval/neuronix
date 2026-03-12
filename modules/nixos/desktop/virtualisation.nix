@@ -26,7 +26,6 @@
       qemu.runAsRoot = true;
     };
     waydroid.enable = false;
-    lxd.enable = false;
   };
 
   environment.systemPackages = with pkgs; [

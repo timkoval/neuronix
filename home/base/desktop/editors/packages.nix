@@ -1,10 +1,4 @@
 {pkgs, ...}: {
-  nixpkgs.config = {
-    programs.npm.npmrc = ''
-      prefix = ''${HOME}/.npm-global
-    '';
-  };
-
   home.packages = with pkgs;
     [
       #-- c/c++
@@ -21,10 +15,9 @@
 
       #-- python
       pyright # python language server
-      (python311.withPackages (
+      (python3.withPackages (
         ps:
           with ps; [
-            ruff-lsp
             black # python formatter
 
             jupyter
@@ -91,7 +84,7 @@
       emmet-ls
 
       #-- CloudNative
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       # terraform  # install via brew on macOS
       terraform-ls
       jsonnet

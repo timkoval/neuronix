@@ -19,7 +19,7 @@ in {
     enable = true;
     enableCompletion = true;
     bashrcExtra = ''
-      export PATH="$PATH:${localBin}:${rustBin}:${npmBin}"
+      export PATH="$PATH:${localBin}:${rustBin}:${npmBin}:${opencodeBin}"
     '';
   };
 

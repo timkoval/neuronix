@@ -7,9 +7,7 @@
   nixpkgs.config.allowUnfree = lib.mkForce true;
 
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-    "emacs-pgtk-29.4"
-    "emacs-pgtk-with-packages-29.4"
+    # Add specific insecure packages here if needed after upgrade
   ];
 
   boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;

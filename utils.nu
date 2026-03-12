@@ -43,13 +43,14 @@ export def darwin-switch [
     name: string
     mode: string
 ] {
+    # nix-darwin 25.11+ requires system activation to run as root
     if "debug" == $mode {
-        ./result/sw/bin/darwin-rebuild switch --flake $".#($name)" --show-trace --verbose
+        sudo ./result/sw/bin/darwin-rebuild switch --flake $".#($name)" --show-trace --verbose
     } else {
-        ./result/sw/bin/darwin-rebuild switch --flake $".#($name)"
+        sudo ./result/sw/bin/darwin-rebuild switch --flake $".#($name)"
     }
 }
 
 export def darwin-rollback [] {
-    ./result/sw/bin/darwin-rebuild --rollback
+    sudo ./result/sw/bin/darwin-rebuild --rollback
 }

@@ -46,7 +46,7 @@
       experimentalGPUInstallMode = "replace";
       withRust = true;
     };
-    opengl.enable = true;
+    graphics.enable = true;
   };
 
 

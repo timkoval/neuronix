@@ -1,5 +1,8 @@
 {hostVars, ...}: {
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Required by nix-darwin 25.11+: set the primary user for user-specific system defaults
+  system.primaryUser = hostVars.username;
+
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users."${hostVars.username}" = {
     home = "/Users/${hostVars.username}";
 

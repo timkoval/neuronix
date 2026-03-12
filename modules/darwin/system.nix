@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, hostVars, ...}:
 ###################################################################################
 #
 #  macOS's System configuration
@@ -17,14 +17,15 @@
 ###################################################################################
 {
   # Add ability to used TouchID for sudo authentication
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   system = {
-    # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-    activationScripts.postUserActivation.text = ''
+    # activationScripts are executed as root in nix-darwin 25.11+.
+    # Use sudo -u to run activateSettings as the user.
+    activationScripts.postActivation.text = ''
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+      sudo -u ${hostVars.username} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
 
     defaults = {
@@ -36,7 +37,7 @@
         show-recents = false; # do not show recent apps in dock
         # do not automatically rearrange spaces based on most recent use.
         mru-spaces = false;
-        expose-group-by-app = true; # Group windows by application
+        expose-group-apps = true; # Group windows by application
 
         # customize Hot Corners(触发角, 鼠标移动到屏幕角落时触发的动作)
         wvous-tl-corner = 2; # top-left - Mission Control
@@ -188,18 +189,11 @@
       source-han-sans # 思源黑体
       source-han-serif # 思源宋体
 
-      # nerdfonts
-      # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/pkgs/data/fonts/nerdfonts/shas.nix
-      (nerdfonts.override {
-        fonts = [
-          # symbols icon only
-          "NerdFontsSymbolsOnly"
-          # Characters
-          "FiraCode"
-          "JetBrainsMono"
-          "Iosevka"
-        ];
-      })
+      # nerdfonts (individual packages since nixpkgs 24.11+)
+      nerd-fonts.symbols-only
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.iosevka
       julia-mono
       dejavu_fonts
     ];

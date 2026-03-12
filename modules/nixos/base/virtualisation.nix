@@ -17,7 +17,6 @@ in {
     {
       virtualisation = {
         waydroid.enable = false;
-        lxd.enable = false;
       };
     }
     // lib.mkIf cfg.enable {

@@ -2,6 +2,7 @@
   pkgs,
   pkgs-unstable,
   ghostty,
+  devenv,
   ...
 }: {
   #############################################################
@@ -17,7 +18,7 @@
 
   home.packages = with pkgs;
     [
-      pkgs-unstable.devenv # development environment manager
+      devenv.packages."${pkgs.system}".default
 
       # db related
       # mycli
