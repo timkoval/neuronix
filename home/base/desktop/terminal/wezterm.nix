@@ -12,9 +12,7 @@
 #
 ###########################################################
 {
-  # wezterm has catppuccin theme built-in,
-  # it's not necessary to install it separately.
-
+  # Color scheme is managed by Stylix.
   # we can add wezterm as a flake input once this PR is merged:
   #    https://github.com/wez/wezterm/pull/3547
 
@@ -58,7 +56,7 @@
         end)
 
         -- This is where you actually apply your config choices
-        config.color_scheme = "Catppuccin Mocha"
+        -- color_scheme is managed by Stylix
         config.font = wezterm.font_with_fallback {
           "JetBrainsMono Nerd Font",
           "FiraCode Nerd Font",

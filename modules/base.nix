@@ -1,8 +1,45 @@
 {
+  pkgs,
   hostVars,
   nuenv,
   ...
 } @ args: {
+  # ── Stylix: system-wide theming via base16 ──────────────────────────────
+  stylix = {
+    enable = true;
+    autoEnable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-medium.yaml";
+    polarity = "light";
+
+    # A wallpaper image is required by Stylix (especially on NixOS).
+    # Use a simple solid-color placeholder; the base16 scheme defines the palette.
+    image = pkgs.runCommand "wallpaper.png" { nativeBuildInputs = [pkgs.imagemagick]; } ''
+      magick -size 1920x1080 xc:#fbf1c7 $out
+    '';
+
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+      serif = {
+        package = pkgs.source-han-serif;
+        name = "Source Han Serif SC";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
+
+    # Per-app target overrides are set in home-manager modules where needed.
+    # Neovim theming is disabled in the neovim HM module since it's managed by neuronvim.
+  };
+
   nixpkgs.overlays =
     [
       nuenv.overlays.default

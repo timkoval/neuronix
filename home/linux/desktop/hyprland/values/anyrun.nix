@@ -1,8 +1,17 @@
 {
   pkgs,
+  config,
   anyrun,
   ...
-}: {
+}: let
+  colors = config.lib.stylix.colors;
+  # Convert base16 hex to rgba() with opacity for translucent UI elements
+  hexToRgba = hex: alpha: let
+    r = builtins.fromTOML "v = 0x${builtins.substring 0 2 hex}";
+    g = builtins.fromTOML "v = 0x${builtins.substring 2 2 hex}";
+    b = builtins.fromTOML "v = 0x${builtins.substring 4 2 hex}";
+  in "rgba(${toString r.v}, ${toString g.v}, ${toString b.v}, ${alpha})";
+in {
   programs.anyrun = {
     enable = true;
     config = {
@@ -21,14 +30,14 @@
       closeOnClick = true;
     };
 
-    # custom css for anyrun, based on catppuccin-mocha
+    # Custom CSS for anyrun, themed by Stylix
     extraCss = ''
-      @define-color bg-col  rgba(30, 30, 46, 0.7);
-      @define-color bg-col-light rgba(150, 220, 235, 0.7);
-      @define-color border-col rgba(30, 30, 46, 0.7);
-      @define-color selected-col rgba(150, 205, 251, 0.7);
-      @define-color fg-col #D9E0EE;
-      @define-color fg-col2 #F28FAD;
+      @define-color bg-col  ${hexToRgba colors.base00 "0.7"};
+      @define-color bg-col-light ${hexToRgba colors.base0C "0.7"};
+      @define-color border-col ${hexToRgba colors.base00 "0.7"};
+      @define-color selected-col ${hexToRgba colors.base0D "0.7"};
+      @define-color fg-col ${colors.withHashtag.base05};
+      @define-color fg-col2 ${colors.withHashtag.base08};
 
       * {
         transition: 200ms ease;
@@ -52,13 +61,13 @@
         background-color: @bg-col;
       }
 
-      /* anyrun's ouput matches entries - Base */
+      /* anyrun's output matches entries - Base */
       #match {
         color: @fg-col;
         background: @bg-col;
       }
 
-      /* anyrun's selected entry - Red */
+      /* anyrun's selected entry */
       #match:selected {
         color: @fg-col2;
         background: @selected-col;
@@ -74,7 +83,7 @@
       }
 
       box#main {
-        background: rgba(30, 30, 46, 0.7);
+        background: ${hexToRgba colors.base00 "0.7"};
         border: 1px solid @border-col;
         border-radius: 15px;
         padding: 5px;

@@ -1,8 +1,7 @@
-@import "mocha.css";
+/* Color palette is managed by Stylix */
 
 * {
   /* https://docs.gtk.org/gtk3/css-overview.html#colors */
-  color: @text;
   font-family: "JetBrainsMono Nerd Font";
   font-size: 12pt;
   font-weight: bold;

@@ -18,7 +18,8 @@ let
     vdiff = "nvim -d";
   };
 in {
-
+  # Neovim theme is managed externally by neuronvim, not Stylix
+  stylix.targets.neovim.enable = false;
 
   xdg.configFile = {
     "nvim" = {

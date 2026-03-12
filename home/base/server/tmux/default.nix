@@ -6,15 +6,9 @@ let
 in {
   programs.tmux = {
     enable = true;
+    # Theme is managed by Stylix
     plugins = with pkgs;
       [
-        # must be before continuum edits right status bar
-        {
-          plugin = tmuxPlugins.gruvbox;
-          extraConfig = '' 
-            set -g @tmux-gruvbox 'light'
-          '';
-        }
         {
           plugin = tmuxPlugins.vim-tmux-navigator;
           extraConfig = ''

@@ -2524,4 +2524,4 @@ config.bind('S', 'forward')
 # config.bind('Y', 'prompt-accept --save yes', mode='yesno')
 # config.bind('n', 'prompt-accept no', mode='yesno')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
-config.source(pathlib.Path.home() / '.config/qutebrowser/gruvbox.py')
+# Theme colors are managed by Stylix

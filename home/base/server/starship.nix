@@ -1,8 +1,4 @@
-{
-  pkgs,
-  nur-ryan4yin,
-  ...
-}: {
+{pkgs, ...}: {
   programs.starship = {
     enable = true;
 
@@ -25,9 +21,6 @@
         #   format = "on [$symbol$active(\($region\))]($style) ";
         #   symbol = "🅶 ️";
         # };
-        #
-        # palette = "catppuccin_mocha";
       };
-      # // builtins.fromTOML (builtins.readFile "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-starship}/palettes/mocha.toml");
   };
 }

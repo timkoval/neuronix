@@ -1,7 +1,6 @@
 {
   pkgs,
   pkgs-unstable,
-  nur-ryan4yin,
   nur-timkoval,
   ...
 }: {

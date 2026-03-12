@@ -9,7 +9,7 @@
   specialArgs ? (genSpecialArgs system),
   ...
 }: let
-  inherit (inputs) nixpkgs-darwin home-manager nix-darwin;
+  inherit (inputs) nixpkgs-darwin home-manager nix-darwin stylix;
 in
   nix-darwin.lib.darwinSystem {
     inherit system;
@@ -27,6 +27,7 @@ in
             config.allowUnfree = true;
           };
         })
+        stylix.darwinModules.stylix
       ]
       ++ (
         lib.optionals ((lib.lists.length home-modules) > 0)
