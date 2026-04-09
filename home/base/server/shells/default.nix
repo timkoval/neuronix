@@ -31,6 +31,7 @@ in {
       # when fish is launched directly by terminals (ghostty, kitty, etc.)
       set -gx PATH /etc/profiles/per-user/$USER/bin $PATH
       set -gx PATH /nix/var/nix/profiles/default/bin $PATH
+      set -gx PATH /run/wrappers/bin $PATH
       set -gx PATH /run/current-system/sw/bin $PATH
 
       # Personal tools (opencode, etc.)
@@ -49,4 +50,3 @@ in {
   };
 
 }
-
