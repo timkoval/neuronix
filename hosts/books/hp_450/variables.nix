@@ -7,7 +7,7 @@
 
   hostname = "tk-elitebook";
 
-  initialHashedPassword = "$7$CU..../..../hELzB4HHWG842OCf3Rb01$PfwC0y5b0j2dXBCnDwC9NJt0o.o2WBYjU56k8DbLXVD";
+  initialHashedPassword = "$y$j9T$WIHgmW9kWHpdWlzfE0FxE.$P80ipWW4AP1IXPXioOQrIerrvHGXST3wipdThnQ/7p9";
 
   mainSshAuthorizedKeys = [];
 }

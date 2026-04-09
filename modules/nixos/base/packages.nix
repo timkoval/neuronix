@@ -18,7 +18,7 @@ in {
         let
           base = pkgs.appimageTools.defaultFhsEnvArgs;
         in
-          pkgs.buildFHSUserEnv (base
+          pkgs.buildFHSEnv (base
             // {
               name = "fhs";
               targetPkgs = pkgs: (base.targetPkgs pkgs) ++ [pkgs.pkg-config];

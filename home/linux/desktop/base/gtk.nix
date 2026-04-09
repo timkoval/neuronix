@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   # If your themes for mouse cursor, icons or windows don’t load correctly,
@@ -29,12 +30,6 @@
   #   3. ~/.config/gtk-4.0/settings.ini
   gtk = {
     enable = true;
-
-    font = {
-      name = "Noto Sans";
-      package = pkgs.noto-fonts;
-      size = 11;
-    };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
