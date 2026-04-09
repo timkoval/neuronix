@@ -33,40 +33,11 @@ in {
       set -gx PATH /nix/var/nix/profiles/default/bin $PATH
       set -gx PATH /run/current-system/sw/bin $PATH
 
-      function opencode --wraps=opencode --description 'Run OpenCode inside devenv (works from any nested subdir)'
-          # 1. Fast path: git root (most projects)
-          set -l root ""
-          if command -q git
-              set root (git rev-parse --show-toplevel 2>/dev/null)
-          end
+      # Personal tools (opencode, etc.)
+      fish_add_path -g ${opencodeBin}
 
-          if test -n "$root" -a \( -f "$root/devenv.nix" -o -f "$root/flake.nix" -o -f "$root/.envrc" \)
-              if test "$root" != $PWD
-                  echo (set_color cyan)"→ Launching OpenCode inside devenv (root: $root)"(set_color normal) >&2
-              end
-              pushd "$root" >/dev/null
-              devenv shell -- command opencode $argv   # ← this is the only changed line
-              set -l exit_code $status
-              popd >/dev/null
-              return $exit_code
-          end
-
-          # 2. Fallback: walk up the directory tree
-          set -l dir $PWD
-          while test "$dir" != /
-              if test -f "$dir/devenv.nix" -o -f "$dir/flake.nix" -o -f "$dir/.envrc"
-                  echo (set_color cyan)"→ Launching OpenCode inside devenv (root: $dir)"(set_color normal) >&2
-                  pushd "$dir" >/dev/null
-                  devenv shell -- command opencode $argv   # ← this is the only changed line
-                  set -l exit_code $status
-                  popd >/dev/null
-                  return $exit_code
-              end
-              set dir (dirname "$dir")
-          end
-
-          # 3. No devenv found → run normal opencode
-          command opencode $argv
+      function opencode
+          direnv exec $PWD ${opencodeBin}/opencode $argv
       end
     '';
   };

@@ -10,7 +10,7 @@
 
   hostVars = import (mylib.relativeToRoot "hosts/books/hp_450/variables.nix") {inherit lib;};
 
-  modules = {
+  base-modules = {
     nixos-modules = map mylib.relativeToRoot [
       "modules/nixos/desktop.nix"
       "hosts/books/hp_450"
@@ -21,7 +21,26 @@
     ];
   };
 
-  systemArgs = modules // args // {inherit hostVars;};
+  modules-hyprland = {
+    nixos-modules =
+      [
+        {
+          modules.desktop.wayland.enable = true;
+        }
+      ]
+      ++ base-modules.nixos-modules;
+    home-modules =
+      [
+        {
+          modules.desktop.hyprland.enable = true;
+        }
+      ]
+      ++ base-modules.home-modules;
+  };
+
+  hyprlandArgs = modules-hyprland // args // {inherit hostVars;};
 in {
-  nixosConfigurations.${name} = mylib.nixosSystem systemArgs;
+  nixosConfigurations = {
+    "${name}-hyprland" = mylib.nixosSystem hyprlandArgs;
+  };
 }
