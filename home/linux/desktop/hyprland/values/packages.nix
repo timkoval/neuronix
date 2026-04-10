@@ -16,7 +16,7 @@
     pkgs-unstable.hyprshot # screen shot
     grim # taking screenshots
     slurp # selecting a region to screenshot
-    wf-recorder # creen recording
+    wf-recorder # screen recording
 
     mako # the notification daemon, the same as dunst
 
@@ -25,7 +25,7 @@
     # audio
     alsa-utils # provides amixer/alsamixer/...
     mpd # for playing system sounds
-    mpc-cli # command-line mpd client
+    mpc # command-line mpd client
     ncmpcpp # a mpd client with a UI
     networkmanagerapplet # provide GUI app: nm-connection-editor
   ];

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+wall="/run/current-system/sw/share/hypr/wall0.png"
+
+hyprctl hyprpaper preload "$wall"
+hyprctl hyprpaper wallpaper ",$wall"
+hyprctl hyprpaper unload unused

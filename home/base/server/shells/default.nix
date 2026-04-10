@@ -1,4 +1,8 @@
-{ pkgs, config, ... }: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   shellAliases = {
     k = "kubectl";
 
@@ -13,7 +17,6 @@
 in {
   # only works in bash/zsh, not nushell
   home.shellAliases = shellAliases;
-
 
   programs.bash = {
     enable = true;
@@ -31,8 +34,8 @@ in {
       # when fish is launched directly by terminals (ghostty, kitty, etc.)
       set -gx PATH /etc/profiles/per-user/$USER/bin $PATH
       set -gx PATH /nix/var/nix/profiles/default/bin $PATH
-      set -gx PATH /run/wrappers/bin $PATH
       set -gx PATH /run/current-system/sw/bin $PATH
+      set -gx PATH /run/wrappers/bin $PATH
 
       # Personal tools (opencode, etc.)
       fish_add_path -g ${opencodeBin}
@@ -48,5 +51,4 @@ in {
     configFile.source = ./config.nu;
     shellAliases = shellAliases;
   };
-
 }

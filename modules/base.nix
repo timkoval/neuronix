@@ -12,10 +12,8 @@
     polarity = "light";
 
     # A wallpaper image is required by Stylix (especially on NixOS).
-    # Use a simple solid-color placeholder; the base16 scheme defines the palette.
-    image = pkgs.runCommand "wallpaper.png" { nativeBuildInputs = [pkgs.imagemagick]; } ''
-      magick -size 1920x1080 xc:#fbf1c7 $out
-    '';
+    # Use Hyprland's bundled default wallpaper for now.
+    image = "${pkgs.hyprland}/share/hypr/wall0.png";
 
     fonts = {
       monospace = {

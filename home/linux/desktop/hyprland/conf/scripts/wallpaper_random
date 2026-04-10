@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+wall_dir="/run/current-system/sw/share/hypr"
+wall_list=(
+  "$wall_dir/wall0.png"
+  "$wall_dir/wall1.png"
+  "$wall_dir/wall2.png"
+)
+
+wall="${wall_list[RANDOM % ${#wall_list[@]}]}"
+
+hyprctl hyprpaper preload "$wall"
+hyprctl hyprpaper wallpaper ",$wall"
+hyprctl hyprpaper unload unused
