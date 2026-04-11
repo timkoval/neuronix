@@ -46,6 +46,7 @@
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend-then-hibernate";
     HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitchDocked = "ignore";
   };
   services.power-profiles-daemon = {
     enable = lib.mkForce false;

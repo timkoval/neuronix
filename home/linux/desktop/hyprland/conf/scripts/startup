@@ -2,11 +2,23 @@
 
 ## Autostart Programs
 
+SHELL_BACKEND="${NEURONIX_SHELL_BACKEND:-classic}"
+QS_CONFIG_DIR="$HOME/.config/hypr/scripts/quickshell"
+QS_MAIN="$QS_CONFIG_DIR/Main.qml"
+QS_BAR="$QS_CONFIG_DIR/TopBar.qml"
+LOG_FILE="$HOME/.cache/hypr-startup.log"
+
+mkdir -p "$HOME/.cache"
+{
+  echo "=== $(date -Iseconds) startup begin ==="
+  echo "backend=$SHELL_BACKEND"
+} >> "$LOG_FILE"
+
 # Kill already running process
-_ps=(waybar mako mpd)
+_ps=(waybar mako mpd qs quickshell)
 for _prs in "${_ps[@]}"; do
-	if [[ $(pidof ${_prs}) ]]; then
-		killall -9 ${_prs}
+	if pgrep -x "${_prs}" >/dev/null 2>&1; then
+		killall "${_prs}" >/dev/null 2>&1 || true
 	fi
 done
 
@@ -14,11 +26,28 @@ done
 # it will by start by home-manager automatically, do not need to restart it here.
 # systemctl --user restart wallpaper.service
 
-# Lauch notification daemon (mako)
+# Launch notification daemon (mako)
 ~/.config/hypr/scripts/notifications &
 
-# Lauch statusbar (waybar)
-~/.config/hypr/scripts/statusbar &
+if [[ "${SHELL_BACKEND}" == "quickshell" ]]; then
+	if [[ ! -f "$QS_MAIN" || ! -f "$QS_BAR" ]]; then
+		echo "missing config in $QS_CONFIG_DIR" >> "$LOG_FILE"
+		notify-send "Quickshell config missing in $QS_CONFIG_DIR"
+	elif command -v quickshell >/dev/null 2>&1; then
+		quickshell -p "$QS_MAIN" >> "$LOG_FILE" 2>&1 &
+		quickshell -p "$QS_BAR" >> "$LOG_FILE" 2>&1 &
+	elif command -v qs >/dev/null 2>&1; then
+		qs -p "$QS_MAIN" >> "$LOG_FILE" 2>&1 &
+		qs -p "$QS_BAR" >> "$LOG_FILE" 2>&1 &
+	else
+		echo "no quickshell binary found" >> "$LOG_FILE"
+		notify-send "quickshell binary is not installed"
+	fi
+
+else
+	# Launch statusbar (waybar)
+	~/.config/hypr/scripts/statusbar &
+fi
 
 # Start mpd
 exec mpd &

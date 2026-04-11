@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   xdg.configFile."ghostty/config".text = ''
-    font-family = "ZedMono Nerd Font Mono"
+    font-family = "JetBrainsMono Nerd Font"
     font-size = 14
     window-decoration = false
     background-opacity = 0.93

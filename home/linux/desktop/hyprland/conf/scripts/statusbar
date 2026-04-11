@@ -2,6 +2,12 @@
 
 ## launch waybar with alt config
 
+set -euo pipefail
+
+if [[ "${NEURONIX_SHELL_BACKEND:-classic}" != "classic" ]]; then
+	exit 0
+fi
+
 CONFIG="$HOME/.config/hypr/waybar/config.jsonc"
 STYLE="$HOME/.config/hypr/waybar/style.css"
 

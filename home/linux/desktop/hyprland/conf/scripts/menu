@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-walker
+if command -v walker >/dev/null 2>&1; then
+  exec walker
+fi
+
+notify-send "walker is not installed"
