@@ -3,38 +3,51 @@
 # Debounce
 sleep 0.1
 
-# Kill any child listening jobs on exit so we don't spawn infinite zombies
-trap 'kill $(jobs -p) 2>/dev/null' EXIT
+# Track all spawned PIDs
+CHILD_PIDS=()
 
-# Wrap each listener in a subshell that sleeps infinitely if the command fails.
+cleanup() {
+    for pid in "${CHILD_PIDS[@]}"; do
+        # Kill entire process group started by setsid
+        kill -- -"$pid" 2>/dev/null
+        kill "$pid" 2>/dev/null
+    done
+}
+trap cleanup EXIT SIGTERM SIGINT
 
-# 1. Native Pipewire Volume Waiter (Bulletproof on Arch)
+# Helper: spawn a listener in its own process group via setsid
+spawn() {
+    setsid "$@" &
+    CHILD_PIDS+=($!)
+}
+
+# 1. Pipewire Volume Waiter
 if command -v pw-mon &>/dev/null; then
-    ( pw-mon 2>/dev/null | grep --line-buffered -E "changed|added|removed" | head -n 1 || sleep infinity ) &
+    spawn bash -c 'exec pw-mon 2>/dev/null | grep --line-buffered -E "changed|added|removed" | head -n 1'
 else
-    ( pactl subscribe 2>/dev/null | grep --line-buffered -E "Event 'change' on sink" | head -n 1 || sleep infinity ) &
+    spawn bash -c 'exec pactl subscribe 2>/dev/null | grep --line-buffered -E "Event '\''change'\'' on sink" | head -n 1'
 fi
 
-# 2. Native D-Bus Music Waiter (Never crashes, even if no players are open)
-( dbus-monitor --session "type='signal',interface='org.freedesktop.DBus.Properties',path_namespace='/org/mpris/MediaPlayer2'" 2>/dev/null | grep --line-buffered "string" | head -n 1 || sleep infinity ) &
+# 2. D-Bus Music Waiter
+spawn bash -c 'exec dbus-monitor --session "type='\''signal'\'',interface='\''org.freedesktop.DBus.Properties'\'',path_namespace='\''/org/mpris/MediaPlayer2'\''" 2>/dev/null | grep --line-buffered "string" | head -n 1'
 
 # 3. Network
-( nmcli monitor 2>/dev/null | grep --line-buffered -E "connected|disconnected|unavailable|enabled|disabled" | head -n 1 || sleep infinity ) &
+spawn bash -c 'exec nmcli monitor 2>/dev/null | grep --line-buffered -E "connected|disconnected|unavailable|enabled|disabled" | head -n 1'
 
-# 4. Bluetooth 
-( dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',arg0='org.bluez.Device1'" 2>/dev/null | grep --line-buffered "interface" | head -n 1 || sleep infinity ) &
+# 4. Bluetooth
+spawn bash -c 'exec dbus-monitor --system "type='\''signal'\'',interface='\''org.freedesktop.DBus.Properties'\'',member='\''PropertiesChanged'\'',arg0='\''org.bluez.Device1'\''" 2>/dev/null | grep --line-buffered "interface" | head -n 1'
 
 # 5. Battery
-( udevadm monitor --subsystem-match=power_supply 2>/dev/null | grep --line-buffered "change" | head -n 1 || sleep infinity ) &
+spawn bash -c 'exec udevadm monitor --subsystem-match=power_supply 2>/dev/null | grep --line-buffered "change" | head -n 1'
 
-# 6. Workspaces
-( socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - 2>/dev/null | grep --line-buffered "activelayout" | head -n 1 || sleep infinity ) &
+# 6. Workspaces / Layout changes
+spawn bash -c 'exec socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - 2>/dev/null | grep --line-buffered "activelayout" | head -n 1'
 
-# Failsafe: Force a silent UI refresh every 60 seconds just in case an event is missed
+# Failsafe: 60 second timeout
 sleep 60 &
+CHILD_PIDS+=($!)
 
-# Wait for the *first* background job to successfully complete an event
+# Wait for the first to complete
 wait -n
 
-# Output a signal to ensure Quickshell's StdioCollector registers the stream completion
 echo "trigger"

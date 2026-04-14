@@ -1,28 +1,24 @@
 {
   pkgs,
+  pkgs-unstable,
   lib,
   config,
   ...
 }: let
   cfg = config.modules.desktop.hyprland;
+  wcfg = config.modules.desktop.wayland;
   colors = config.lib.stylix.colors.withHashtag;
 in {
-  # NOTE:
-  # We have to enable hyprland/i3's systemd user service in home-manager,
-  # so that gammastep/wallpaper-switcher's user service can be start correctly!
-  # they are all depending on hyprland/i3's user graphical-session
   wayland.windowManager.hyprland = {
     enable = true;
-    # Hyprland colors are managed by Stylix
     settings = {
       env = [
-        "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
-        "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
+        "NIXOS_OZONE_WL,1"
+        "MOZ_ENABLE_WAYLAND,1"
         "MOZ_WEBRENDER,1"
-        "NEURONIX_SHELL_BACKEND,${cfg.shell.backend}"
-        "NEURONIX_IDLE_BACKEND,${cfg.idle.backend}"
-        "NEURONIX_SCREENSHOT_ANNOTATOR,${cfg.screenshot.annotator}"
-        # misc
+        "NEURONIX_SHELL_BACKEND,${wcfg.shell.backend}"
+        "NEURONIX_IDLE_BACKEND,${wcfg.idle.backend}"
+        "NEURONIX_SCREENSHOT_ANNOTATOR,${wcfg.screenshot.annotator}"
         "_JAVA_AWT_WM_NONREPARENTING,1"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "QT_QPA_PLATFORM,wayland"
@@ -32,11 +28,10 @@ in {
     };
     package = pkgs.hyprland;
     extraConfig = builtins.readFile ../conf/hyprland.conf;
-    # gammastep/wallpaper-switcher need this to be enabled.
     systemd.enable = true;
   };
 
-  services.hypridle = lib.mkIf (cfg.idle.backend == "hypridle") {
+  services.hypridle = lib.mkIf (wcfg.idle.backend == "hypridle") {
     enable = true;
     settings = {
       general = {
@@ -56,230 +51,29 @@ in {
     };
   };
 
-  services.walker = {
-    enable = true;
-    systemd.enable = true;
-    settings = {
-      close_when_open = true;
-      search.placeholder = "Search apps, files, commands...";
-      list = {
-        max_entries = 12;
-        show_initial_entries = true;
-      };
-      builtins.switcher.prefix = "/";
-    };
-
-    theme = {
-      name = "stylix";
-      layout = {
-        ui.anchors = {
-          bottom = true;
-          left = true;
-          right = true;
-          top = true;
-        };
-        ui.window = {
-          h_align = "fill";
-          v_align = "fill";
-          box = {
-            h_align = "center";
-            width = 680;
-            margins.top = 130;
-            search.spacing = 10;
-            scroll.list = {
-              max_height = 520;
-              min_width = 620;
-              width = 620;
-              margins.top = 10;
-            };
-          };
-        };
-      };
-
-      style = ''
-        #window,
-        #box,
-        #aiScroll,
-        #aiList,
-        #search,
-        #password,
-        #input,
-        #prompt,
-        #clear,
-        #typeahead,
-        #list,
-        child,
-        scrollbar,
-        slider,
-        #item,
-        #text,
-        #label,
-        #bar,
-        #sub,
-        #activationlabel {
-          all: unset;
-        }
-
-        * {
-          font-family: "JetBrainsMono Nerd Font";
-          font-size: 15px;
-        }
-
-        #window {
-          color: ${colors.base05};
-        }
-
-        #box {
-          background: alpha(${colors.base00}, 0.92);
-          border: 1px solid ${colors.base02};
-          border-radius: 14px;
-          box-shadow:
-            0 12px 28px alpha(#000000, 0.35),
-            0 2px 8px alpha(#000000, 0.22);
-          padding: 20px;
-        }
-
-        #search {
-          background: ${colors.base01};
-          border: 1px solid ${colors.base02};
-          border-radius: 10px;
-          padding: 10px 12px;
-        }
-
-        #prompt {
-          color: ${colors.base0D};
-          margin-right: 10px;
-        }
-
-        #clear {
-          color: ${colors.base08};
-        }
-
-        #input,
-        #typeahead {
-          color: ${colors.base05};
-        }
-
-        #input placeholder {
-          color: ${colors.base04};
-        }
-
-        child {
-          border-radius: 10px;
-          margin: 3px 0;
-          padding: 10px 12px;
-        }
-
-        child:selected,
-        child:hover {
-          background: alpha(${colors.base0D}, 0.22);
-        }
-
-        #label {
-          font-weight: 600;
-        }
-
-        #sub {
-          color: ${colors.base04};
-          font-size: 0.85em;
-        }
-
-        #activationlabel {
-          color: ${colors.base0A};
-        }
-      '';
-    };
-  };
-
-  # NOTE: this executable is used by greetd to start a wayland session when system boot up
-  # with such a vendor-no-locking script, we can switch to another wayland compositor without modifying greetd's config in NixOS module
   home.file.".wayland-session" = {
     source = "${pkgs.hyprland}/bin/Hyprland";
     executable = true;
   };
 
-  # hyprland configs, based on https://github.com/notwidow/hyprland
+  home.packages = [
+    pkgs.hyprpicker
+    pkgs-unstable.hyprshot
+  ];
+
   xdg.configFile =
     {
-      # ── Mako (notification daemon) ──
-      # Icons stay as static files; config is generated with Stylix colors
-      "hypr/mako/icons" = {
-        source = ../conf/mako/icons;
-        recursive = true;
-      };
-      "hypr/mako/config".text = ''
-        ## Mako configuration file
-
-        # GLOBAL CONFIGURATION OPTIONS
-        max-history=100
-        sort=-time
-
-        # BINDING OPTIONS
-        on-button-left=dismiss
-        on-button-middle=none
-        on-button-right=dismiss-all
-        on-touch=dismiss
-        on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
-
-        # STYLE OPTIONS
-        font=JetBrains Mono 10
-        width=300
-        height=100
-        margin=10
-        padding=15
-        border-size=2
-        border-radius=0
-        icons=1
-        max-icon-size=48
-        icon-location=left
-        markup=1
-        actions=1
-        history=1
-        text-alignment=left
-        default-timeout=5000
-        ignore-timeout=0
-        max-visible=5
-        layer=overlay
-        anchor=top-right
-
-        background-color=${colors.base00}
-        text-color=${colors.base05}
-        border-color=${colors.base02}
-        progress-color=over ${colors.base0D}
-
-        [urgency=low]
-        border-color=${colors.base02}
-        default-timeout=2000
-
-        [urgency=normal]
-        border-color=${colors.base02}
-        default-timeout=5000
-
-        [urgency=high]
-        border-color=${colors.base08}
-        text-color=${colors.base08}
-        default-timeout=0
-
-        [category=mpd]
-        border-color=${colors.base0A}
-        default-timeout=2000
-        group-by=category
-      '';
-
-      # ── Scripts ──
       "hypr/scripts" = {
         source = ../conf/scripts;
         recursive = true;
       };
     }
-    // lib.mkIf (cfg.shell.backend == "classic") {
-      # ── Waybar ──
-      # Non-CSS files stay static; style.css is generated with Stylix colors
+    // lib.optionalAttrs (wcfg.shell.backend == "classic") {
       "hypr/waybar/config.jsonc" = {
         source = ../conf/waybar/config.jsonc;
       };
       "hypr/waybar/style.css".text = ''
-        /* Color palette managed by Stylix — Gruvbox Light Medium */
+        /* Color palette managed by Stylix */
         @define-color base00 ${colors.base00};
         @define-color base01 ${colors.base01};
         @define-color base02 ${colors.base02};
@@ -448,76 +242,5 @@ in {
           color: @base0D;
         }
       '';
-    }
-    // {
-      # ── Wlogout ──
-      # Icons and layout stay static; style.css is generated with Stylix colors
-      "hypr/wlogout/icons" = {
-        source = ../conf/wlogout/icons;
-        recursive = true;
-      };
-      "hypr/wlogout/layout" = {
-        source = ../conf/wlogout/layout;
-      };
-      "hypr/wlogout/style.css".text = ''
-        /** ********** Fonts ********** **/
-        * {
-            font-family: "JetBrainsMono Nerd Font", sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        /** ********** Main Window ********** **/
-        window {
-          background-color: ${colors.base00};
-        }
-
-        /** ********** Buttons ********** **/
-        button {
-          background-color: ${colors.base01};
-            color: ${colors.base05};
-          border: 2px solid ${colors.base02};
-          border-radius: 20px;
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 35%;
-        }
-
-        button:focus, button:active, button:hover {
-          background-color: ${colors.base0D};
-          outline-style: none;
-        }
-
-        /** ********** Icons ********** **/
-        #lock {
-            background-image: image(url("icons/lock.png"), url("/usr/share/wlogout/icons/lock.png"));
-        }
-
-        #logout {
-            background-image: image(url("icons/logout.png"), url("/usr/share/wlogout/icons/logout.png"));
-        }
-
-        #suspend {
-            background-image: image(url("icons/suspend.png"), url("/usr/share/wlogout/icons/suspend.png"));
-        }
-
-        #hibernate {
-            background-image: image(url("icons/hibernate.png"), url("/usr/share/wlogout/icons/hibernate.png"));
-        }
-
-        #shutdown {
-            background-image: image(url("icons/shutdown.png"), url("/usr/share/wlogout/icons/shutdown.png"));
-        }
-
-        #reboot {
-            background-image: image(url("icons/reboot.png"), url("/usr/share/wlogout/icons/reboot.png"));
-        }
-      '';
-
-      # music player - mpd
-      "mpd" = {
-        source = ../conf/mpd;
-        recursive = true;
-      };
     };
 }

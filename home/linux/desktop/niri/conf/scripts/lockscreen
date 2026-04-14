@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ "${NEURONIX_IDLE_BACKEND:-swayidle}" == "swayidle" ]] && command -v swayidle >/dev/null 2>&1; then
+  swayidle timeout 300 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' &
+  swaylock
+  kill %%
+  exit 0
+fi
+
+swaylock

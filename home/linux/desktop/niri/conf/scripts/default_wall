@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+wall="$HOME/Images/Wallpapers/default.png"
+
+if command -v swww >/dev/null 2>&1; then
+  swww img "$wall" --transition-type fade --transition-duration 1
+elif command -v swaybg >/dev/null 2>&1; then
+  pkill swaybg 2>/dev/null || true
+  swaybg -i "$wall" -m fill &
+fi

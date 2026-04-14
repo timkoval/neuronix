@@ -1,12 +1,14 @@
 {pkgs, ...}: {
   modules.desktop = {
-    hyprland = {
+    wayland = {
       shell.backend = "quickshell";
       idle.backend = "hypridle";
-      screenshot.backend = "hyprshot";
       screenshot.annotator = "satty";
       wallpaper.backend = "swww";
       wallpaper.video.enable = false;
+    };
+    hyprland = {
+      screenshot.backend = "hyprshot";
     };
     # i3.nvidia = true;
   };

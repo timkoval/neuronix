@@ -1,0 +1,221 @@
+// Niri configuration — translated from Hyprland config
+
+input {
+    keyboard {
+        xkb {
+            layout "us,ru"
+            variant "dvorak,mac"
+            options "grp:alt_shift_toggle"
+        }
+        numlock
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        dwt // disable while typing
+        click-method "clickfinger"
+    }
+
+    mouse {
+        natural-scroll
+    }
+
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+// Output / monitor configuration
+output "eDP-1" {
+    mode "1920x1200@60"
+    scale 1.0
+    position x=0 y=0
+}
+
+// Layout
+layout {
+    gaps 10
+
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width {
+        proportion 0.5
+    }
+
+    focus-ring {
+        width 4
+        active-color "#B4A1DB"
+        inactive-color "#343A40"
+    }
+
+    border {
+        off
+    }
+}
+
+// Decorations
+prefer-no-csd
+
+// Animations
+animations {
+    workspace-switch {
+        off
+    }
+}
+
+// Window rules
+window-rule {
+    match app-id=r#"^(yad|nm-connection-editor|pavucontrol)$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^(xfce-polkit|kvantummanager|qt5ct)$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^(feh|imv|Gpicview|Gimp|nomacs)$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^(VirtualBox Manager|qemu|Qemu-system-x86_64)$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^(wlogout)$"#
+    open-floating true
+    open-maximized true
+}
+
+window-rule {
+    match app-id=r#"^(foot-float)$"#
+    open-floating true
+}
+
+// Inactive window opacity
+window-rule {
+    geometry-corner-radius 8 8 8 8
+    clip-to-geometry true
+}
+
+window-rule {
+    match is-focused=false
+    opacity 0.9
+}
+
+// Hotkey overlay
+hotkey-overlay {
+    skip-at-startup
+}
+
+// Screenshot path
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// Startup
+spawn-at-startup "~/.config/niri/scripts/startup"
+
+// Keybindings
+binds {
+    // Terminal
+    Mod+Return { spawn "ghostty"; }
+
+    // App launcher
+    Mod+D { spawn "~/.config/niri/scripts/menu"; }
+
+    // Window management
+    Mod+Q { close-window; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Space { toggle-window-floating; }
+
+    // Exit niri
+    Ctrl+Alt+Delete { quit; }
+
+    // Misc
+    Mod+N { spawn "nm-connection-editor"; }
+    Mod+P { spawn "~/.config/niri/scripts/colorpicker"; }
+    Ctrl+Alt+L { spawn "~/.config/niri/scripts/lockscreen"; }
+    Mod+Shift+X { spawn "~/.config/niri/scripts/wlogout"; }
+
+    // QuickShell toggles
+    Mod+Shift+N { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "network"; }
+    Mod+Shift+V { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "volume"; }
+    Mod+Shift+B { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "battery"; }
+    Mod+Shift+M { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "monitors"; }
+    Mod+Shift+C { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "calendar"; }
+    Mod+Shift+Q { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "music"; }
+    Mod+Shift+W { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "wallpaper"; }
+    Mod+Shift+H { spawn "~/.config/niri/scripts/qs_manager.sh" "toggle" "guide"; }
+
+    // Focus
+    Mod+Left { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up { focus-window-or-workspace-up; }
+    Mod+Down { focus-window-or-workspace-down; }
+
+    // Move windows
+    Mod+Shift+Left { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up { move-window-up-or-to-workspace-up; }
+    Mod+Shift+Down { move-window-down-or-to-workspace-down; }
+
+    // Resize
+    Mod+Ctrl+Left { set-column-width "-10%"; }
+    Mod+Ctrl+Right { set-column-width "+10%"; }
+    Mod+Ctrl+Up { set-window-height "-10%"; }
+    Mod+Ctrl+Down { set-window-height "+10%"; }
+
+    // Workspaces
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace 10; }
+
+    // Move to workspaces
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+0 { move-column-to-workspace 10; }
+
+    // Mouse scroll through workspaces
+    Mod+WheelScrollDown { focus-workspace-down; }
+    Mod+WheelScrollUp { focus-workspace-up; }
+
+    // Function keys
+    XF86MonBrightnessUp { spawn "~/.config/niri/scripts/brightness" "--inc"; }
+    XF86MonBrightnessDown { spawn "~/.config/niri/scripts/brightness" "--dec"; }
+    XF86AudioRaiseVolume { spawn "~/.config/niri/scripts/volume" "--inc"; }
+    XF86AudioLowerVolume { spawn "~/.config/niri/scripts/volume" "--dec"; }
+    XF86AudioMute { spawn "~/.config/niri/scripts/volume" "--toggle"; }
+    XF86AudioMicMute { spawn "~/.config/niri/scripts/volume" "--toggle-mic"; }
+    XF86AudioNext { spawn "mpc" "next"; }
+    XF86AudioPrev { spawn "mpc" "prev"; }
+    XF86AudioPlay { spawn "mpc" "toggle"; }
+    XF86AudioStop { spawn "mpc" "stop"; }
+
+    // Screenshots
+    Print { screenshot; }
+    Mod+Print { screenshot-window; }
+    Ctrl+Print { screenshot-screen; }
+    Mod+Shift+Print { spawn "~/.config/niri/scripts/screenshot-annotate"; }
+}

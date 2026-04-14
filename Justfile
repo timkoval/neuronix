@@ -17,7 +17,15 @@ hypr mode="default":
   use utils.nu *; \
   nixos-switch ai_hyprland {{mode}}
 
-airsahi mode="defalut":  
+elitebook-hypr mode="default":
+  use utils.nu *; \
+  nixos-switch tk-elitebook-hyprland {{mode}}
+
+elitebook-niri mode="default":
+  use utils.nu *; \
+  nixos-switch tk-elitebook-niri {{mode}}
+
+airsahi mode="default":  
   use utils.nu *; \
   nixos-switch air_hyprland {{mode}}
 

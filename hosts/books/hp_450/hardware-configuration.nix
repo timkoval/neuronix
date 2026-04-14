@@ -6,7 +6,8 @@
   ...
 }: {
   imports = [
-    #    (modulesPath + "/hardware/cpu/intel-npu.nix")
+    # TODO: uncomment after `nix flake update nixpkgs` — module not yet in current nixpkgs rev
+    # (modulesPath + "/hardware/cpu/intel-npu.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
@@ -41,6 +42,13 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  #  hardware.cpu.intel.npu.enable = true;
+  # hardware.cpu.intel.npu.enable = true;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # VA-API for Lunar Lake (Arc Graphics)
+    ];
+  };
 }

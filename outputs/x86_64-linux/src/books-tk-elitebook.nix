@@ -38,9 +38,28 @@
       ++ base-modules.home-modules;
   };
 
+  modules-niri = {
+    nixos-modules =
+      [
+        {
+          modules.desktop.wayland.enable = true;
+        }
+      ]
+      ++ base-modules.nixos-modules;
+    home-modules =
+      [
+        {
+          modules.desktop.niri.enable = true;
+        }
+      ]
+      ++ base-modules.home-modules;
+  };
+
   hyprlandArgs = modules-hyprland // args // {inherit hostVars;};
+  niriArgs = modules-niri // args // {inherit hostVars;};
 in {
   nixosConfigurations = {
     "${name}-hyprland" = mylib.nixosSystem hyprlandArgs;
+    "${name}-niri" = mylib.nixosSystem niriArgs;
   };
 }

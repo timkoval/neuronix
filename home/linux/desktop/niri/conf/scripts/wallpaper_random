@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+wall_dir="$HOME/Images/Wallpapers"
+shopt -s nullglob
+wall_list=("$wall_dir"/*.{jpg,jpeg,png,webp})
+shopt -u nullglob
+
+if [[ ${#wall_list[@]} -eq 0 ]]; then
+  notify-send "No wallpapers found in $wall_dir"
+  exit 1
+fi
+
+wall="${wall_list[RANDOM % ${#wall_list[@]}]}"
+
+if command -v swww >/dev/null 2>&1; then
+  swww img "$wall" --transition-type fade --transition-duration 1
+elif command -v swaybg >/dev/null 2>&1; then
+  pkill swaybg 2>/dev/null || true
+  swaybg -i "$wall" -m fill &
+fi

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Color picker using grim + slurp
+color=$(grim -g "$(slurp -p)" -t ppm - | magick - -format '%[pixel:p{0,0}]' info:- 2>/dev/null)
+
+if [[ -n "$color" ]]; then
+  echo "$color" | wl-copy
+  notify-send "Color Picked" "$color"
+fi
