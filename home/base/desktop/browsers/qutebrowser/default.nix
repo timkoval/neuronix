@@ -11,7 +11,7 @@
 ###########################################################
 {
   programs.qutebrowser = {
-    enable = false; # broken to install from nix registry:
+    enable = true;
   };
   xdg.configFile."qutebrowser/config.py".source = ./config.py;
   # gruvbox.py removed — Stylix handles theming

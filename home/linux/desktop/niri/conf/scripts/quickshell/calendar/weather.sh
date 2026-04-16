@@ -29,23 +29,25 @@ mkdir -p "${cache_dir}"
 get_wmo_icon() {
     local code=$1
     local is_day=${2:-1} # 1=day, 0=night
+    local icon
+    # Icons: sunny=\xef\x86\x85 moon=\xef\x86\x86 cloud=\xef\x83\x82 rain=\xef\x9d\x80 storm=\xef\x83\xa7 snow=\xef\x8b\x9c fog=\xee\x89\xbe
     case $code in
-        0)          echo "$([ "$is_day" -eq 1 ] && echo '' || echo '')|Clear" ;;
-        1)          echo "$([ "$is_day" -eq 1 ] && echo '' || echo '')|Mostly Clear" ;;
-        2)          echo "|Partly Cloudy" ;;
-        3)          echo "|Overcast" ;;
-        45|48)      echo "|Foggy" ;;
-        51|53|55)   echo "|Drizzle" ;;
-        56|57)      echo "|Freezing Drizzle" ;;
-        61|63|65)   echo "|Rainy" ;;
-        66|67)      echo "|Freezing Rain" ;;
-        71|73|75)   echo "|Snow" ;;
-        77)         echo "|Snow Grains" ;;
-        80|81|82)   echo "|Showers" ;;
-        85|86)      echo "|Snow Showers" ;;
-        95)         echo "|Thunderstorm" ;;
-        96|99)      echo "|Hail Storm" ;;
-        *)          echo "|Unknown" ;;
+        0)          [ "$is_day" -eq 1 ] && icon=$(printf '\xef\x86\x85') || icon=$(printf '\xef\x86\x86'); printf '%s|Clear\n' "$icon" ;;
+        1)          [ "$is_day" -eq 1 ] && icon=$(printf '\xef\x86\x85') || icon=$(printf '\xef\x86\x86'); printf '%s|Mostly Clear\n' "$icon" ;;
+        2)          printf '\xef\x83\x82|Partly Cloudy\n' ;;
+        3)          printf '\xef\x83\x82|Overcast\n' ;;
+        45|48)      printf '\xee\x89\xbe|Foggy\n' ;;
+        51|53|55)   printf '\xef\x9d\x80|Drizzle\n' ;;
+        56|57)      printf '\xef\x9d\x80|Freezing Drizzle\n' ;;
+        61|63|65)   printf '\xef\x9d\x80|Rainy\n' ;;
+        66|67)      printf '\xef\x9d\x80|Freezing Rain\n' ;;
+        71|73|75)   printf '\xef\x8b\x9c|Snow\n' ;;
+        77)         printf '\xef\x8b\x9c|Snow Grains\n' ;;
+        80|81|82)   printf '\xef\x9d\x80|Showers\n' ;;
+        85|86)      printf '\xef\x8b\x9c|Snow Showers\n' ;;
+        95)         printf '\xef\x83\xa7|Thunderstorm\n' ;;
+        96|99)      printf '\xef\x83\xa7|Hail Storm\n' ;;
+        *)          printf '\xef\x83\x82|Unknown\n' ;;
     esac
 }
 
@@ -155,30 +157,22 @@ get_data_openmeteo() {
         f_desc=$(echo "$f_icon_data" | cut -d'|' -f2)
         f_hex=$(get_wmo_hex "$f_code")
 
-        # Extract hourly data for this date
-        hourly_json=$(echo "$raw_api" | jq -c --arg date "$d" '
-            .hourly as $h |
-            [$h.time | to_entries[] | select(.value | startswith($date))] |
-            map(.key) |
-            map(. as $idx | {
-                time: ($h.time[$idx] | split("T")[1]),
-                temp: (($h.temperature_2m[$idx] * 10 | round) / 10 | tostring),
-                code: $h.weather_code[$idx],
-                is_day: $h.is_day[$idx]
-            })
-        ' 2>/dev/null)
-
-        # Map weather codes to icons/hex in shell (jq string escaping is unreliable for unicode)
+        # Extract hourly data for this date, map codes to icons/hex in shell
         hourly_final="["
-        for row in $(echo "$hourly_json" | jq -c '.[]' 2>/dev/null); do
-            h_time=$(echo "$row" | jq -r '.time')
-            h_temp=$(echo "$row" | jq -r '.temp')
-            h_code=$(echo "$row" | jq -r '.code')
-            h_is_day=$(echo "$row" | jq -r '.is_day')
+        while IFS=$'\t' read -r h_time h_temp h_code h_is_day; do
             h_icon=$(get_wmo_icon "$h_code" "$h_is_day" | cut -d'|' -f1)
             h_hex=$(get_wmo_hex "$h_code")
             hourly_final="${hourly_final}{\"time\":\"${h_time}\",\"temp\":\"${h_temp}\",\"icon\":\"${h_icon}\",\"hex\":\"${h_hex}\"},"
-        done
+        done < <(echo "$raw_api" | jq -r --arg date "$d" '
+            .hourly as $h |
+            [$h.time | to_entries[] | select(.value | startswith($date))] |
+            map(.key) |
+            .[] | . as $idx |
+            [($h.time[$idx] | split("T")[1]),
+             (($h.temperature_2m[$idx] * 10 | round) / 10 | tostring),
+             ($h.weather_code[$idx] | tostring),
+             ($h.is_day[$idx] | tostring)] | join("\t")
+        ' 2>/dev/null)
         hourly_final="${hourly_final%,}]"
 
         if [ "$hourly_final" = "]" ]; then

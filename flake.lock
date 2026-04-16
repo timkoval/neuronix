@@ -1404,11 +1404,11 @@
     "neuronvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1763379788,
-        "narHash": "sha256-zs7ojPzuRokPa0SaKtZ2Bnd1I3ayh4rQHPFGtz3eQu0=",
+        "lastModified": 1776250860,
+        "narHash": "sha256-Wa5HG1g+G6gv+zzS9bnOQLa0TYKhHYfmWqxLuzB4kOE=",
         "owner": "timkoval",
         "repo": "neuronvim",
-        "rev": "fe9af31cb0661d0d181f5b7f38845393b6c57eb4",
+        "rev": "a31cb3b9022296990c3978b929f56a5a9ba22ed7",
         "type": "github"
       },
       "original": {

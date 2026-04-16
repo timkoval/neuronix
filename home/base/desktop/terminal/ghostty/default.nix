@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   xdg.configFile."ghostty/config".text = ''
     font-family = "JetBrainsMono Nerd Font"
-    font-size = 14
+    font-size = 13
     window-decoration = false
     background-opacity = 0.93
     mouse-scroll-multiplier = precision:1,discrete:1

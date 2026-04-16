@@ -12,10 +12,12 @@
   inherit (inputs) nixpkgs home-manager nixos-generators stylix;
 in
   nixpkgs.lib.nixosSystem {
-    inherit system;
-    specialArgs = specialArgs // { 
-      inherit hostVars;
-    };
+    # system is set via nixpkgs.hostPlatform in hardware-configuration.nix
+    specialArgs =
+      specialArgs
+      // {
+        inherit hostVars;
+      };
     modules =
       nixos-modules
       ++ [
@@ -31,9 +33,11 @@ in
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "home-manager.backup";
 
-            home-manager.extraSpecialArgs = specialArgs // { 
-              inherit hostVars;
-            };
+            home-manager.extraSpecialArgs =
+              specialArgs
+              // {
+                inherit hostVars;
+              };
             home-manager.users."${hostVars.username}".imports = home-modules;
           }
         ]

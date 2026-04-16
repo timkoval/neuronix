@@ -7,6 +7,8 @@
   cfg = config.modules.desktop.wayland;
 in {
   config = lib.mkIf cfg.enable {
+    stylix.targets.firefox.profileNames = ["default"];
+
     programs = {
       google-chrome = {
         enable = false;
@@ -24,6 +26,9 @@ in {
         enable = true;
         enableGnomeExtensions = false;
         package = pkgs.firefox;
+        profiles.default = {
+          isDefault = true;
+        };
       };
     };
   };

@@ -34,7 +34,7 @@
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   # Disable pulseaudio, it conflicts with pipewire too.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # iphone usb tethering
   services.usbmuxd.enable = true;
@@ -66,7 +66,7 @@
       gnome-settings-daemon
       platformio # udev rules for platformio
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
-#      android-udev-rules # required by adb
+      #      android-udev-rules # required by adb
       openfpgaloader
       qmk-udev-rules # for qmk keyboard
       #  vial # for vial support

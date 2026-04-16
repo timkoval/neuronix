@@ -1273,183 +1273,119 @@ Item {
                         Layout.fillHeight: true
 
                         Text {
-                            text: "Data stream offline. No scheduled events."
+                            text: "No scheduled events today."
                             font.family: "JetBrains Mono"
                             font.italic: true
                             font.pixelSize: window.s(14)
                             color: window.overlay0
-                            visible: window.scheduleData && window.scheduleData.lessons.length === 0
+                            visible: !eventsListModel.count
                             anchors.centerIn: parent
                         }
 
-                        Rectangle {
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            height: window.s(2)
-                            color: Qt.alpha(window.surface1, 0.4)
-                            visible: window.scheduleData && window.scheduleData.lessons.length > 0
+                        // Filter: only show actual events, skip gaps
+                        ListModel { id: eventsListModel }
+                        Connections {
+                            target: window
+                            function onScheduleDataChanged() {
+                                eventsListModel.clear();
+                                if (!window.scheduleData || !window.scheduleData.lessons) return;
+                                for (let i = 0; i < window.scheduleData.lessons.length; i++) {
+                                    let ev = window.scheduleData.lessons[i];
+                                    if (ev.type === "class") eventsListModel.append(ev);
+                                }
+                            }
                         }
 
                         ScrollView {
                             id: schedScroll
                             anchors.fill: parent
                             clip: true
-                            ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-                            ScrollBar.horizontal.policy: ScrollBar.AsNeeded
-                            visible: window.scheduleData && window.scheduleData.lessons.length > 0
-                            contentWidth: scheduleRow.width
-                            contentHeight: parent.height
+                            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+                            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                            visible: eventsListModel.count > 0
 
-                            Row {
-                                id: scheduleRow
-                                height: parent.height
-                                spacing: 0
-                                
-                                // Divide the actual rendered width of the scroll area by the 430 minutes in a standard school day 
-                                // to get the dynamic Pixels Per Minute ratio that stretches perfectly across the entire space.
-                                property real ppm: schedScroll.width / 430.0
+                            ColumnLayout {
+                                id: scheduleCol
+                                width: schedScroll.width
+                                spacing: window.s(8)
 
                                 Repeater {
-                                    model: window.scheduleData ? window.scheduleData.lessons : []
+                                    model: eventsListModel
 
-                                    delegate: Item {
-                                        property bool isClass: modelData.type === "class"
+                                    delegate: Rectangle {
+                                        Layout.fillWidth: true
+                                        height: window.s(58)
+                                        radius: window.s(10)
+                                        color: eventMa.containsMouse ? Qt.alpha(window.surface1, 0.8) : Qt.alpha(window.surface0, 0.5)
+                                        border.color: isActive ? window.mauve : "transparent"
+                                        border.width: isActive ? 2 : 0
+                                        Behavior on color { ColorAnimation { duration: 150 } }
+
+                                        property bool isActive: window.currentEpoch >= (model.start || 0) && window.currentEpoch <= (model.end || 0)
+                                        property bool isPast: window.currentEpoch > (model.end || 0)
                                         
-                                        // Calculate the exact duration in minutes directly from the start and end epochs 
-                                        property real durationMinutes: ((modelData.end || 0) - (modelData.start || 0)) / 60.0
-                                        
-                                        // Multiply duration by PPM and round to the nearest whole pixel to avoid sub-pixel gaps entirely
-                                        width: Math.max(1, Math.round(durationMinutes * scheduleRow.ppm))
-                                        height: parent.height
-                                        
-                                        Item {
-                                            id: classNode
+                                        RowLayout {
                                             anchors.fill: parent
-                                            anchors.topMargin: window.s(10)
-                                            anchors.bottomMargin: window.s(10)
-                                            visible: parent.isClass
-                                            
-                                            property bool isActive: parent.isClass && window.currentEpoch >= (modelData.start || 0) && window.currentEpoch <= (modelData.end || 0)
-                                            property bool isPast: parent.isClass && window.currentEpoch > (modelData.end || 0)
-                                            
-                                            Canvas {
-                                                anchors.fill: parent
-                                                visible: classMa.containsMouse || classNode.isActive
-                                                opacity: classMa.containsMouse ? 0.2 : 0.08
-                                                Behavior on opacity { NumberAnimation { duration: 200 } }
-                                                
-                                                property real wavePhase: 0
-                                                NumberAnimation on wavePhase {
-                                                    from: 0; to: Math.PI * 2; duration: 2000; loops: Animation.Infinite; running: parent.visible
-                                                }
-                                                onWavePhaseChanged: requestPaint()
-                                                onPaint: {
-                                                    var ctx = getContext("2d");
-                                                    ctx.clearRect(0, 0, width, height);
-                                                    ctx.beginPath();
-                                                    ctx.moveTo(0, height);
-                                                    for(var x = 0; x <= width; x += window.s(10)) {
-                                                        ctx.lineTo(x, height/2 + Math.sin(x/window.s(25) + wavePhase) * window.s(20));
-                                                    }
-                                                    ctx.lineTo(width, height);
-                                                    ctx.lineTo(0, height);
-                                                    var grad = ctx.createLinearGradient(0, 0, width, 0);
-                                                    grad.addColorStop(0, window.mauve);
-                                                    grad.addColorStop(1, "transparent");
-                                                    ctx.fillStyle = grad;
-                                                    ctx.fill();
-                                                }
-                                            }
+                                            anchors.leftMargin: window.s(14)
+                                            anchors.rightMargin: window.s(14)
+                                            spacing: window.s(12)
 
+                                            // Accent bar
                                             Rectangle {
-                                                id: accentLine
-                                                width: classNode.isActive || classMa.containsMouse ? window.s(4) : window.s(2)
-                                                anchors.left: parent.left
-                                                anchors.top: parent.top
-                                                anchors.bottom: parent.bottom
+                                                width: window.s(3)
+                                                Layout.fillHeight: true
+                                                Layout.topMargin: window.s(10)
+                                                Layout.bottomMargin: window.s(10)
                                                 radius: window.s(2)
-                                                color: classNode.isActive ? window.mauve : (classNode.isPast ? window.surface1 : window.surface2)
-                                                Behavior on width { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
-                                                Behavior on color { ColorAnimation { duration: 200 } }
+                                                color: isActive ? window.mauve : (isPast ? window.surface1 : window.teal)
                                             }
 
+                                            // Time column
                                             ColumnLayout {
-                                                anchors.left: accentLine.right
-                                                anchors.right: parent.right
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                anchors.leftMargin: classMa.containsMouse ? window.s(25) : window.s(15)
-                                                Behavior on anchors.leftMargin { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
-                                                spacing: window.s(6)
-
+                                                Layout.preferredWidth: window.s(60)
+                                                spacing: window.s(2)
                                                 Text {
-                                                    text: modelData.subject || ""
-                                                    font.family: "JetBrains Mono"
-                                                    font.weight: Font.Black
-                                                    font.pixelSize: window.s(16)
-                                                    color: classNode.isActive ? window.mauve : (classNode.isPast ? window.overlay0 : window.text)
-                                                    elide: Text.ElideRight
-                                                    Layout.fillWidth: true
+                                                    text: (model.time || "").split(" - ")[0] || ""
+                                                    font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13)
+                                                    color: isActive ? window.mauve : (isPast ? window.overlay0 : window.text)
                                                 }
-
-                                                RowLayout {
-                                                    visible: !modelData.is_compact
-                                                    spacing: window.s(8)
-                                                    Text { text: "󰅐"; font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(14); color: classNode.isActive ? window.mauve : window.overlay1 }
-                                                    Text { text: modelData.time || ""; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(14); color: classNode.isActive ? window.text : window.overlay1 }
-                                                }
-
-                                                RowLayout {
-                                                    visible: !modelData.is_compact && (modelData.room || "") !== ""
-                                                    spacing: window.s(8)
-                                                    Text { text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(14); color: classNode.isPast ? window.surface2 : window.peach }
-                                                    Text { text: modelData.room || ""; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(14); color: window.subtext1; elide: Text.ElideRight; Layout.fillWidth: true }
-                                                }
-                                            }
-
-                                            MouseArea { id: classMa; anchors.fill: parent; hoverEnabled: parent.visible }
-                                        }
-
-                                        Item {
-                                            anchors.fill: parent
-                                            visible: !parent.isClass
-                                            
-                                            Rectangle {
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                anchors.left: parent.left
-                                                anchors.right: parent.right
-                                                height: gapMa.containsMouse ? window.s(4) : window.s(2)
-                                                color: gapMa.containsMouse ? window.mauve : "transparent"
-                                                Behavior on height { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
-                                                Behavior on color { ColorAnimation { duration: 150 } }
-                                            }
-
-                                            Rectangle {
-                                                anchors.centerIn: parent
-                                                width: breakText.width + window.s(16)
-                                                height: window.s(24)
-                                                radius: window.s(6)
-                                                color: window.mantle
-                                                border.color: window.surface2
-                                                border.width: 1
-                                                opacity: gapMa.containsMouse ? 1.0 : 0.0
-                                                scale: gapMa.containsMouse ? 1.0 : 0.8
-                                                Behavior on opacity { NumberAnimation { duration: 150 } }
-                                                Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
-
                                                 Text {
-                                                    id: breakText
-                                                    anchors.centerIn: parent
-                                                    text: modelData.desc || ""
-                                                    font.family: "JetBrains Mono"
-                                                    font.weight: Font.Bold
-                                                    font.pixelSize: window.s(14)
-                                                    color: window.mauve
+                                                    text: (model.time || "").split(" - ")[1] || ""
+                                                    font.family: "JetBrains Mono"; font.pixelSize: window.s(11)
+                                                    color: isActive ? Qt.alpha(window.mauve, 0.7) : window.overlay1
                                                 }
                                             }
 
-                                            MouseArea { id: gapMa; anchors.fill: parent; hoverEnabled: parent.visible }
+                                            // Event details
+                                            ColumnLayout {
+                                                Layout.fillWidth: true
+                                                spacing: window.s(3)
+                                                Text {
+                                                    text: model.subject || "No Title"
+                                                    font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13)
+                                                    color: isActive ? window.text : (isPast ? window.overlay0 : window.text)
+                                                    elide: Text.ElideRight; Layout.fillWidth: true
+                                                }
+                                                RowLayout {
+                                                    visible: (model.room || "") !== ""
+                                                    spacing: window.s(6)
+                                                    Text { text: "\uf041"; font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(11); color: isPast ? window.surface2 : window.peach }
+                                                    Text { text: model.room || ""; font.family: "JetBrains Mono"; font.pixelSize: window.s(11); color: window.subtext0; elide: Text.ElideRight; Layout.fillWidth: true }
+                                                }
+                                            }
+
+                                            // Live indicator
+                                            Rectangle {
+                                                width: window.s(8); height: window.s(8); radius: window.s(4)
+                                                color: window.green; visible: isActive
+                                                SequentialAnimation on opacity {
+                                                    loops: Animation.Infinite; running: isActive
+                                                    NumberAnimation { to: 0.3; duration: 800; easing.type: Easing.InOutSine }
+                                                    NumberAnimation { to: 1.0; duration: 800; easing.type: Easing.InOutSine }
+                                                }
+                                            }
                                         }
+                                        MouseArea { id: eventMa; anchors.fill: parent; hoverEnabled: true }
                                     }
                                 }
                             }
