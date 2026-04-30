@@ -24,10 +24,6 @@ in {
           timeout = 300;
           on-timeout = "loginctl lock-session";
         }
-        {
-          timeout = 900;
-          on-timeout = "systemctl suspend";
-        }
       ];
     };
   };
@@ -69,7 +65,7 @@ in {
           font-family: "JetBrainsMono Nerd Font";
           font-size: 12pt;
           font-weight: bold;
-          border-radius: 8px;
+          border-radius: 4px;
           transition-property: background-color;
           transition-duration: 0.5s;
         }

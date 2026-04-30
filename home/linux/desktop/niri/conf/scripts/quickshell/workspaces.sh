@@ -34,14 +34,16 @@ fi
 (timeout 2 bluetoothctl scan off > /dev/null 2>&1)
 # ---------------------------------------------
 
+OUTPUT_NAME="${1:-}"
 SEQ_END=8
 
 print_workspaces() {
     spaces=$(timeout 2 niri msg -j workspaces 2>/dev/null)
     if [ -z "$spaces" ]; then return; fi
 
-    echo "$spaces" | jq --unbuffered --arg end "$SEQ_END" -c '
-        (map({ (.idx|tostring): . }) | add // {}) as $s
+    echo "$spaces" | jq --unbuffered --arg end "$SEQ_END" --arg output "$OUTPUT_NAME" -c '
+        (if $output != "" then [.[] | select(.output == $output)] else . end)
+        | (map({ (.idx|tostring): . }) | add // {}) as $s
         |
         [range(1; ($end|tonumber) + 1)] | map(
             . as $i |
@@ -54,9 +56,9 @@ print_workspaces() {
                 tooltip: (if $s[$i|tostring] != null then ($s[$i|tostring].name // "Workspace \($i)") else "Empty" end)
             }
         )
-    ' > /tmp/qs_workspaces.tmp
+    ' > "/tmp/qs_workspaces_${OUTPUT_NAME}.tmp"
 
-    mv /tmp/qs_workspaces.tmp /tmp/qs_workspaces.json
+    mv "/tmp/qs_workspaces_${OUTPUT_NAME}.tmp" "/tmp/qs_workspaces_${OUTPUT_NAME}.json"
 }
 
 # Print initial state

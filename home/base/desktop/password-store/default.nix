@@ -6,15 +6,12 @@
 }: let
   passwordStoreDir = "${config.xdg.dataHome}/password-store";
 in {
+  home.packages = [pkgs.gopass];
+
   programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions (exts: [
-      # support for one-time-password (OTP) tokens
-      # NOTE: Saving the password and OTP together runs counter to the purpose of secondary verification!
-      # exts.pass-otp
-
-#      exts.pass-import # a generic importer tool from other password managers
-      exts.pass-update # an easy flow for updating passwords
+      exts.pass-update
     ]);
     # See the “Environment variables” section of pass(1) and the extension man pages for more information about the available keys.
     settings = {

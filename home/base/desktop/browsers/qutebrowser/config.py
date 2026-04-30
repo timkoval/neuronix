@@ -33,7 +33,7 @@ config.load_autoconfig(False)
 ## session which was last loaded. This behavior can be customized via the
 ## `session.default_name` setting.
 ## Type: Bool
-# c.auto_save.session = False
+c.auto_save.session = True
 
 ## Backend to use to display websites. qutebrowser supports two different
 ## web rendering engines / backends, QtWebEngine and QtWebKit (not
@@ -527,7 +527,7 @@ config.load_autoconfig(False)
 ##   - always: Apply dark mode filter to all images.
 ##   - never: Never apply dark mode filter to any images.
 ##   - smart: Apply dark mode based on image content. Not available with Qt 5.15.0.
-##   - smart-simple: On QtWebEngine 6.6, use a simpler algorithm for smart mode (based on numbers of colors and transparency), rather than an ML-based model. Same as 'smart' on older QtWebEnigne versions.
+##   - smart-simple: On QtWebEngine 6.6, use a simpler algorithm for smart mode (based on numbers of colors and transparency), rather than an ML-based model. Same as 'smart' on older QtWebEngine versions.
 # c.colors.webpage.darkmode.policy.images = 'smart'
 
 ## Which pages to apply dark mode to. The underlying Chromium setting has
@@ -1841,7 +1841,7 @@ c.content.javascript.clipboard = 'access'
 ##   - tg-TG: Tajik (Tajikistan)
 ##   - tr-TR: Turkish (Turkey)
 ##   - uk-UA: Ukrainian (Ukraine)
-##   - vi-VN: Vietnamese (Viet Nam)
+##   - vi-VN: Vietnamese (Viet Name)
 # c.spellcheck.languages = []
 
 ## Padding (in pixels) for the statusbar.
@@ -2129,7 +2129,7 @@ c.content.javascript.clipboard = 'access'
 ## engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
 ## placeholder. The placeholder will be replaced by the search term, use
 ## `{{` and `}}` for literal `{`/`}` braces.  The following further
-## placeholds are defined to configure how special characters in the
+## placeholders are defined to configure how special characters in the
 ## search terms are replaced by safe characters (called 'quoting'):  *
 ## `{}` and `{semiquoted}` quote everything except slashes; this is the
 ## most   sensible choice for almost all search engines (for the search
@@ -2159,7 +2159,7 @@ c.url.searchengines = {
     '!m':       'https://www.google.com/maps/search/{}',
     '!p':       'https://pry.sh/{}',
     '!r':       'https://www.reddit.com/search?q={}',
-    '!sd':      'https://slickdeals.net/newsearch.php?q={}&searcharea=deals&searchin=first',
+    '!sd':      'https://slickdeals.net/newsearch.php?q={}&searcharea=deals&searching=first',
     '!t':       'https://www.thesaurus.com/browse/{}',
     '!tw':      'https://twitter.com/search?q={}',
     '!w':       'https://en.wikipedia.org/wiki/{}',
@@ -2282,6 +2282,11 @@ config.bind('H', 'back')
 config.bind('T', 'tab-next')
 config.bind('N', 'tab-prev')
 config.bind('S', 'forward')
+
+# gopass autofill via qute-pass
+config.bind('<z><l>', "spawn --userscript qute-pass --mode gopass --dmenu-invocation 'walker --dmenu'")
+config.bind('<z><u><l>', "spawn --userscript qute-pass --mode gopass --dmenu-invocation 'walker --dmenu' --username-only")
+config.bind('<z><p><l>', "spawn --userscript qute-pass --mode gopass --dmenu-invocation 'walker --dmenu' --password-only")
 # config.bind('M', 'bookmark-add')
 # config.bind('N', 'search-prev')
 # config.bind('O', 'cmd-set-text -s :open -t')

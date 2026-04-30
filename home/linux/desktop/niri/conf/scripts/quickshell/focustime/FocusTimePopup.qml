@@ -127,13 +127,13 @@ Item {
         // Header drops down
         SequentialAnimation {
             PauseAnimation { duration: 100 }
-            NumberAnimation { target: window; property: "introHeader"; from: 0; to: 1.0; duration: 800; easing.type: Easing.OutBack; easing.overshoot: 1.0 }
+            NumberAnimation { target: window; property: "introHeader"; from: 0; to: 1.0; duration: 800; easing.type: Easing.OutQuart }
         }
 
         // Stats Row scales and springs up
         SequentialAnimation {
             PauseAnimation { duration: 250 }
-            NumberAnimation { target: window; property: "introStats"; from: 0; to: 1.0; duration: 900; easing.type: Easing.OutBack; easing.overshoot: 1.2 }
+            NumberAnimation { target: window; property: "introStats"; from: 0; to: 1.0; duration: 900; easing.type: Easing.OutQuart }
         }
 
         // Mid Charts slide in from opposite sides
@@ -177,9 +177,6 @@ Item {
     }
 
     property real globalOrbitAngle: 0
-    NumberAnimation on globalOrbitAngle {
-        from: 0; to: Math.PI * 2; duration: 120000; loops: Animation.Infinite; running: true
-    }
 
     // --- SHARED DATA INGESTION ---
     function updateFromData(data) {
@@ -508,26 +505,12 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            radius: window.s(20)
+            radius: window.s(4)
             color: window.crust
-            border.color: Qt.alpha(window.surface1, 0.2)
-            border.width: 1
+            border.color: window.surface1
+            border.width: 2
             clip: true
 
-            Rectangle {
-                width: parent.width * 1.2; height: width; radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.cos(window.globalOrbitAngle * 2) * window.s(150)
-                y: (parent.height / 2 - height / 2) + Math.sin(window.globalOrbitAngle * 2) * window.s(100)
-                opacity: 0.015
-                color: window.mauve
-            }
-            Rectangle {
-                width: parent.width * 1.1; height: width; radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.sin(window.globalOrbitAngle * 1.5) * window.s(-150)
-                y: (parent.height / 2 - height / 2) + Math.cos(window.globalOrbitAngle * 1.5) * window.s(-100)
-                opacity: 0.010
-                color: window.blue
-            }
 
             ColumnLayout {
                 anchors.fill: parent
@@ -699,10 +682,10 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: window.s(200)
-                                radius: window.s(14)
+                                radius: window.s(4)
                                 color: window.base
-                                border.color: Qt.alpha(window.surface1, 0.3)
-                                border.width: 1
+                                border.color: window.surface1
+                                border.width: 2
 
                                 ColumnLayout {
                                     anchors.centerIn: parent
@@ -740,10 +723,10 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: window.s(300)
-                                radius: window.s(14)
+                                radius: window.s(4)
                                 color: window.base
-                                border.color: Qt.alpha(window.surface1, 0.3)
-                                border.width: 1
+                                border.color: window.surface1
+                                border.width: 2
 
                                 ColumnLayout {
                                     anchors.centerIn: parent
@@ -751,7 +734,7 @@ Item {
                                     Text {
                                         Layout.alignment: Qt.AlignHCenter
                                         font.family: "JetBrains Mono"
-                                        font.weight: Font.Black
+                                        font.weight: Font.Bold
                                         font.pixelSize: window.s(36)
                                         color: window.text
                                         text: window.formatTimeLarge(window.animatedTotalSeconds)
@@ -764,10 +747,10 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: window.s(200)
-                                radius: window.s(14)
+                                radius: window.s(4)
                                 color: window.base
-                                border.color: Qt.alpha(window.surface1, 0.3)
-                                border.width: 1
+                                border.color: window.surface1
+                                border.width: 2
 
                                 ColumnLayout {
                                     anchors.centerIn: parent
@@ -781,7 +764,7 @@ Item {
                                         
                                         Text {
                                             font.family: "JetBrains Mono"
-                                            font.weight: Font.Black
+                                            font.weight: Font.Bold
                                             font.pixelSize: window.s(28)
                                             color: {
                                                 let diff = window.totalSeconds - window.yesterdaySeconds;
@@ -834,10 +817,10 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: window.s(400) 
-                                radius: window.s(14)
+                                radius: window.s(4)
                                 color: window.base
-                                border.color: Qt.alpha(window.surface1, 0.3)
-                                border.width: 1
+                                border.color: window.surface1
+                                border.width: 2
 
                                 opacity: introMidLeft
                                 transform: Translate { x: window.s(-30) * (1 - introMidLeft) }
@@ -890,10 +873,7 @@ Item {
                                                     radius: window.s(4) 
                                                     visible: model.isTarget
                                                     opacity: barMa.containsMouse ? 0.7 : 1.0
-                                                    gradient: Gradient {
-                                                        GradientStop { position: 0.0; color: window.mauve }
-                                                        GradientStop { position: 1.0; color: window.blue }
-                                                    }
+                                                    color: window.mauve
                                                 }
                                             }
 
@@ -918,10 +898,10 @@ Item {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: window.s(300)
-                                radius: window.s(14)
+                                radius: window.s(4)
                                 color: window.base
-                                border.color: Qt.alpha(window.surface1, 0.3)
-                                border.width: 1
+                                border.color: window.surface1
+                                border.width: 2
 
                                 opacity: introMidRight
                                 transform: Translate { x: window.s(30) * (1 - introMidRight) }
@@ -952,7 +932,7 @@ Item {
                                                 width: window.s(18) 
                                                 height: window.s(18) 
                                                 radius: window.s(4)
-                                                color: model.total === -1 ? "transparent" : (model.total === 0 ? window.surface0 : Qt.rgba(window.mauve.r, window.mauve.g, window.mauve.b, Math.min(1.0, 0.3 + 0.7 * (model.total / window.maxMonthTotal))))
+                                                color: model.total === -1 ? "transparent" : (model.total === 0 ? window.surface0 : Qt.tint(window.surface0, Qt.alpha(window.mauve, Math.min(1.0, 0.3 + 0.7 * (model.total / window.maxMonthTotal)))))
                                                 Behavior on color { ColorAnimation { duration: 700; easing.type: Easing.OutQuint } }
 
                                                 border.color: model.isTarget ? window.text : "transparent"
@@ -989,10 +969,10 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.fillHeight: true 
-                            radius: window.s(14)
+                            radius: window.s(4)
                             color: window.base
-                            border.color: Qt.alpha(window.surface1, 0.3)
-                            border.width: 1
+                            border.color: window.surface1
+                            border.width: 2
 
                             opacity: introBottom
                             transform: Translate { y: window.s(30) * (1 - introBottom) }
@@ -1024,14 +1004,14 @@ Item {
                                         active: appList.moving || appList.movingVertically
                                         width: window.s(4)
                                         policy: ScrollBar.AsNeeded
-                                        contentItem: Rectangle { implicitWidth: window.s(4); radius: window.s(2); color: window.surface2 }
+                                        contentItem: Rectangle { implicitWidth: window.s(4); radius: window.s(4); color: window.surface2 }
                                     }
                                     
                                     delegate: Rectangle {
                                         width: ListView.view.width
                                         height: window.s(58) 
                                         color: "transparent"
-                                        radius: window.s(10)
+                                        radius: window.s(4)
 
                                         // Micro-staggering cascading animation inside the list
                                         opacity: introBottom
@@ -1039,7 +1019,7 @@ Item {
 
                                         Rectangle {
                                             anchors.fill: parent
-                                            radius: window.s(10)
+                                            radius: window.s(4)
                                             color: rowMa.containsMouse ? window.surface0 : "transparent"
                                             Behavior on color { ColorAnimation { duration: 150 } }
                                         }
@@ -1101,20 +1081,16 @@ Item {
                                             Item {
                                                 Layout.fillWidth: true
                                                 height: window.s(10)
-                                                Rectangle { anchors.fill: parent; radius: window.s(5); color: window.crust }
+                                                Rectangle { anchors.fill: parent; radius: window.s(4); color: window.crust }
                                                 Rectangle {
                                                     height: parent.height
                                                     // Tied to the synchronized app bars state
                                                     width: Math.max(window.s(10), parent.width * (model.percent / 100.0) * window.introAppBars)
-                                                    radius: window.s(5)
-                                                    gradient: Gradient {
-                                                        orientation: Gradient.Horizontal
-                                                        GradientStop { position: 0.0; color: window.mauve }
-                                                        GradientStop { position: 1.0; color: window.blue }
-                                                    }
-                                                    Behavior on width { 
+                                                    radius: window.s(4)
+                                                    color: window.mauve
+                                                    Behavior on width {
                                                         enabled: window.introAppBars === 1.0
-                                                        NumberAnimation { duration: 600; easing.type: Easing.OutQuint } 
+                                                        NumberAnimation { duration: 600; easing.type: Easing.OutQuint }
                                                     }
                                                 }
                                             }
@@ -1159,7 +1135,7 @@ Item {
                                                     width: parent.width
                                                     // Actively grow from ground up tied to introAppBars
                                                     height: Math.max(window.s(4), parent.height * (window.hourlyData[index] / Math.max(window.maxHourlyTotal, 1)) * window.introAppBars)
-                                                    radius: window.s(2)
+                                                    radius: window.s(4)
                                                     color: window.hourlyData[index] > 0 ? window.blue : window.surface0
                                                     
                                                     Behavior on height { 
@@ -1216,10 +1192,10 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: window.s(260)
-                            radius: window.s(14)
+                            radius: window.s(4)
                             color: window.base
-                            border.color: Qt.alpha(window.surface1, 0.3)
-                            border.width: 1
+                            border.color: window.surface1
+                            border.width: 2
 
                             opacity: introMidLeft
                             transform: Translate { y: window.s(20) * (1 - introMidLeft) }
@@ -1267,7 +1243,7 @@ Item {
                                                 Rectangle {
                                                     Layout.fillWidth: true
                                                     Layout.fillHeight: true
-                                                    radius: window.s(10)
+                                                    radius: window.s(4)
                                                     color: "transparent"
                                                     clip: true
 
@@ -1280,18 +1256,18 @@ Item {
                                                             delegate: Rectangle {
                                                                 Layout.fillWidth: true
                                                                 Layout.fillHeight: true
-                                                                radius: 0
+                                                                radius: window.s(4)
                                                                 
                                                                 property real val: (window.weekHeatmapData[dayIndex] && window.weekHeatmapData[dayIndex][index]) ? window.weekHeatmapData[dayIndex][index] : 0
                                                                 property real intensity: Math.min(1.0, 0.2 + 0.8 * (val / Math.max(window.maxWeekHour, 1)))
-                                                                color: val === 0 ? window.surface0 : Qt.rgba(window.mauve.r, window.mauve.g, window.mauve.b, intensity)
+                                                                color: val === 0 ? window.surface0 : Qt.tint(window.surface0, Qt.alpha(window.mauve, intensity))
 
                                                                 // Staggered animated popup matrix effect for the heatmap cells
                                                                 scale: window.isWeekView ? 1.0 : 0.5
                                                                 Behavior on scale {
                                                                     NumberAnimation {
                                                                         duration: 400 + (dayIndex * 30) + (index * 10)
-                                                                        easing.type: Easing.OutBack
+                                                                        easing.type: Easing.OutQuart
                                                                     }
                                                                 }
                                                                 Behavior on color { ColorAnimation { duration: 600; easing.type: Easing.OutQuint } }
@@ -1340,7 +1316,7 @@ Item {
                                     Rectangle {
                                         Layout.fillWidth: true
                                         Layout.fillHeight: true
-                                        radius: window.s(10)
+                                        radius: window.s(4)
                                         color: window.surface0
 
                                         ColumnLayout {
@@ -1369,7 +1345,7 @@ Item {
                                     Rectangle {
                                         Layout.fillWidth: true
                                         Layout.fillHeight: true
-                                        radius: window.s(10)
+                                        radius: window.s(4)
                                         color: window.surface0
 
                                         ColumnLayout {
@@ -1401,10 +1377,10 @@ Item {
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.fillHeight: true
-                            radius: window.s(14)
+                            radius: window.s(4)
                             color: window.base
-                            border.color: Qt.alpha(window.surface1, 0.3)
-                            border.width: 1
+                            border.color: window.surface1
+                            border.width: 2
 
                             opacity: introBottom
                             transform: Translate { y: window.s(30) * (1 - introBottom) }
@@ -1426,21 +1402,21 @@ Item {
                                     active: weekAppList.moving || weekAppList.movingVertically
                                     width: window.s(4)
                                     policy: ScrollBar.AsNeeded
-                                    contentItem: Rectangle { implicitWidth: window.s(4); radius: window.s(2); color: window.surface2 }
+                                    contentItem: Rectangle { implicitWidth: window.s(4); radius: window.s(4); color: window.surface2 }
                                 }
                                 
                                 delegate: Rectangle {
                                     width: ListView.view.width
                                     height: window.s(58) 
                                     color: "transparent"
-                                    radius: window.s(10)
+                                    radius: window.s(4)
 
                                     opacity: introBottom
                                     transform: Translate { y: (index * window.s(12)) * (1 - introBottom) }
 
                                     Rectangle {
                                         anchors.fill: parent
-                                        radius: window.s(10)
+                                        radius: window.s(4)
                                         color: weekRowMa.containsMouse ? window.surface0 : "transparent"
                                         Behavior on color { ColorAnimation { duration: 150 } }
                                     }
@@ -1503,19 +1479,15 @@ Item {
                                         Item {
                                             Layout.fillWidth: true
                                             height: window.s(10)
-                                            Rectangle { anchors.fill: parent; radius: window.s(5); color: window.crust }
+                                            Rectangle { anchors.fill: parent; radius: window.s(4); color: window.crust }
                                             Rectangle {
                                                 height: parent.height
                                                 width: Math.max(window.s(10), parent.width * (model.percent / 100.0) * window.introAppBars)
-                                                radius: window.s(5)
-                                                gradient: Gradient {
-                                                    orientation: Gradient.Horizontal
-                                                    GradientStop { position: 0.0; color: window.mauve }
-                                                    GradientStop { position: 1.0; color: window.blue }
-                                                }
-                                                Behavior on width { 
+                                                radius: window.s(4)
+                                                color: window.mauve
+                                                Behavior on width {
                                                     enabled: window.introAppBars === 1.0
-                                                    NumberAnimation { duration: 600; easing.type: Easing.OutQuint } 
+                                                    NumberAnimation { duration: 600; easing.type: Easing.OutQuint }
                                                 }
                                             }
                                         }

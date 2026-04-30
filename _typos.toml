@@ -1,0 +1,14 @@
+[default]
+extend-ignore-re = [
+  # Faroese locale code
+  "fo-FO",
+  # Other ISO locale codes that might trigger false positives
+  "[a-z]{2,3}-[A-Z]{2,3}",
+]
+
+[files]
+extend-exclude = [
+  "*.qml",
+  "lib/macosSystem.nix",
+  "home/base/desktop/browsers/qutebrowser/config.py",
+]

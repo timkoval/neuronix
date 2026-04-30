@@ -72,6 +72,7 @@ in {
         swaylock
         wlogout
         wl-clipboard
+        libqalculate # qalc — calculator backend for walker
         brightnessctl
         grim
         slurp

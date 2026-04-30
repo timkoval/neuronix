@@ -218,7 +218,7 @@ Item {
         NumberAnimation { target: window; property: "introMain"; from: 0; to: 1.0; duration: 800; easing.type: Easing.OutExpo }
         SequentialAnimation {
             PauseAnimation { duration: 100 }
-            NumberAnimation { target: window; property: "introHeader"; from: 0; to: 1.0; duration: 700; easing.type: Easing.OutBack; easing.overshoot: 1.2 }
+            NumberAnimation { target: window; property: "introHeader"; from: 0; to: 1.0; duration: 700; easing.type: Easing.OutQuart }
         }
         SequentialAnimation {
             PauseAnimation { duration: 200 }
@@ -237,29 +237,13 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            radius: window.s(20)
+            radius: window.s(4)
             color: window.base
             border.color: window.surface0
-            border.width: 1
+            border.width: 2
             clip: true
 
-            // Rotating Background Blobs
-            Rectangle {
-                width: parent.width * 0.8; height: width; radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.cos(window.globalOrbitAngle * 2) * window.s(150)
-                y: (parent.height / 2 - height / 2) + Math.sin(window.globalOrbitAngle * 2) * window.s(100)
-                opacity: 0.06
-                color: window.tabColor
-                Behavior on color { ColorAnimation { duration: 800 } }
-            }
-            Rectangle {
-                width: parent.width * 0.9; height: width; radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.sin(window.globalOrbitAngle * 1.5) * window.s(-150)
-                y: (parent.height / 2 - height / 2) + Math.cos(window.globalOrbitAngle * 1.5) * window.s(-100)
-                opacity: 0.04
-                color: Qt.lighter(window.tabColor, 1.3)
-                Behavior on color { ColorAnimation { duration: 800 } }
-            }
+            // Ambient blobs removed for flat design
 
             ColumnLayout {
                 anchors.fill: parent
@@ -283,10 +267,10 @@ Item {
                         Item {
                             Layout.preferredWidth: window.s(130)
                             Layout.preferredHeight: window.s(130)
-                            scale: masterOrbMa.pressed ? 0.95 : (masterOrbMa.containsMouse ? 1.05 : 1.0)
-                            Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutBack } }
+                            scale: masterOrbMa.pressed ? 0.95 : 1.0
+                            Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutQuart } }
 
-                            // Outermost border pulse ring
+                            // Outermost border ring (static)
                             Rectangle {
                                 anchors.centerIn: parent
                                 width: parent.width + window.s(15)
@@ -296,25 +280,11 @@ Item {
                                 border.color: window.activeMute ? window.red : window.tabColor
                                 border.width: window.s(3)
                                 z: -2
-
-                                property real pulseOp: 0.0
-                                property real pulseSc: 1.0
-                                opacity: window.activeMute ? 0.0 : pulseOp
-                                scale: pulseSc
-
-                                Timer {
-                                    interval: 45
-                                    running: parent.opacity > 0.01 || !window.activeMute
-                                    repeat: true
-                                    onTriggered: {
-                                        var time = Date.now() / 1000;
-                                        parent.pulseOp = 0.3 + Math.sin(time * 2.5) * 0.15;
-                                        parent.pulseSc = 1.02 + Math.cos(time * 3.0) * 0.02;
-                                    }
-                                }
+                                opacity: window.activeMute ? 0.0 : 0.3
+                                Behavior on border.color { ColorAnimation { duration: 300 } }
                             }
 
-                            // Solid pulsing background ring
+                            // Solid background ring (static)
                             Rectangle {
                                 anchors.centerIn: parent
                                 width: parent.width + window.s(40)
@@ -324,12 +294,6 @@ Item {
                                 opacity: window.activeMute ? 0.3 : 0.15
                                 z: -1
                                 Behavior on color { ColorAnimation { duration: 300 } }
-
-                                SequentialAnimation on scale {
-                                    loops: Animation.Infinite; running: true
-                                    NumberAnimation { to: masterOrbMa.containsMouse ? 1.15 : 1.1; duration: masterOrbMa.containsMouse ? 800 : 2000; easing.type: Easing.InOutSine }
-                                    NumberAnimation { to: 1.0; duration: masterOrbMa.containsMouse ? 800 : 2000; easing.type: Easing.InOutSine }
-                                }
                             }
 
                             // Core Shadow
@@ -409,16 +373,12 @@ Item {
                                         }
                                         ctx.closePath();
                                         
-                                        // Vibrant gradient matching the network orb
-                                        var grad = ctx.createLinearGradient(0, 0, 0, height);
+                                        // Flat fill
                                         if (window.activeMute) {
-                                            grad.addColorStop(0, Qt.lighter(window.red, 1.15).toString());
-                                            grad.addColorStop(1, window.red.toString());
+                                            ctx.fillStyle = window.red.toString();
                                         } else {
-                                            grad.addColorStop(0, Qt.lighter(window.tabColor, 1.15).toString());
-                                            grad.addColorStop(1, window.tabColor.toString());
+                                            ctx.fillStyle = window.tabColor.toString();
                                         }
-                                        ctx.fillStyle = grad;
                                         ctx.globalAlpha = 1.0;
                                         ctx.fill();
                                         ctx.restore();
@@ -430,7 +390,7 @@ Item {
                                 Text {
                                     anchors.centerIn: parent
                                     font.family: "JetBrains Mono"
-                                    font.weight: Font.Black
+                                    font.weight: Font.Bold
                                     font.pixelSize: window.s(32)
                                     color: window.activeMute ? window.red : window.text
                                     text: window.activeMute ? "MUTE" : window.activeVol + "%"
@@ -458,9 +418,9 @@ Item {
                                         x: waveClipItem.width / 2 - width / 2
                                         y: (centralCore.height / 2) - (height / 2) - (centralCore.height - waveClipItem.height)
                                         font.family: "JetBrains Mono"
-                                        font.weight: Font.Black
+                                        font.weight: Font.Bold
                                         font.pixelSize: window.s(32)
-                                        color: window.crust
+                                        color: window.base
                                         text: window.activeMute ? "MUTE" : window.activeVol + "%"
                                     }
                                 }
@@ -489,7 +449,7 @@ Item {
                                 spacing: window.s(2)
                                 Text {
                                     Layout.fillWidth: true; elide: Text.ElideRight
-                                    font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: window.s(20)
+                                    font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(20)
                                     color: window.text
                                     text: window.activeName
                                 }
@@ -529,23 +489,20 @@ Item {
                                     }
 
                                     Rectangle {
-                                        anchors.fill: parent; radius: window.s(12)
-                                        color: "#0dffffff"; border.color: "#1affffff"; border.width: 1
+                                        anchors.fill: parent; radius: window.s(4)
+                                        color: window.mantle; border.color: window.surface1; border.width: 2
                                         clip: true
 
                                         Rectangle {
                                             height: parent.height
                                             width: parent.width * (Math.min(100, window.activeVol) / 100)
-                                            radius: window.s(12)
+                                            radius: window.s(4)
                                             opacity: window.activeMute ? 0.3 : (masterSliderMa.containsMouse ? 1.0 : 0.85)
                                             Behavior on opacity { NumberAnimation { duration: 200 } }
                                             Behavior on width { enabled: !window.draggingMaster; NumberAnimation { duration: 300; easing.type: Easing.OutQuint } }
 
-                                            gradient: Gradient {
-                                                orientation: Gradient.Horizontal
-                                                GradientStop { position: 0.0; color: window.activeMute ? window.surface2 : window.tabColor; Behavior on color { ColorAnimation{duration: 300} } }
-                                                GradientStop { position: 1.0; color: window.activeMute ? Qt.lighter(window.surface2, 1.15) : Qt.lighter(window.tabColor, 1.25); Behavior on color { ColorAnimation{duration: 300} } }
-                                            }
+                                            color: window.activeMute ? window.surface2 : window.tabColor
+                                            Behavior on color { ColorAnimation{duration: 300} }
                                         }
                                     }
                                     
@@ -576,10 +533,10 @@ Item {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.preferredHeight: window.s(54)
-                    radius: window.s(14)
-                    color: "#0dffffff" 
-                    border.color: "#1affffff"
-                    border.width: 1
+                    radius: window.s(4)
+                    color: window.mantle
+                    border.color: window.surface1
+                    border.width: 2
                     opacity: introHeader
                     transform: Translate { y: window.s(20) * (1.0 - introHeader) }
 
@@ -587,19 +544,16 @@ Item {
                         width: (parent.width - window.s(2)) / 3 
                         height: parent.height - window.s(2)
                         y: window.s(1)
-                        radius: window.s(10)
+                        radius: window.s(4)
                         x: {
                             if (window.activeTab === "outputs") return window.s(1);
                             if (window.activeTab === "inputs") return width + window.s(1);
                             return (width * 2) + window.s(1);
                         }
-                        Behavior on x { NumberAnimation { duration: 500; easing.type: Easing.OutBack; easing.overshoot: 1.1 } }
-                        
-                        gradient: Gradient {
-                            orientation: Gradient.Horizontal
-                            GradientStop { position: 0.0; color: window.tabColor; Behavior on color { ColorAnimation { duration: 400 } } }
-                            GradientStop { position: 1.0; color: Qt.lighter(window.tabColor, 1.15); Behavior on color { ColorAnimation { duration: 400 } } }
-                        }
+                        Behavior on x { NumberAnimation { duration: 500; easing.type: Easing.OutQuart } }
+
+                        color: window.tabColor
+                        Behavior on color { ColorAnimation { duration: 400 } }
                     }
 
                     RowLayout {
@@ -622,13 +576,13 @@ Item {
                                     spacing: window.s(8)
                                     Text {
                                         font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(18)
-                                        color: window.activeTab === tabId ? window.crust : (tabMa.containsMouse ? window.text : window.subtext0)
+                                        color: window.activeTab === tabId ? window.base : (tabMa.containsMouse ? window.text : window.subtext0)
                                         text: icon
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                     }
                                     Text {
-                                        font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: window.s(13)
-                                        color: window.activeTab === tabId ? window.crust : (tabMa.containsMouse ? window.text : window.subtext0)
+                                        font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13)
+                                        color: window.activeTab === tabId ? window.base : (tabMa.containsMouse ? window.text : window.subtext0)
                                         text: label
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                     }
@@ -665,7 +619,7 @@ Item {
                         // Elegant sliding transitions when models rearrange
                         add: Transition {
                             NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 400; easing.type: Easing.OutQuint }
-                            NumberAnimation { property: "scale"; from: 0.9; to: 1; duration: 400; easing.type: Easing.OutBack }
+                            NumberAnimation { property: "scale"; from: 0.9; to: 1; duration: 400; easing.type: Easing.OutQuart }
                         }
                         displaced: Transition {
                             SpringAnimation { property: "y"; spring: 3; damping: 0.2; mass: 0.2 }
@@ -711,13 +665,13 @@ Item {
                             height: isActiveNode ? window.s(60) : window.s(100)
                             Behavior on height { NumberAnimation { duration: 400; easing.type: Easing.OutQuint } }
 
-                            radius: window.s(14)
-                            
+                            radius: window.s(4)
+
                             property bool isHovered: cardMa.containsMouse && !isActiveNode
 
-                            color: isActiveNode ? window.tabColor : (isHovered ? "#0affffff" : "#05ffffff")
-                            border.color: isActiveNode ? window.tabColor : "#1affffff"
-                            border.width: isActiveNode ? 2 : 1
+                            color: isActiveNode ? window.tabColor : (isHovered ? window.mantle : window.mantle)
+                            border.color: isActiveNode ? window.tabColor : window.surface1
+                            border.width: 2
                             Behavior on border.color { ColorAnimation { duration: 300 } }
                             Behavior on color { ColorAnimation { duration: 300 } }
 
@@ -751,7 +705,7 @@ Item {
 
                                     Text {
                                         font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(22)
-                                        color: isActiveNode ? window.crust : window.text
+                                        color: isActiveNode ? window.base : window.text
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                         text: {
                                             if (window.activeTab === "inputs") return "󰍬";
@@ -767,13 +721,13 @@ Item {
                                         Text {
                                             Layout.fillWidth: true; elide: Text.ElideRight
                                             font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(14)
-                                            color: isActiveNode ? window.crust : window.text
+                                            color: isActiveNode ? window.base : window.text
                                             text: model.description
                                         }
                                         Text {
                                             Layout.fillWidth: true; elide: Text.ElideRight
                                             font.family: "JetBrains Mono"; font.pixelSize: window.s(11)
-                                            color: isActiveNode ? Qt.darker(window.crust, 1.5) : window.subtext0
+                                            color: isActiveNode ? Qt.darker(window.base, 1.5) : window.subtext0
                                             text: isActiveNode ? "Active Default" : model.name
                                         }
                                     }
@@ -789,7 +743,7 @@ Item {
 
                                     Rectangle {
                                         Layout.preferredWidth: window.s(32); Layout.preferredHeight: window.s(32); radius: window.s(16)
-                                        color: muteMa.containsMouse ? "#1affffff" : "transparent"
+                                        color: muteMa.containsMouse ? window.surface1 : "transparent"
                                         border.color: muteMa.containsMouse ? (model.mute ? window.overlay0 : window.tabColor) : "transparent"
                                         Behavior on color { ColorAnimation { duration: 150 } }
 
@@ -838,25 +792,22 @@ Item {
                                         }
 
                                         Rectangle {
-                                            anchors.fill: parent; radius: window.s(7)
-                                            color: "#0dffffff"; border.color: "#1affffff"; border.width: 1
+                                            anchors.fill: parent; radius: window.s(4)
+                                            color: window.mantle; border.color: window.surface1; border.width: 2
                                             clip: true
 
                                             Rectangle {
                                                 height: parent.height
                                                 width: parent.width * (Math.min(100, model.volume) / 100)
-                                                radius: window.s(7)
-                                                
+                                                radius: window.s(4)
+
                                                 // Heavily dimmed if muted, slightly dimmed if background node
                                                 opacity: model.mute ? 0.3 : (volSliderMa.containsMouse ? 0.7 : 0.4)
                                                 Behavior on opacity { NumberAnimation { duration: 200 } }
                                                 Behavior on width { enabled: !window.draggingNodes[model.id]; NumberAnimation { duration: 300; easing.type: Easing.OutQuint } }
 
-                                                gradient: Gradient {
-                                                    orientation: Gradient.Horizontal
-                                                    GradientStop { position: 0.0; color: model.mute ? window.surface2 : window.tabColor; Behavior on color { ColorAnimation { duration: 300 } } }
-                                                    GradientStop { position: 1.0; color: model.mute ? Qt.lighter(window.surface2, 1.15) : Qt.lighter(window.tabColor, 1.25); Behavior on color { ColorAnimation { duration: 300 } } }
-                                                }
+                                                color: model.mute ? window.surface2 : window.tabColor
+                                                Behavior on color { ColorAnimation { duration: 300 } }
                                             }
                                         }
                                         

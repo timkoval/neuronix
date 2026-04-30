@@ -987,7 +987,7 @@ Item {
             enabled: window.initialFocusSet
             ParallelAnimation {
                 NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 400; easing.type: Easing.OutCubic }
-                NumberAnimation { property: "scale"; from: 0.5; to: 1; duration: 400; easing.type: Easing.OutBack }
+                NumberAnimation { property: "scale"; from: 0.5; to: 1; duration: 400; easing.type: Easing.OutQuart }
             }
         }
         addDisplaced: Transition {
@@ -1167,8 +1167,8 @@ Item {
                         anchors.margins: window.s(10)
                         width: window.s(32)
                         height: window.s(32)
-                        radius: window.s(6)
-                        color: "#60000000" 
+                        radius: window.s(4)
+                        color: "#60000000"
                         transform: Matrix4x4 {
                             property real s: -window.skewFactor
                             matrix: Qt.matrix4x4(1, s, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
@@ -1214,11 +1214,11 @@ Item {
         z: 20
         height: window.s(56)
         width: filterRow.width + window.s(24)
-        radius: window.s(14) 
-        
-        color: Qt.rgba(_theme.mantle.r, _theme.mantle.g, _theme.mantle.b, 0.90)
-        border.color: Qt.rgba(_theme.surface2.r, _theme.surface2.g, _theme.surface2.b, 0.8)
-        border.width: 1
+        radius: window.s(4)
+
+        color: _theme.mantle
+        border.color: _theme.surface1
+        border.width: 2
 
         Row {
             id: filterRow
@@ -1232,15 +1232,15 @@ Item {
                 property real targetWidth: window.showNotification ? Math.min(notifTextDrawer.implicitWidth + paddingLeft + window.s(20), window.s(300)) : 0
                 width: targetWidth
                 visible: width > 0.1 
-                radius: window.s(10) 
+                radius: window.s(4)
                 clip: true
-                
-                color: window.showNotification ? Qt.rgba(_theme.surface2.r, _theme.surface2.g, _theme.surface2.b, 0.5) : "transparent"
-                border.color: window.showNotification ? Qt.rgba(_theme.surface1.r, _theme.surface1.g, _theme.surface1.b, 0.8) : "transparent"
-                border.width: 1
 
-                Behavior on width { 
-                    NumberAnimation { duration: 600; easing.type: Easing.OutBack; easing.overshoot: 0.5 } 
+                color: window.showNotification ? _theme.mantle : "transparent"
+                border.color: window.showNotification ? _theme.surface1 : "transparent"
+                border.width: 2
+
+                Behavior on width {
+                    NumberAnimation { duration: 600; easing.type: Easing.OutQuart }
                 }
                 Behavior on color { ColorAnimation { duration: 400 } }
                 Behavior on border.color { ColorAnimation { duration: 400 } }
@@ -1265,12 +1265,12 @@ Item {
                             var s = window.s;
                             ctx.reset();
                             ctx.lineWidth = s(2);
-                            ctx.strokeStyle = Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.3);
+                            ctx.strokeStyle = _theme.surface1;
                             ctx.beginPath();
                             ctx.arc(s(7), s(7), s(5), 0, Math.PI * 2);
                             ctx.stroke();
-                            
-                            ctx.strokeStyle = Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.9);
+
+                            ctx.strokeStyle = _theme.text;
                             ctx.beginPath();
                             ctx.arc(s(7), s(7), s(5), 0, Math.PI * 0.5);
                             ctx.stroke();
@@ -1300,8 +1300,8 @@ Item {
 
                     opacity: window.showNotification ? 0.9 : 0.0
                     Behavior on opacity { NumberAnimation { duration: 400; easing.type: Easing.OutQuad } }
-                    Behavior on anchors.leftMargin { 
-                        NumberAnimation { duration: 600; easing.type: Easing.OutBack; easing.overshoot: 0.5 } 
+                    Behavior on anchors.leftMargin {
+                        NumberAnimation { duration: 600; easing.type: Easing.OutQuart }
                     }
                 }
             }
@@ -1317,16 +1317,15 @@ Item {
                     
                     Rectangle {
                         anchors.fill: parent
-                        radius: window.s(10) 
-                        color: modelData.hex === "" 
-                                ? (window.currentFilter === modelData.name ? _theme.surface2 : "transparent") 
+                        radius: window.s(4)
+                        color: modelData.hex === ""
+                                ? (window.currentFilter === modelData.name ? _theme.surface2 : "transparent")
                                 : modelData.hex
-                        
-                        border.color: window.currentFilter === modelData.name ? _theme.text : Qt.rgba(_theme.surface1.r, _theme.surface1.g, _theme.surface1.b, 0.6)
-                        border.width: window.currentFilter === modelData.name ? window.s(2) : 1
-                        scale: window.currentFilter === modelData.name ? 1.15 : (filterMouse.containsMouse ? 1.08 : 1.0)
-                        
-                        Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutBack; easing.overshoot: 1.2 } }
+
+                        border.color: window.currentFilter === modelData.name ? _theme.text : _theme.surface1
+                        border.width: window.currentFilter === modelData.name ? window.s(2) : 2
+
+                        Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutQuart } }
                         Behavior on border.color { ColorAnimation { duration: 300 } }
 
                         Text {
@@ -1334,7 +1333,7 @@ Item {
                             visible: modelData.hex === "" && modelData.name !== "Video" && modelData.name !== "All"
                             text: modelData.label
                             anchors.centerIn: parent
-                            color: window.currentFilter === modelData.name ? _theme.text : Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.7)
+                            color: window.currentFilter === modelData.name ? _theme.text : _theme.subtext0
                             font.family: "JetBrains Mono"
                             font.pixelSize: window.s(14)
                             font.bold: window.currentFilter === modelData.name
@@ -1346,7 +1345,7 @@ Item {
                             width: window.s(14); height: window.s(16)
                             anchors.centerIn: parent
                             anchors.horizontalCenterOffset: window.s(2) 
-                            property string activeColor: window.currentFilter === modelData.name ? _theme.text : Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.7)
+                            property string activeColor: window.currentFilter === modelData.name ? _theme.text : _theme.subtext0
                             onActiveColorChanged: requestPaint()
                             property real scaleTrigger: window.s(1)
                             onScaleTriggerChanged: requestPaint()
@@ -1355,7 +1354,7 @@ Item {
                                 var ctx = getContext("2d");
                                 var s = window.s;
                                 ctx.reset();
-                                ctx.fillStyle = activeColor; 
+                                ctx.fillStyle = activeColor;
                                 ctx.beginPath();
                                 ctx.moveTo(0, 0);
                                 ctx.lineTo(s(14), s(8));
@@ -1369,7 +1368,7 @@ Item {
                             visible: modelData.name === "All"
                             width: window.s(14); height: window.s(14)
                             anchors.centerIn: parent
-                            property string activeColor: window.currentFilter === modelData.name ? _theme.text : Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.7)
+                            property string activeColor: window.currentFilter === modelData.name ? _theme.text : _theme.subtext0
                             onActiveColorChanged: requestPaint()
                             property real scaleTrigger: window.s(1)
                             onScaleTriggerChanged: requestPaint()
@@ -1403,13 +1402,13 @@ Item {
                 visible: window.currentFilter === "Search" && window.hasSearched
                 width: visible ? window.s(44) : 0
                 height: window.s(44)
-                radius: window.s(10) 
+                radius: window.s(4)
                 clip: true
                 color: window.isSearchPaused ? _theme.surface2 : "transparent"
-                border.color: window.isSearchPaused ? _theme.text : Qt.rgba(_theme.surface1.r, _theme.surface1.g, _theme.surface1.b, 0.6)
-                border.width: window.isSearchPaused ? window.s(2) : 1
-                
-                Behavior on width { NumberAnimation { duration: 500; easing.type: Easing.OutBack; easing.overshoot: 0.5 } }
+                border.color: window.isSearchPaused ? _theme.text : _theme.surface1
+                border.width: window.isSearchPaused ? window.s(2) : 2
+
+                Behavior on width { NumberAnimation { duration: 500; easing.type: Easing.OutQuart } }
                 Behavior on color { ColorAnimation { duration: 400; easing.type: Easing.OutQuart } }
                 
                 MouseArea {
@@ -1425,7 +1424,7 @@ Item {
                     width: window.s(44); height: window.s(44)
                     anchors.centerIn: parent
                     property bool paused: window.isSearchPaused
-                    property string activeColor: paused ? _theme.text : (scMouse.containsMouse ? _theme.text : Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.7))
+                    property string activeColor: paused ? _theme.text : (scMouse.containsMouse ? _theme.text : _theme.subtext0)
                     onActiveColorChanged: requestPaint()
                     onPausedChanged: requestPaint()
                     property real scaleTrigger: window.s(1)
@@ -1455,14 +1454,14 @@ Item {
                 id: searchBox
                 height: window.s(44)
                 width: window.currentFilter === "Search" ? window.s(360) : window.s(44) 
-                radius: window.s(10) 
+                radius: window.s(4)
                 clip: true
-                
-                color: window.currentFilter === "Search" ? Qt.rgba(_theme.surface2.r, _theme.surface2.g, _theme.surface2.b, 0.8) : "transparent"
-                border.color: window.currentFilter === "Search" ? Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.5) : Qt.rgba(_theme.surface1.r, _theme.surface1.g, _theme.surface1.b, 0.6)
-                border.width: window.currentFilter === "Search" ? window.s(2) : 1
-                
-                Behavior on width { NumberAnimation { duration: 600; easing.type: Easing.OutBack; easing.overshoot: 0.5 } }
+
+                color: window.currentFilter === "Search" ? _theme.surface2 : "transparent"
+                border.color: window.currentFilter === "Search" ? _theme.text : _theme.surface1
+                border.width: window.currentFilter === "Search" ? window.s(2) : 2
+
+                Behavior on width { NumberAnimation { duration: 600; easing.type: Easing.OutQuart } }
                 Behavior on color { ColorAnimation { duration: 400; easing.type: Easing.OutQuart } }
                 Behavior on border.color { ColorAnimation { duration: 400 } }
 
@@ -1489,7 +1488,7 @@ Item {
                     anchors.leftMargin: window.currentFilter === "Search" ? window.s(5) : 0 
                     anchors.verticalCenter: parent.verticalCenter
                     Behavior on anchors.leftMargin { NumberAnimation { duration: 500; easing.type: Easing.OutExpo } }
-                    property string activeColor: window.currentFilter === "Search" ? _theme.text : (searchMouseArea.containsMouse ? _theme.text : Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.7))
+                    property string activeColor: window.currentFilter === "Search" ? _theme.text : (searchMouseArea.containsMouse ? _theme.text : _theme.subtext0)
                     onActiveColorChanged: requestPaint()
                     property real scaleTrigger: window.s(1)
                     onScaleTriggerChanged: requestPaint()
@@ -1542,18 +1541,18 @@ Item {
                     id: submitBtn
                     width: window.s(32)
                     height: window.s(32)
-                    radius: window.s(8) 
+                    radius: window.s(4)
                     anchors.right: parent.right
                     anchors.rightMargin: window.s(8)
                     anchors.verticalCenter: parent.verticalCenter
-                    
+
                     opacity: window.currentFilter === "Search" ? 1.0 : 0.0
                     visible: opacity > 0
                     Behavior on opacity { NumberAnimation { duration: 400; easing.type: Easing.OutQuad } }
 
-                    color: submitMouseArea.containsMouse ? Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.1) : "transparent"
-                    border.color: submitMouseArea.containsMouse ? _theme.text : Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.3)
-                    border.width: 1
+                    color: submitMouseArea.containsMouse ? _theme.surface1 : "transparent"
+                    border.color: submitMouseArea.containsMouse ? _theme.text : _theme.surface1
+                    border.width: 2
                     Behavior on color { ColorAnimation { duration: 300 } }
 
                     MouseArea {
@@ -1571,7 +1570,7 @@ Item {
                         width: window.s(16)
                         height: window.s(16)
                         anchors.centerIn: parent
-                        property string activeColor: submitMouseArea.containsMouse ? _theme.text : Qt.rgba(_theme.text.r, _theme.text.g, _theme.text.b, 0.7)
+                        property string activeColor: submitMouseArea.containsMouse ? _theme.text : _theme.subtext0
                         onActiveColorChanged: requestPaint()
                         property real scaleTrigger: window.s(1)
                         onScaleTriggerChanged: requestPaint()

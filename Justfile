@@ -17,6 +17,10 @@ hypr mode="default":
   use utils.nu *; \
   nixos-switch ai_hyprland {{mode}}
 
+ai-niri mode="default":
+  use utils.nu *; \
+  nixos-switch ai-niri {{mode}}
+
 elitebook-hypr mode="default":
   use utils.nu *; \
   nixos-switch tk-elitebook-hyprland {{mode}}

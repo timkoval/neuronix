@@ -146,7 +146,7 @@ Item {
         // 2. Cover art snaps in with a premium elastic feel
         SequentialAnimation {
             PauseAnimation { duration: 70 }
-            NumberAnimation { target: root; property: "introCover"; from: 0; to: 1.0; duration: 810; easing.type: Easing.OutBack; easing.overshoot: 1.0 }
+            NumberAnimation { target: root; property: "introCover"; from: 0; to: 1.0; duration: 810; easing.type: Easing.OutQuart }
         }
 
         // 3. Text block glides in smoothly
@@ -158,7 +158,7 @@ Item {
         // 4. Progress bar and Media Controls bounce in
         SequentialAnimation {
             PauseAnimation { duration: 230 }
-            NumberAnimation { target: root; property: "introControls"; from: 0; to: 1.0; duration: 760; easing.type: Easing.OutBack; easing.overshoot: 0.8 }
+            NumberAnimation { target: root; property: "introControls"; from: 0; to: 1.0; duration: 760; easing.type: Easing.OutQuart }
         }
 
         // 5. Separator line drops and fades
@@ -182,7 +182,7 @@ Item {
         // 8. Presets finish the orchestration with a final pop
         SequentialAnimation {
             PauseAnimation { duration: 550 }
-            NumberAnimation { target: root; property: "introPresets"; from: 0; to: 1.0; duration: 810; easing.type: Easing.OutBack; easing.overshoot: 0.8 }
+            NumberAnimation { target: root; property: "introPresets"; from: 0; to: 1.0; duration: 810; easing.type: Easing.OutQuart }
         }
     }
 
@@ -347,7 +347,7 @@ Item {
                 property real inset: (sw / 2) + root.s(0.5) 
                 property real w: width
                 property real h: height
-                property real r: root.s(14) - inset
+                property real r: 0
                 
                 // Mathematical perimeter
                 property real straightLines: 2 * (w - 2 * inset - 2 * r) + 2 * (h - 2 * inset - 2 * r)
@@ -427,13 +427,8 @@ Item {
                         running: true
                     }
 
-                    gradient: Gradient {
-                        // FIXED: Using securely unpacked color bindings
-                        GradientStop { position: 0.0; color: root.bc1; Behavior on color { ColorAnimation { duration: 800; easing.type: Easing.InOutQuad } } }
-                        GradientStop { position: 0.33; color: root.bc2; Behavior on color { ColorAnimation { duration: 800; easing.type: Easing.InOutQuad } } }
-                        GradientStop { position: 0.66; color: root.bc3; Behavior on color { ColorAnimation { duration: 800; easing.type: Easing.InOutQuad } } }
-                        GradientStop { position: 1.0; color: root.bc4; Behavior on color { ColorAnimation { duration: 800; easing.type: Easing.InOutQuad } } }
-                    }
+                    color: root.bc1
+                    Behavior on color { ColorAnimation { duration: 800; easing.type: Easing.InOutQuad } }
                 }
             }
 
@@ -451,7 +446,7 @@ Item {
             anchors.fill: parent
             anchors.margins: root.s(3)
             color: root.base
-            radius: root.s(10)
+            radius: root.s(4)
 
             // FIX: This forces the entire background to render as a single hardware texture,
             // preventing the UI from dragging and causing "shadow boxes" during the StackView transition!
@@ -461,7 +456,7 @@ Item {
             Rectangle {
                 id: innerBgMask
                 anchors.fill: parent
-                radius: root.s(10)
+                radius: root.s(4)
                 visible: false
                 
                 // FIX: Masks in MultiEffect strictly require layer.enabled to correctly capture the radius during scaling!
@@ -490,30 +485,7 @@ Item {
                     Behavior on opacity { NumberAnimation { duration: 800; easing.type: Easing.InOutQuad } }
                 }
 
-                // LAYER 1.5: Flowing Orbits
-                Rectangle {
-                    width: parent.width * 0.8; height: width; radius: width / 2
-                    x: (parent.width / 2 - width / 2) + Math.cos(root.globalOrbitAngle * 2) * root.s(150)
-                    y: (parent.height / 2 - height / 2) + Math.sin(root.globalOrbitAngle * 2) * root.s(100)
-                    
-                    // Fixed: Hides orbits when stopped
-                    opacity: root.musicData.status === "Playing" ? 0.08 : (root.musicData.status === "Paused" ? 0.04 : 0.0)
-                    color: root.musicData.status === "Playing" ? root.mauve : root.surface2
-                    Behavior on color { ColorAnimation { duration: 1000 } }
-                    Behavior on opacity { NumberAnimation { duration: 1000 } }
-                }
-                
-                Rectangle {
-                    width: parent.width * 0.9; height: width; radius: width / 2
-                    x: (parent.width / 2 - width / 2) + Math.sin(root.globalOrbitAngle * 1.5) * root.s(-150)
-                    y: (parent.height / 2 - height / 2) + Math.cos(root.globalOrbitAngle * 1.5) * root.s(-100)
-                    
-                    // Fixed: Hides orbits when stopped
-                    opacity: root.musicData.status === "Playing" ? 0.08 : (root.musicData.status === "Paused" ? 0.02 : 0.0)
-                    color: root.musicData.status === "Playing" ? root.blue : root.surface1
-                    Behavior on color { ColorAnimation { duration: 1000 } }
-                    Behavior on opacity { NumberAnimation { duration: 1000 } }
-                }
+                // Ambient blobs removed for flat design
             }
 
             // LAYER 2: UI Content
@@ -540,9 +512,7 @@ Item {
                         // Enhanced 2D drift animation
                         transform: Translate { x: root.s(-40) * (1 - root.introCover); y: root.s(10) * (1 - root.introCover) }
 
-                        // Elastic response to play/pause state
-                        scale: root.musicData.status === "Playing" ? 1.0 : 0.90
-                        Behavior on scale { NumberAnimation { duration: 800; easing.type: Easing.OutElastic; easing.overshoot: 1.2 } }
+                        scale: 1.0
 
                         Rectangle {
                             anchors.fill: parent
@@ -600,8 +570,8 @@ Item {
                                 Rectangle {
                                     anchors.fill: parent
                                     radius: width / 2
-                                    color: Qt.rgba(root.mauve.r, root.mauve.g, root.mauve.b, 0.2)
-                                    opacity: artImg.status === Image.Ready ? 1.0 : 0.0
+                                    color: root.surface1
+                                    opacity: artImg.status === Image.Ready ? 0.2 : 0.0
                                     Behavior on opacity { NumberAnimation { duration: 800 } }
                                 }
 
@@ -715,7 +685,7 @@ Item {
                             RowLayout {
                                 spacing: root.s(10)
                                 Rectangle {
-                                    color: "#1AFFFFFF"
+                                    color: root.surface1
                                     radius: root.s(4)
                                     Layout.preferredHeight: root.s(24)
                                     Layout.preferredWidth: pillContent.width + root.s(20)
@@ -793,9 +763,8 @@ Item {
                                     // Shadows mimicking the EQ slider background
                                     Rectangle {
                                         anchors.fill: parent
-                                        radius: root.s(6)
-                                        // Dynamic tint: surface0 with 70% opacity for a softer dark look
-                                        color: Qt.rgba(root.surface0.r, root.surface0.g, root.surface0.b, 0.7)
+                                        radius: root.s(4)
+                                        color: root.surface0
 
                                         layer.enabled: true
                                         layer.effect: MultiEffect {
@@ -822,27 +791,15 @@ Item {
                                             id: sliderFillMask
                                             width: parent.width
                                             height: parent.height
-                                            radius: root.s(6)
+                                            radius: root.s(4)
                                             visible: false
                                             layer.enabled: true 
                                         }
 
                                         Rectangle {
-                                            width: root.s(2000)
-                                            height: parent.height
-                                            // Sliding the gradient perfectly by exactly half its width (1000px)
-                                            x: -(root.catppuccinFlowOffset * root.s(1000)) 
-                                            gradient: Gradient {
-                                                orientation: Gradient.Horizontal
-                                                // Mathematically precise loops with lighter, cooler colors & theme change support
-                                                GradientStop { position: 0.0000; color: Qt.lighter(root.blue, 1.2); Behavior on color { ColorAnimation { duration: 800 } } }
-                                                GradientStop { position: 0.1666; color: Qt.lighter(root.sapphire, 1.15); Behavior on color { ColorAnimation { duration: 800 } } }
-                                                GradientStop { position: 0.3333; color: Qt.lighter(root.mauve, 1.15); Behavior on color { ColorAnimation { duration: 800 } } }
-                                                GradientStop { position: 0.5000; color: Qt.lighter(root.blue, 1.2); Behavior on color { ColorAnimation { duration: 800 } } }
-                                                GradientStop { position: 0.6666; color: Qt.lighter(root.sapphire, 1.15); Behavior on color { ColorAnimation { duration: 800 } } }
-                                                GradientStop { position: 0.8333; color: Qt.lighter(root.mauve, 1.15); Behavior on color { ColorAnimation { duration: 800 } } }
-                                                GradientStop { position: 1.0000; color: Qt.lighter(root.blue, 1.2); Behavior on color { ColorAnimation { duration: 800 } } }
-                                            }
+                                            anchors.fill: parent
+                                            color: root.blue
+                                            Behavior on color { ColorAnimation { duration: 800 } }
                                         }
                                     }
                                 }
@@ -855,7 +812,7 @@ Item {
                                     width: root.s(18); height: root.s(18)
                                     radius: root.s(9); color: root.text
                                     scale: progBar.pressed ? 1.3 : 1.0
-                                    Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
+                                    Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutQuart } }
                                 }
                             }
 
@@ -935,7 +892,7 @@ Item {
                                     font.pixelSize: root.s(42) 
                                     scale: parent.pressed ? 0.8 : 1.0
                                     Behavior on color { ColorAnimation { duration: 150 } }
-                                    Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
+                                    Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutQuart } }
                                 }
                             }
                             MouseArea {
@@ -956,8 +913,8 @@ Item {
                     Layout.preferredHeight: root.s(2)
                     Layout.topMargin: root.s(20)
                     Layout.bottomMargin: root.s(20)
-                    color: "#1AFFFFFF"
-                    radius: root.s(1)
+                    color: root.surface1
+                    radius: root.s(4)
 
                     opacity: root.introSeparator
                     transform: Translate { y: root.s(15) * (1 - root.introSeparator) }
@@ -982,10 +939,10 @@ Item {
                         Rectangle {
                             Layout.preferredHeight: root.s(28)
                             Layout.preferredWidth: applyTxt.width + root.s(30)
-                            radius: root.s(10)
+                            radius: root.s(4)
                             color: root.eqData.pending ? root.mauve : root.surface1
                             border.color: root.eqData.pending ? root.mauve : root.surface2
-                            border.width: 1
+                            border.width: 2
                             
                             Behavior on color { ColorAnimation { duration: 300; easing.type: Easing.OutCubic } }
                             Behavior on border.color { ColorAnimation { duration: 300; easing.type: Easing.OutCubic } }
@@ -1146,10 +1103,9 @@ Item {
                                                 implicitWidth: root.s(10) 
                                                 implicitHeight: root.s(150)
                                                 width: root.s(10); height: eqSlider.availableHeight
-                                                radius: root.s(4); 
-                                                
-                                                // Dynamic tint: surface0 with 70% opacity for a softer dark look
-                                                color: Qt.rgba(root.surface0.r, root.surface0.g, root.surface0.b, 0.7)
+                                                radius: root.s(4);
+
+                                                color: root.surface0
 
                                                 layer.enabled: true
                                                 layer.effect: MultiEffect {
@@ -1201,38 +1157,20 @@ Item {
                                                         anchors.fill: parent
                                                         color: root.blue
 
-                                                        // Track Override: Changes entire gradient of track
+                                                        // Track Override: flat flash
                                                         Rectangle {
                                                             anchors.fill: parent
                                                             opacity: sliderDelegate.flashFade
-                                                            gradient: Gradient {
-                                                                orientation: Gradient.Vertical
-                                                                GradientStop { position: 0.0; color: root.mauve }
-                                                                GradientStop { position: 0.5; color: root.blue }
-                                                                GradientStop { position: 1.0; color: "transparent" }
-                                                            }
+                                                            color: root.mauve
                                                         }
 
-                                                        // The Internal Charging Surge Bolt 
+                                                        // The Internal Charging Surge Bolt
                                                         Rectangle {
                                                             width: parent.width
-                                                            height: root.s(80) // Massive physical bolt
+                                                            height: root.s(80)
                                                             y: (sliderDelegate.trackPulse * (parent.height + height)) - height
                                                             opacity: Math.sin(sliderDelegate.trackPulse * Math.PI) * 2.0 * (1.0 - root.eqLightningFade)
-                                                            
-                                                            gradient: Gradient {
-                                                                orientation: Gradient.Vertical
-                                                                GradientStop { position: 0.0; color: "transparent" }
-                                                                GradientStop { position: 0.2; color: root.blue }
-                                                                GradientStop { position: 0.5; color: root.text } // Theme integrated bright center
-                                                                GradientStop { position: 0.8; color: root.mauve }
-                                                                GradientStop { position: 1.0; color: "transparent" }
-                                                            }
-                                                            
-                                                            layer.enabled: true
-                                                            layer.effect: MultiEffect {
-                                                                shadowEnabled: true; shadowColor: root.blue; shadowBlur: 1.0; shadowOpacity: 1.0
-                                                            }
+                                                            color: root.blue
                                                         }
                                                     }
                                                 }
@@ -1440,16 +1378,15 @@ Item {
         property string name: ""
         Layout.fillWidth: true
         Layout.preferredHeight: root.s(32)
-        radius: root.s(8)
+        radius: root.s(4)
         
         property bool isActivePreset: root.eqData && root.eqData.preset === name
         property bool isHovered: hoverMa.containsMouse
 
-        color: isActivePreset ? root.mauve : (isHovered ? root.surface1 : "#BF1E1E2E")
-        scale: isHovered && !isActivePreset ? 1.05 : 1.0
+        color: isActivePreset ? root.mauve : (isHovered ? root.surface1 : root.mantle)
+        scale: 1.0
 
         Behavior on color { ColorAnimation { duration: 200 } }
-        Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
 
         Text {
             anchors.centerIn: parent

@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   shellAliases = {
     "t" = "tmux";
   };
@@ -7,15 +10,29 @@ in {
   programs.tmux = {
     enable = true;
     # Theme is managed by Stylix
-    plugins = with pkgs;
-      [
-        {
-          plugin = tmuxPlugins.vim-tmux-navigator;
-          extraConfig = ''
-            set -g @tmux_navigator_no_mappings 'true'
-            '';
-        }
-      ];
+    plugins = with pkgs; [
+      {
+        plugin = tmuxPlugins.vim-tmux-navigator;
+        extraConfig = ''
+          set -g @tmux_navigator_no_mappings 'true'
+        '';
+      }
+      {
+        plugin = tmuxPlugins.resurrect;
+        extraConfig = ''
+          set -g @resurrect-capture-pane-contents 'on'
+          set -g @resurrect-strategy-vim 'session'
+          set -g @resurrect-strategy-nvim 'session'
+        '';
+      }
+      {
+        plugin = tmuxPlugins.continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '15'
+        '';
+      }
+    ];
     extraConfig = ''
       set-option -g default-shell ${pkgs.fish}/bin/fish
       set-option -g default-command "${pkgs.fish}/bin/fish -i"
@@ -39,9 +56,8 @@ in {
 
       set -g status-position top
 
-      '';
+    '';
   };
   # only works in bash/zsh/fish, not nushell
   home.shellAliases = shellAliases;
-
 }

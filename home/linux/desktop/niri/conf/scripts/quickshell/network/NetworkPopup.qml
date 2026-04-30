@@ -646,9 +646,6 @@ Item {
     }
 
     property real globalOrbitAngle: 0
-    NumberAnimation on globalOrbitAngle {
-        from: 0; to: Math.PI * 2; duration: 200000; loops: Animation.Infinite; running: true
-    }
 
     property real introState: 0.0
     Behavior on introState { NumberAnimation { duration: 1500; easing.type: Easing.OutCubic } }
@@ -676,43 +673,20 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            radius: window.s(20)
+            radius: window.s(4)
             color: window.base
             border.color: window.surface0
-            border.width: 1
+            border.width: 2
             clip: true
             
-            Rectangle {
-                width: parent.width * 0.8; height: width; radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.cos(window.globalOrbitAngle * 2) * window.s(150)
-                y: (parent.height / 2 - height / 2) + Math.sin(window.globalOrbitAngle * 2) * window.s(100)
-                opacity: window.currentPower ? 0.08 : 0.02
-                color: window.currentConn ? window.activeColor : window.surface2
-                Behavior on color { ColorAnimation { duration: 1000 } }
-                Behavior on opacity { NumberAnimation { duration: 1000 } }
-                visible: opacity > 0.01
-            }
-            
-            Rectangle {
-                width: parent.width * 0.9; height: width; radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.sin(window.globalOrbitAngle * 1.5) * window.s(-150)
-                y: (parent.height / 2 - height / 2) + Math.cos(window.globalOrbitAngle * 1.5) * window.s(-100)
-                opacity: window.currentPower ? 0.06 : 0.01
-                color: window.currentConn ? window.activeGradientSecondary : window.surface1
-                Behavior on color { ColorAnimation { duration: 1000 } }
-                Behavior on opacity { NumberAnimation { duration: 1000 } }
-                visible: opacity > 0.01
-            }
 
             Item {
                 id: radarItem
                 anchors.fill: parent
                 anchors.bottomMargin: window.s(80) 
                 opacity: window.currentPower ? 1.0 : 0.0
-                scale: window.currentPower ? 1.0 : 1.05
                 visible: opacity > 0.01
                 Behavior on opacity { NumberAnimation { duration: 600; easing.type: Easing.InOutQuad } }
-                Behavior on scale { NumberAnimation { duration: 600; easing.type: Easing.OutCubic } }
                 
                 Repeater {
                     model: 3
@@ -949,33 +923,17 @@ Item {
                             SequentialAnimation on bumpScale {
                                 id: coreBumpAnim
                                 running: false
-                                NumberAnimation { to: 1.15; duration: 200; easing.type: Easing.OutBack }
+                                NumberAnimation { to: 1.15; duration: 200; easing.type: Easing.OutQuart }
                                 NumberAnimation { to: 1.0; duration: 600; easing.type: Easing.OutQuint }
                             }
 
-                            gradient: Gradient {
-                                orientation: Gradient.Vertical
-                                GradientStop {
-                                    position: 0.0
-                                    color: {
-                                        if (!window.currentPower) return window.mantle;
-                                        if (isMyDisconnecting) return window.surface0; 
-                                        if (centralCore.isDangerState && window.currentConn && !showPassword) return Qt.lighter(window.red, 1.15);
-                                        return window.currentConn || showPassword ? Qt.lighter(window.activeColor, 1.15) : window.surface0;
-                                    }
-                                    Behavior on color { ColorAnimation { duration: 300 } }
-                                }
-                                GradientStop {
-                                    position: 1.0
-                                    color: {
-                                        if (!window.currentPower) return window.crust;
-                                        if (isMyDisconnecting) return window.base; 
-                                        if (centralCore.isDangerState && window.currentConn && !showPassword) return window.red;
-                                        return window.currentConn || showPassword ? window.activeColor : window.base;
-                                    }
-                                    Behavior on color { ColorAnimation { duration: 300 } }
-                                }
+                            color: {
+                                if (!window.currentPower) return window.mantle;
+                                if (isMyDisconnecting) return window.surface0;
+                                if (centralCore.isDangerState && window.currentConn && !showPassword) return Qt.lighter(window.red, 1.15);
+                                return window.currentConn || showPassword ? Qt.lighter(window.activeColor, 1.15) : window.surface0;
                             }
+                            Behavior on color { ColorAnimation { duration: 300 } }
 
                             border.color: {
                                 if (!window.currentPower) return window.crust;
@@ -1062,12 +1020,6 @@ Item {
                                 Behavior on color { ColorAnimation { duration: 200 } }
                                 Behavior on opacity { NumberAnimation { duration: 300 } }
                                 
-                                // Fixed duration breathing to prevent lag spikes
-                                SequentialAnimation on scale {
-                                    loops: Animation.Infinite; running: window.currentConn || showPassword
-                                    NumberAnimation { to: 1.1; duration: 2000; easing.type: Easing.InOutSine }
-                                    NumberAnimation { to: 1.0; duration: 2000; easing.type: Easing.InOutSine }
-                                }
                             }
                             
                             Rectangle {
@@ -1108,11 +1060,6 @@ Item {
                                     anchors.centerIn: parent
                                     width: parent.width * 0.7; height: width; radius: width/2
                                     color: window.surface0
-                                    SequentialAnimation on scale {
-                                        running: showOffline; loops: Animation.Infinite
-                                        NumberAnimation { to: 1.05; duration: 2000; easing.type: Easing.InOutSine }
-                                        NumberAnimation { to: 1.0; duration: 2000; easing.type: Easing.InOutSine }
-                                    }
                                 }
                                 Text {
                                     anchors.centerIn: parent
@@ -1170,25 +1117,25 @@ Item {
                                 opacity: showPassword ? 1.0 : 0.0
                                 visible: opacity > 0.01
                                 scale: showPassword ? 1.0 : 0.8
-                                Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutBack; easing.overshoot: 1.5 } }
+                                Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutQuart; } }
                                 Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutSine } }
                                 
                                 ColumnLayout {
                                     anchors.centerIn: parent
                                     spacing: window.s(8)
                                     
-                                    Text { Layout.alignment: Qt.AlignHCenter; font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(32); color: window.crust; text: "󰤨" }
+                                    Text { Layout.alignment: Qt.AlignHCenter; font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(32); color: window.base; text: "󰤨" }
                                     
                                     Text { 
                                         Layout.alignment: Qt.AlignHCenter; Layout.maximumWidth: pwdLayer.width - window.s(40)
                                         font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13)
-                                        color: window.crust; text: window.pendingWifiSsid; elide: Text.ElideRight 
+                                        color: window.base; text: window.pendingWifiSsid; elide: Text.ElideRight 
                                     }
                                     
                                     Rectangle {
                                         Layout.alignment: Qt.AlignHCenter
                                         Layout.preferredWidth: pwdLayer.width - window.s(40); height: window.s(36)
-                                        radius: window.s(18)
+                                        radius: window.s(4)
                                         color: window.surface0
                                         border.color: wifiPasswordField.activeFocus ? window.crust : "transparent"
                                         border.width: 1
@@ -1232,7 +1179,7 @@ Item {
                                 opacity: showConnected ? 1.0 : 0.0
                                 visible: opacity > 0.01
                                 scale: showConnected ? 1.0 : 0.95
-                                Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutBack; easing.overshoot: 1.2 } }
+                                Behavior on scale { NumberAnimation { duration: 400; easing.type: Easing.OutQuart; } }
                                 Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutSine } }
 
                                 ColumnLayout {
@@ -1244,7 +1191,7 @@ Item {
                                         Layout.alignment: Qt.AlignHCenter
                                         font.family: "Iosevka Nerd Font"
                                         font.pixelSize: window.s(48) - (window.s(16) * coreContainer.multiShift)
-                                        color: isMyDisconnecting ? window.overlay1 : window.crust
+                                        color: isMyDisconnecting ? window.overlay1 : window.base
                                         text: isMyDisconnecting ? "" : (coreMa.containsMouse ? (window.activeMode === "wifi" ? "󰖪" : "󰂲") : (coreContainer.myDevice ? (coreContainer.myDevice.icon || (window.activeMode === "wifi" ? "󰤨" : "󰂯")) : ""))
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                     }
@@ -1253,9 +1200,9 @@ Item {
                                         Layout.alignment: Qt.AlignHCenter
                                         Layout.maximumWidth: window.s(150) - (window.s(50) * coreContainer.multiShift)
                                         horizontalAlignment: Text.AlignHCenter
-                                        font.family: "JetBrains Mono"; font.weight: Font.Black
+                                        font.family: "JetBrains Mono"; font.weight: Font.Bold
                                         font.pixelSize: window.s(16) - (window.s(4) * coreContainer.multiShift)
-                                        color: isMyDisconnecting ? window.overlay1 : window.crust
+                                        color: isMyDisconnecting ? window.overlay1 : window.base
                                         text: coreContainer.myDevice ? (window.activeMode === "wifi" ? coreContainer.myDevice.ssid : coreContainer.myDevice.name) : ""
                                         elide: Text.ElideRight
                                         Behavior on color { ColorAnimation { duration: 200 } }
@@ -1263,7 +1210,7 @@ Item {
                                     Text {
                                         Layout.alignment: Qt.AlignHCenter
                                         font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(11)
-                                        color: isMyDisconnecting ? window.overlay1 : (coreMa.containsMouse ? window.crust : "#99000000")
+                                        color: isMyDisconnecting ? window.overlay1 : (coreMa.containsMouse ? window.base : window.overlay0)
                                         text: isMyDisconnecting ? "Disconnecting..." : (centralCore.disconnectFill > 0.01 ? "Hold..." : "Connected")
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                     }
@@ -1295,7 +1242,7 @@ Item {
                                             Layout.alignment: Qt.AlignHCenter
                                             Layout.maximumWidth: window.s(150) - (window.s(50) * coreContainer.multiShift)
                                             horizontalAlignment: Text.AlignHCenter
-                                            font.family: "JetBrains Mono"; font.weight: Font.Black
+                                            font.family: "JetBrains Mono"; font.weight: Font.Bold
                                             font.pixelSize: window.s(16) - (window.s(4) * coreContainer.multiShift)
                                             color: window.text
                                             text: coreContainer.myDevice ? (window.activeMode === "wifi" ? coreContainer.myDevice.ssid : coreContainer.myDevice.name) : ""
@@ -1398,7 +1345,7 @@ Item {
                             Behavior on opacity { NumberAnimation { duration: 400; easing.type: Easing.OutQuint } }
 
                             property real entryAnim: isLoaded ? 1.0 : 0.0
-                            Behavior on entryAnim { NumberAnimation { duration: 600; easing.type: Easing.OutBack } }
+                            Behavior on entryAnim { NumberAnimation { duration: 600; easing.type: Easing.OutQuart } }
 
                             Timer {
                                 running: true
@@ -1512,7 +1459,7 @@ Item {
                             Rectangle {
                                 id: floatCard
                                 anchors.fill: parent
-                                radius: window.s(14)
+                                radius: window.s(4)
                                 
                                 property string itemId: id
                                 property string itemName: name
@@ -1542,7 +1489,7 @@ Item {
                                 SequentialAnimation on bumpScale {
                                     id: cardBumpAnim
                                     running: false
-                                    NumberAnimation { to: 1.2; duration: 200; easing.type: Easing.OutBack }
+                                    NumberAnimation { to: 1.2; duration: 200; easing.type: Easing.OutQuart }
                                     NumberAnimation { to: 1.0; duration: 600; easing.type: Easing.OutQuint }
                                 }
 
@@ -1586,7 +1533,7 @@ Item {
                                     }
                                 }
 
-                                color: locksList ? "#2affffff" : "#0effffff"
+                                color: locksList ? window.surface1 : window.mantle
                                 Behavior on color { ColorAnimation { duration: 200 } }
                                 
                                 // Fail flash background
@@ -1600,7 +1547,7 @@ Item {
 
                                 Rectangle {
                                     anchors.fill: parent
-                                    radius: window.s(14)
+                                    radius: window.s(4)
                                     color: "transparent"
                                     border.width: 1
                                     border.color: floatCard.isFailed ? window.red : window.surface2
@@ -1610,32 +1557,26 @@ Item {
 
                                 Rectangle {
                                     anchors.fill: parent
-                                    radius: window.s(14)
+                                    radius: window.s(4)
                                     opacity: locksList || isHighlighted ? 1.0 : 0.0
-                                    color: "transparent"
+                                    color: floatCard.isFailed ? Qt.lighter(window.red, 1.15) : Qt.lighter(window.activeColor, 1.15)
                                     border.width: isHighlighted && !locksList ? 1 : window.s(2)
                                     border.color: floatCard.isFailed ? window.red : "transparent"
                                     Behavior on opacity { NumberAnimation { duration: 250 } }
-                                    
+
                                     Rectangle {
                                         anchors.fill: parent
                                         anchors.margins: isHighlighted && !locksList ? 1 : window.s(2)
-                                        radius: window.s(12)
+                                        radius: window.s(4)
                                         color: window.base
                                         opacity: locksList ? 0.9 : 1.0
-                                    }
-                                    
-                                    gradient: Gradient {
-                                        orientation: Gradient.Horizontal
-                                        GradientStop { position: 0.0; color: floatCard.isFailed ? Qt.lighter(window.red, 1.15) : Qt.lighter(window.activeColor, 1.15) }
-                                        GradientStop { position: 1.0; color: floatCard.isFailed ? window.red : window.activeColor }
                                     }
                                     z: -1
                                 }
 
                                 Rectangle {
                                     anchors.fill: parent
-                                    radius: window.s(14)
+                                    radius: window.s(4)
                                     color: "#ffffff"
                                     opacity: floatCard.flashOpacity
                                     PropertyAnimation on opacity { id: cardFlashAnim; to: 0; duration: 500; easing.type: Easing.OutExpo }
@@ -1721,16 +1662,6 @@ Item {
                                     border.width: window.s(2)
                                     visible: parent.isHighlighted && !parent.isMyBusy && !parent.isCurrentlyConnected && !parent.isFailed
                                     
-                                    SequentialAnimation on scale {
-                                        loops: Animation.Infinite; running: parent.visible
-                                        NumberAnimation { to: 1.15; duration: 1200; easing.type: Easing.InOutSine }
-                                        NumberAnimation { to: 1.0; duration: 1200; easing.type: Easing.InOutSine }
-                                    }
-                                    SequentialAnimation on opacity {
-                                        loops: Animation.Infinite; running: parent.visible
-                                        NumberAnimation { to: 0.0; duration: 1200; easing.type: Easing.InOutSine }
-                                        NumberAnimation { to: 0.8; duration: 1200; easing.type: Easing.InOutSine }
-                                    }
                                 }
 
                                 RowLayout {
@@ -1804,7 +1735,7 @@ Item {
                                         width: baseTextRow.width; height: baseTextRow.height
                                         spacing: window.s(10)
                                         
-                                        Text { font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(20); color: window.crust; text: icon }
+                                        Text { font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(20); color: window.base; text: icon }
                                         
                                         ColumnLayout {
                                             Layout.fillWidth: true
@@ -1821,7 +1752,7 @@ Item {
                                                     anchors.leftMargin: floatCard.textOffset
                                                     anchors.verticalCenter: parent.verticalCenter
                                                     text: floatCard.itemName
-                                                    font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13); color: window.crust 
+                                                    font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13); color: window.base 
                                                 }
                                                 Text { 
                                                     anchors.left: filledNameText.right
@@ -1829,11 +1760,11 @@ Item {
                                                     anchors.verticalCenter: parent.verticalCenter
                                                     visible: floatCard.doMarquee
                                                     text: floatCard.itemName
-                                                    font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13); color: window.crust 
+                                                    font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13); color: window.base 
                                                 }
                                             }
                                             Text {
-                                                font.family: "JetBrains Mono"; font.pixelSize: window.s(10); color: window.crust
+                                                font.family: "JetBrains Mono"; font.pixelSize: window.s(10); color: window.base
                                                 text: floatCard.isMyBusy ? "Connecting..." : (floatCard.renderFill > 0.1 && floatCard.renderFill < 1.0 ? "Hold..." : action)
                                             }
                                         }
@@ -1928,10 +1859,10 @@ Item {
                 anchors.bottomMargin: window.s(25)
                 width: window.s(360)
                 height: window.s(54)
-                radius: window.s(14)
-                color: "#1affffff" 
-                border.color: "#1affffff"
-                border.width: 1
+                radius: window.s(4)
+                color: window.mantle
+                border.color: window.surface1
+                border.width: 2
 
                 RowLayout {
                     anchors.fill: parent
@@ -1942,28 +1873,24 @@ Item {
                     Rectangle {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        radius: window.s(10)
+                        radius: window.s(4)
                         
                         color: window.activeMode === "wifi" ? "transparent" : (wifiTabMa.containsMouse ? window.surface1 : "transparent")
                         Behavior on color { ColorAnimation { duration: 200 } }
 
                         Rectangle {
                             anchors.fill: parent
-                            radius: window.s(10)
+                            radius: window.s(4)
                             opacity: window.activeMode === "wifi" ? 1.0 : 0.0
                             Behavior on opacity { NumberAnimation { duration: 300 } }
-                            gradient: Gradient {
-                                orientation: Gradient.Horizontal
-                                GradientStop { position: 0.0; color: Qt.lighter(window.wifiAccent, 1.15) }
-                                GradientStop { position: 1.0; color: window.wifiAccent }
-                            }
+                            color: Qt.lighter(window.wifiAccent, 1.15)
                         }
 
                         RowLayout {
                             anchors.centerIn: parent
                             spacing: window.s(8)
-                            Text { font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(18); color: window.activeMode === "wifi" ? window.crust : window.text; text: "󰤨"; Behavior on color { ColorAnimation{duration:200} } }
-                            Text { font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: window.s(13); color: window.activeMode === "wifi" ? window.crust : window.text; text: "Wi-Fi"; Behavior on color { ColorAnimation{duration:200} } }
+                            Text { font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(18); color: window.activeMode === "wifi" ? window.base : window.text; text: "󰤨"; Behavior on color { ColorAnimation{duration:200} } }
+                            Text { font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13); color: window.activeMode === "wifi" ? window.base : window.text; text: "Wi-Fi"; Behavior on color { ColorAnimation{duration:200} } }
                         }
                         MouseArea {
                             id: wifiTabMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
@@ -1975,33 +1902,29 @@ Item {
                         }
                     }
 
-                    Rectangle { width: 1; Layout.fillHeight: true; Layout.margins: window.s(5); color: "#33ffffff" }
+                    Rectangle { width: 1; Layout.fillHeight: true; Layout.margins: window.s(5); color: window.surface1 }
 
                     // Bluetooth Mode Button
                     Rectangle {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        radius: window.s(10)
+                        radius: window.s(4)
                         color: window.activeMode === "bt" ? "transparent" : (btTabMa.containsMouse ? window.surface1 : "transparent")
                         Behavior on color { ColorAnimation { duration: 200 } }
 
                         Rectangle {
                             anchors.fill: parent
-                            radius: window.s(10)
+                            radius: window.s(4)
                             opacity: window.activeMode === "bt" ? 1.0 : 0.0
                             Behavior on opacity { NumberAnimation { duration: 300 } }
-                            gradient: Gradient {
-                                orientation: Gradient.Horizontal
-                                GradientStop { position: 0.0; color: Qt.lighter(window.btAccent, 1.15) }
-                                GradientStop { position: 1.0; color: window.btAccent }
-                            }
+                            color: Qt.lighter(window.btAccent, 1.15)
                         }
 
                         RowLayout {
                             anchors.centerIn: parent
                             spacing: window.s(8)
-                            Text { font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(18); color: window.activeMode === "bt" ? window.crust : window.text; text: "󰂯"; Behavior on color { ColorAnimation{duration:200} } }
-                            Text { font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: window.s(13); color: window.activeMode === "bt" ? window.crust : window.text; text: "Bluetooth"; Behavior on color { ColorAnimation{duration:200} } }
+                            Text { font.family: "Iosevka Nerd Font"; font.pixelSize: window.s(18); color: window.activeMode === "bt" ? window.base : window.text; text: "󰂯"; Behavior on color { ColorAnimation{duration:200} } }
+                            Text { font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: window.s(13); color: window.activeMode === "bt" ? window.base : window.text; text: "Bluetooth"; Behavior on color { ColorAnimation{duration:200} } }
                         }
                         MouseArea {
                             id: btTabMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
@@ -2032,22 +1955,19 @@ Item {
                     radius: window.s(24)
                     opacity: window.currentPower ? 1.0 : 0.0
                     Behavior on opacity { NumberAnimation { duration: 300 } }
-                    gradient: Gradient {
-                        orientation: Gradient.Horizontal
-                        GradientStop { position: 0.0; color: Qt.lighter(window.activeColor, 1.15); Behavior on color { ColorAnimation {duration: 300} } }
-                        GradientStop { position: 1.0; color: window.activeColor; Behavior on color { ColorAnimation {duration: 300} } }
-                    }
+                    color: Qt.lighter(window.activeColor, 1.15)
+                    Behavior on color { ColorAnimation {duration: 300} }
                 }
-                
-                scale: pwrMa.pressed ? 0.9 : (pwrMa.containsMouse ? 1.1 : 1.0)
-                Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
+
+                scale: pwrMa.pressed ? 0.9 : 1.0
+                Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutQuart } }
 
                 Text {
                     id: pwrIcon
                     anchors.centerIn: parent
                     font.family: "Iosevka Nerd Font"
                     font.pixelSize: window.s(22)
-                    color: window.currentPower ? window.crust : window.text
+                    color: window.currentPower ? window.base : window.text
                     text: window.currentPowerPending ? "󰑮" : "" 
                     Behavior on color { ColorAnimation { duration: 300 } }
 

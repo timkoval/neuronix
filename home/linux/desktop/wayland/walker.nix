@@ -17,7 +17,44 @@ in {
           max_entries = 12;
           show_initial_entries = true;
         };
-        builtins.switcher.prefix = "/";
+        builtins = {
+          switcher.prefix = "/";
+
+          applications.enabled = true;
+
+          calc = {
+            enabled = true;
+            require_number = true;
+          };
+
+          runner = {
+            enabled = true;
+            prefix = "!"; # type !cmd to run shell commands
+          };
+
+          clipboard = {
+            enabled = true;
+            prefix = ";";
+            max_entries = 50;
+          };
+
+          commands.enabled = true;
+
+          websearch = {
+            enabled = true;
+            prefix = "?"; # type ?query to search web
+          };
+
+          emojis = {
+            enabled = true;
+            prefix = ":";
+          };
+
+          symbols = {
+            enabled = true;
+            prefix = ".";
+          };
+        };
       };
 
       theme = {
@@ -83,7 +120,7 @@ in {
           #box {
             background: alpha(${colors.base00}, 0.92);
             border: 1px solid ${colors.base02};
-            border-radius: 14px;
+            border-radius: 8px;
             box-shadow:
               0 12px 28px alpha(#000000, 0.35),
               0 2px 8px alpha(#000000, 0.22);
@@ -93,7 +130,7 @@ in {
           #search {
             background: ${colors.base01};
             border: 1px solid ${colors.base02};
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 10px 12px;
           }
 
@@ -116,7 +153,7 @@ in {
           }
 
           child {
-            border-radius: 10px;
+            border-radius: 8px;
             margin: 3px 0;
             padding: 10px 12px;
           }

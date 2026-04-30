@@ -28,6 +28,11 @@ if [[ ! $(pidof mako) ]]; then
 fi
 
 if [[ "${SHELL_BACKEND}" == "quickshell" ]]; then
+	# Write Stylix-generated colors for quickshell before launch
+	if [[ -f "$HOME/.config/quickshell/colors.json" ]]; then
+		cp "$HOME/.config/quickshell/colors.json" /tmp/qs_colors.json
+	fi
+
 	if [[ ! -f "$QS_MAIN" || ! -f "$QS_BAR" ]]; then
 		echo "missing config in $QS_CONFIG_DIR" >> "$LOG_FILE"
 		notify-send "Quickshell config missing in $QS_CONFIG_DIR"

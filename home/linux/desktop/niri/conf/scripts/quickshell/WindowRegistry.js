@@ -26,6 +26,7 @@ function getLayout(name, mx, my, mw, mh) {
         // Right-aligned: pinned 20px from the right edge dynamically
         // Note on rx: The 500 represents the 480 base width + 20 margin. 
         "battery":   { w: s(480, scale), h: s(760, scale), rx: mw - s(500, scale), ry: s(70, scale), comp: "battery/BatteryPopup.qml" },
+        "dashboard": { w: s(420, scale), h: s(600, scale), rx: s(12, scale), ry: s(70, scale), comp: "dashboard/SystemDashboard.qml" },
         "volume":    { w: s(480, scale), h: s(760, scale), rx: mw - s(500, scale), ry: s(70, scale), comp: "volume/VolumePopup.qml" },
         
         // Centered horizontally dynamically based on current screen width

@@ -45,7 +45,7 @@ Variants {
             }
 
             Component.onCompleted: {
-                Quickshell.execDetached(["bash", "-c", "echo '" + currentActive + "' > /tmp/qs_active_widget"]);
+                Quickshell.execDetached(["bash", "-c", "echo '" + currentActive + "' > /tmp/qs_active_widget_" + masterWindow.screen.name]);
             }
 
             property string currentActive: "hidden"
@@ -128,7 +128,7 @@ Variants {
                         replaceEnter: Transition {
                             ParallelAnimation {
                                 NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: 400; easing.type: Easing.OutExpo }
-                                NumberAnimation { property: "scale"; from: 0.98; to: 1.0; duration: 400; easing.type: Easing.OutBack }
+                                NumberAnimation { property: "scale"; from: 0.98; to: 1.0; duration: 400; easing.type: Easing.OutQuart }
                             }
                         }
                         replaceExit: Transition {
@@ -142,7 +142,7 @@ Variants {
             }
 
             function switchWidget(newWidget, arg) {
-                Quickshell.execDetached(["bash", "-c", "echo '" + newWidget + "' > /tmp/qs_active_widget"]);
+                Quickshell.execDetached(["bash", "-c", "echo '" + newWidget + "' > /tmp/qs_active_widget_" + masterWindow.screen.name]);
 
                 prepTimer.stop();
                 teleportFadeOutTimer.stop();
@@ -272,7 +272,7 @@ Variants {
 
             Process {
                 id: ipcPoller
-                command: ["bash", "-c", "if [ -f /tmp/qs_widget_state ]; then mv /tmp/qs_widget_state /tmp/qs_widget_state_read 2>/dev/null && cat /tmp/qs_widget_state_read && rm /tmp/qs_widget_state_read; fi"]
+                command: ["bash", "-c", "f=/tmp/qs_widget_state_" + masterWindow.screen.name + "; if [ -f \"$f\" ]; then mv \"$f\" \"${f}_read\" 2>/dev/null && cat \"${f}_read\" && rm \"${f}_read\"; fi"]
                 stdout: StdioCollector {
                     onStreamFinished: {
                         let rawCmd = this.text.trim();

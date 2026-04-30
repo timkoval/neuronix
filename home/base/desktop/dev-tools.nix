@@ -33,6 +33,7 @@
       # python311Packages.huggingface-hub # huggingface-cli
 
       # misc
+      gh # GitHub CLI
       bfg-repo-cleaner # remove large files from git history
       protobuf # protocol buffer compiler
       nix-init # generate nix package from url
@@ -43,7 +44,7 @@
       openconnect # openconnect client for Cisco VPN
 
       # solve coding extercises - learn by doing
-      leetcode-cli 
+      leetcode-cli
       exercism
       ghostty
     ]
@@ -76,6 +77,4 @@
       enableNushellIntegration = true;
     };
   };
-  
-
 }

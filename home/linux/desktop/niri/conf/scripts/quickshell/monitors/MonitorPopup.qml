@@ -65,13 +65,6 @@ Item {
     property real currentSimH: monitorsModel.count > 0 ? monitorsModel.get(0).resH : 1080
 
     property real globalOrbitAngle: 0
-    NumberAnimation on globalOrbitAngle {
-        from: 0
-        to: Math.PI * 2
-        duration: 90000
-        loops: Animation.Infinite
-        running: true
-    }
     
     // -------------------------------------------------------------------------
     // FLUID STARTUP ANIMATIONS 
@@ -253,32 +246,12 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            radius: window.s(30)
+            radius: window.s(4)
             color: window.base
             border.color: window.surface0
-            border.width: 1
+            border.width: 2
             clip: true
 
-            Rectangle {
-                width: parent.width * 0.8
-                height: width
-                radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.cos(window.globalOrbitAngle * 2) * window.s(150)
-                y: (parent.height / 2 - height / 2) + Math.sin(window.globalOrbitAngle * 2) * window.s(100)
-                opacity: 0.04
-                color: window.selectedResAccent
-                Behavior on color { ColorAnimation { duration: 1000 } }
-            }
-            Rectangle {
-                width: parent.width * 0.9
-                height: width
-                radius: width / 2
-                x: (parent.width / 2 - width / 2) + Math.sin(window.globalOrbitAngle * 1.5) * window.s(-150)
-                y: (parent.height / 2 - height / 2) + Math.cos(window.globalOrbitAngle * 1.5) * window.s(-100)
-                opacity: 0.04
-                color: window.selectedRateAccent
-                Behavior on color { ColorAnimation { duration: 1000 } }
-            }
 
             // ==========================================
             // LEFT SIDE VISUAL AREA
@@ -313,12 +286,12 @@ Item {
                             id: deskSurface
                             width: window.s(1000)
                             height: window.s(14)
-                            radius: window.s(6)
+                            radius: window.s(4)
                             anchors.top: standBase.bottom
                             anchors.horizontalCenter: parent.horizontalCenter
                             color: window.mantle
                             border.color: window.surface0
-                            border.width: 1
+                            border.width: 2
 
                             Rectangle { 
                                 width: window.s(24)
@@ -362,10 +335,10 @@ Item {
                             anchors.bottom: standBase.top
                             anchors.horizontalCenter: parent.horizontalCenter
                             color: window.surface0
-                            Rectangle { 
+                            Rectangle {
                                 width: window.s(10)
                                 height: window.s(30)
-                                radius: window.s(5)
+                                radius: window.s(4)
                                 anchors.centerIn: parent
                                 color: window.base 
                             }
@@ -378,7 +351,7 @@ Item {
                             anchors.bottom: standNeck.top
                             anchors.bottomMargin: window.s(-10)
                             anchors.horizontalCenter: parent.horizontalCenter
-                            radius: window.s(12)
+                            radius: window.s(4)
                             color: window.crust
                             border.color: window.surface2
                             border.width: window.s(2)
@@ -389,7 +362,7 @@ Item {
                             Rectangle {
                                 anchors.fill: parent
                                 anchors.margins: window.s(10)
-                                radius: window.s(6)
+                                radius: window.s(4)
                                 color: window.surface0
                                 clip: true
 
@@ -398,19 +371,8 @@ Item {
                                     color: "transparent"
                                     opacity: window.screenLight
                                     
-                                    gradient: Gradient {
-                                        orientation: Gradient.Vertical
-                                        GradientStop { 
-                                            position: 0.0
-                                            color: Qt.tint(window.surface0, Qt.alpha(window.selectedResAccent, 0.15))
-                                            Behavior on color { ColorAnimation { duration: 400 } } 
-                                        }
-                                        GradientStop { 
-                                            position: 1.0
-                                            color: Qt.tint(window.surface0, Qt.alpha(window.selectedRateAccent, 0.1))
-                                            Behavior on color { ColorAnimation { duration: 400 } } 
-                                        }
-                                    }
+                                    color: Qt.tint(window.surface0, Qt.alpha(window.selectedResAccent, 0.15))
+                                    Behavior on color { ColorAnimation { duration: 400 } }
                                     
                                     Grid { 
                                         anchors.centerIn: parent
@@ -419,7 +381,7 @@ Item {
                                         spacing: window.s(20)
                                         Repeater { 
                                             model: 150
-                                            Rectangle { width: window.s(2); height: window.s(2); radius: window.s(1); color: Qt.alpha(window.text, 0.1) } 
+                                            Rectangle { width: window.s(2); height: window.s(2); radius: window.s(4); color: Qt.alpha(window.text, 0.1) } 
                                         } 
                                     }
 
@@ -482,7 +444,7 @@ Item {
                             spacing: window.s(18)
                             Repeater { 
                                 model: 850
-                                Rectangle { width: window.s(2); height: window.s(2); radius: window.s(1); color: Qt.alpha(window.text, 0.1) } 
+                                Rectangle { width: window.s(2); height: window.s(2); radius: window.s(4); color: Qt.alpha(window.text, 0.1) } 
                             }
                         }
 
@@ -605,7 +567,7 @@ Item {
                                                 Text { 
                                                     Layout.alignment: Qt.AlignHCenter
                                                     font.family: "JetBrains Mono"
-                                                    font.weight: Font.Black
+                                                    font.weight: Font.Bold
                                                     font.pixelSize: 13
                                                     color: window.text
                                                     text: model.name 
@@ -753,7 +715,7 @@ Item {
                     anchors.margins: window.s(-10)
                     color: window.selectedResAccent
                     opacity: 0.0
-                    radius: window.s(12)
+                    radius: window.s(4)
                 }
 
                 ColumnLayout {
@@ -783,7 +745,7 @@ Item {
                             delegate: Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: window.s(48)
-                                radius: window.s(12)
+                                radius: window.s(4)
                                 
                                 property bool isSel: {
                                     if (monitorsModel.count === 0) return false;
@@ -806,7 +768,7 @@ Item {
                                     
                                     Text { 
                                         font.family: "JetBrains Mono"
-                                        font.weight: isSel ? Font.Black : Font.Bold
+                                        font.weight: isSel ? Font.Bold : Font.Bold
                                         font.pixelSize: window.s(16)
                                         color: isSel ? accentColor : window.text
                                         text: modelData.label
@@ -824,8 +786,6 @@ Item {
                                     }
                                 }
 
-                                scale: resMa.pressed ? 0.96 : 1.0
-                                Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutSine } }
 
                                 MouseArea {
                                     id: resMa
@@ -886,15 +846,15 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.verticalCenterOffset: window.s(-10)
                             height: window.s(12)
-                            radius: window.s(6)
+                            radius: window.s(4)
                             color: window.mantle
                             border.color: window.crust
-                            border.width: 1
+                            border.width: 2
                             
-                            Rectangle { 
+                            Rectangle {
                                 width: Math.max(knob.width, knob.x + knob.width / 2)
                                 height: parent.height
-                                radius: parent.radius
+                                radius: window.s(4)
                                 color: window.selectedRateAccent
                                 Behavior on color { ColorAnimation { duration: 200 } } 
                             }
@@ -1003,29 +963,18 @@ Item {
                 Rectangle {
                     id: applyBtn
                     anchors.fill: parent
-                    radius: window.s(25)
-                    
-                    gradient: Gradient { 
-                        orientation: Gradient.Horizontal
-                        GradientStop { 
-                            position: 0.0
-                            color: window.selectedResAccent
-                            Behavior on color { ColorAnimation { duration: 400 } } 
-                        } 
-                        GradientStop { 
-                            position: 1.0
-                            color: window.selectedRateAccent
-                            Behavior on color { ColorAnimation { duration: 400 } } 
-                        } 
-                    }
-                    
-                    scale: window.applyPressed ? 0.94 : (window.applyHovered ? 1.04 : 1.0)
-                    Behavior on scale { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
+                    radius: window.s(4)
+
+                    color: window.selectedResAccent
+                    Behavior on color { ColorAnimation { duration: 400 } }
+
+                    scale: window.applyPressed ? 0.94 : 1.0
+                    Behavior on scale { NumberAnimation { duration: 300; easing.type: Easing.OutQuart } }
 
                     Rectangle {
                         id: flashRect
                         anchors.fill: parent
-                        radius: window.s(25)
+                        radius: window.s(4)
                         color: window.text
                         opacity: 0.0
                         PropertyAnimation on opacity { 
@@ -1043,16 +992,16 @@ Item {
                         Text { 
                             font.family: "Iosevka Nerd Font"
                             font.pixelSize: window.s(20)
-                            color: window.crust
-                            text: "󰸵" 
+                            color: window.base
+                            text: "󰸵"
                         }
                         
                         Text { 
                             font.family: "JetBrains Mono"
-                            font.weight: Font.Black
+                            font.weight: Font.Bold
                             font.pixelSize: window.s(14)
-                            color: window.crust
-                            text: monitorsModel.count > 1 ? "Apply All" : "Apply" 
+                            color: window.base
+                            text: monitorsModel.count > 1 ? "Apply All" : "Apply"
                         }
                     }
                 }

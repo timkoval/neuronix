@@ -12,6 +12,31 @@ in {
         source = ../hyprland/conf/mako/icons;
         recursive = true;
       };
+      # Stylix base16 colors mapped to Catppuccin property names for quickshell
+      "quickshell/colors.json".text = builtins.toJSON {
+        base = colors.base00;
+        mantle = colors.base01;
+        crust = colors.base01;
+        text = colors.base05;
+        subtext0 = colors.base04;
+        subtext1 = colors.base04;
+        surface0 = colors.base01;
+        surface1 = colors.base02;
+        surface2 = colors.base03;
+        overlay0 = colors.base04;
+        overlay1 = colors.base06;
+        overlay2 = colors.base07;
+        blue = colors.base0D;
+        sapphire = colors.base0C;
+        peach = colors.base09;
+        green = colors.base0B;
+        red = colors.base08;
+        mauve = colors.base0E;
+        pink = colors.base0E;
+        yellow = colors.base0A;
+        maroon = colors.base0F;
+        teal = colors.base0C;
+      };
       "mako/config".text = ''
         ## Mako configuration file
 
@@ -33,7 +58,7 @@ in {
         margin=10
         padding=15
         border-size=2
-        border-radius=0
+        border-radius=4
         icons=1
         max-icon-size=48
         icon-location=left

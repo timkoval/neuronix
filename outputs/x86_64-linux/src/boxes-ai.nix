@@ -13,8 +13,8 @@
   name = "ai";
 
   # Import host-specific variables from the host directory
-  hostVars = import (mylib.relativeToRoot "hosts/boxes/${name}/variables.nix") { inherit lib; };
-  
+  hostVars = import (mylib.relativeToRoot "hosts/boxes/${name}/variables.nix") {inherit lib;};
+
   base-modules = {
     nixos-modules = map mylib.relativeToRoot [
       # common
@@ -51,14 +51,32 @@
       ]
       ++ base-modules.home-modules;
   };
+
+  modules-niri = {
+    nixos-modules =
+      [
+        {
+          modules.desktop.wayland.enable = true;
+        }
+      ]
+      ++ base-modules.nixos-modules;
+    home-modules =
+      [
+        {modules.desktop.niri.enable = true;}
+      ]
+      ++ base-modules.home-modules;
+  };
 in {
   nixosConfigurations = {
     # host with hyprland compositor
-    "${name}-hyprland" = mylib.nixosSystem (modules-hyprland // args // { inherit hostVars; });
+    "${name}-hyprland" = mylib.nixosSystem (modules-hyprland // args // {inherit hostVars;});
+    # host with niri compositor
+    "${name}-niri" = mylib.nixosSystem (modules-niri // args // {inherit hostVars;});
   };
 
   # generate iso image for hosts with desktop environment
   packages = {
     "${name}-hyprland" = inputs.self.nixosConfigurations."${name}-hyprland".config.formats.iso;
+    "${name}-niri" = inputs.self.nixosConfigurations."${name}-niri".config.formats.iso;
   };
 }

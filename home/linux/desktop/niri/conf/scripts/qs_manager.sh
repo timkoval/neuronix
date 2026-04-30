@@ -16,16 +16,38 @@ mkdir -p "$QS_NETWORK_CACHE"
 IPC_FILE="/tmp/qs_widget_state"
 NETWORK_MODE_FILE="$QS_NETWORK_CACHE/mode"
 
-ACTION="$1"
-TARGET="$2"
-SUBTARGET="$3"
+# Parse --screen flag first, then collect remaining positional args
+SCREEN=""
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --screen) SCREEN="$2"; shift 2 ;;
+        *) POSITIONAL+=("$1"); shift ;;
+    esac
+done
+
+ACTION="${POSITIONAL[0]:-}"
+TARGET="${POSITIONAL[1]:-}"
+SUBTARGET="${POSITIONAL[2]:-}"
+
+# Per-screen IPC file
+if [[ -n "$SCREEN" ]]; then
+    IPC_FILE="/tmp/qs_widget_state_${SCREEN}"
+fi
 
 # -----------------------------------------------------------------------------
 # FAST PATH: WORKSPACE SWITCHING
 # -----------------------------------------------------------------------------
 if [[ "$ACTION" =~ ^[0-9]+$ ]]; then
     WORKSPACE_NUM="$ACTION"
-    echo "close" > "$IPC_FILE" # Tell QML to hide the widget natively
+    # Tell QML to hide the widget on this screen
+    if [[ -n "$SCREEN" ]]; then
+        echo "close" > "/tmp/qs_widget_state_${SCREEN}"
+    else
+        for f in /tmp/qs_widget_state_*; do
+            [ -e "$f" ] && echo "close" > "$f"
+        done
+    fi
 
     if [[ "$2" == "move" ]]; then
         niri msg action move-column-to-workspace "$WORKSPACE_NUM" >/dev/null 2>&1
@@ -137,7 +159,13 @@ fi
 # IPC ROUTING
 # =============================================================================
 if [[ "$ACTION" == "close" ]]; then
-    echo "close" > "$IPC_FILE"
+    if [[ -n "$SCREEN" ]]; then
+        echo "close" > "/tmp/qs_widget_state_${SCREEN}"
+    else
+        for f in /tmp/qs_widget_state_*; do
+            [ -e "$f" ] && echo "close" > "$f"
+        done
+    fi
     if [[ "$TARGET" == "network" || "$TARGET" == "all" || -z "$TARGET" ]]; then
         if [ -f "$BT_PID_FILE" ]; then
             kill $(cat "$BT_PID_FILE") 2>/dev/null
@@ -149,7 +177,11 @@ if [[ "$ACTION" == "close" ]]; then
 fi
 
 if [[ "$ACTION" == "open" || "$ACTION" == "toggle" ]]; then
-    ACTIVE_WIDGET=$(cat /tmp/qs_active_widget 2>/dev/null)
+    if [[ -n "$SCREEN" ]]; then
+        ACTIVE_WIDGET=$(cat "/tmp/qs_active_widget_${SCREEN}" 2>/dev/null)
+    else
+        ACTIVE_WIDGET=$(cat /tmp/qs_active_widget 2>/dev/null)
+    fi
     CURRENT_MODE=$(cat "$NETWORK_MODE_FILE" 2>/dev/null)
 
     if [[ "$TARGET" == "network" ]]; then
