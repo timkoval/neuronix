@@ -21,7 +21,7 @@
     ];
     extra-trusted-public-keys = [
       # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-     # "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+      # "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
     ];
   };
 
@@ -64,12 +64,19 @@
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     ghostty = {
       url = "github:ghostty-org/ghostty/main";
     };
 
     impermanence.url = "github:nix-community/impermanence";
+
+    # Hermes Agent — LLM agent from Nous Research
+    # https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # community wayland nixpkgs
     # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
@@ -145,7 +152,7 @@
       url = "github:ryan4yin/wallpapers";
       flake = false;
     };
-    
+
     # my neovim config
     neuronvim = {
       url = "github:timkoval/neuronvim";
@@ -156,7 +163,7 @@
       url = "github:ryan4yin/nur-packages";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     nur-timkoval = {
       url = "github:timkoval/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
