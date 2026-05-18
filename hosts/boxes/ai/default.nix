@@ -71,10 +71,17 @@
     enable32Bit = true;
   };
 
-  # Hermes Agent (LLM agent from Nous Research)
+  # Hermes Agent (LLM agent from Nous Research) — container mode
   # Provide API keys via age.secrets.hermes-env then uncomment environmentFiles below.
-  services.hermes-agent.enable = true;
-  # services.hermes-agent.environmentFiles = [ config.age.secrets.hermes-env.path ];
+  services.hermes-agent = {
+    enable = true;
+    container = {
+      enable = true;
+      backend = "docker";
+      hostUsers = ["tkoval"];
+    };
+    # environmentFiles = [ config.age.secrets.hermes-env.path ];
+  };
 
   boot.kernelModules = ["88x2bu"];
   boot.extraModulePackages = [
