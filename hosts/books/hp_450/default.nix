@@ -81,6 +81,12 @@
     # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     networkmanager.enable = true;
+
+    # Pin gitlab.test2pay.com to its reachable IP — corporate DNS round-robins
+    # between 10.44.14.7 (works) and 10.32.56.4 (SSH/ICMP blocked on this VPN).
+    extraHosts = ''
+      10.44.14.7 gitlab.test2pay.com
+    '';
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

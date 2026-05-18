@@ -1626,7 +1626,13 @@ c.content.javascript.clipboard = 'access'
 ## https://peter.sh/experiments/chromium-command-line-switches/ for a
 ## list) will work.
 ## Type: List of String
-# c.qt.args = []
+# Workaround for Qt WebEngine crash in display::ScreenInfos::current()
+# when an external monitor is unplugged.
+# See: https://issues.chromium.org/issues/40924746
+c.qt.args = [
+    "disable-features=WaylandPerSurfaceScale",
+    "disable-gpu-process-crash-limit",
+]
 
 ## Enables Web Platform features that are in development. This passes the
 ## `--enable-experimental-web-platform-features` flag to Chromium. By

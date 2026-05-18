@@ -1,5 +1,5 @@
 {
-  # mysecrets, 
+  # mysecrets,
   ...
 }: {
   # home.file.".ssh/romantic.pub".source = "${mysecrets}/public/romantic.pub";
@@ -33,7 +33,7 @@
           # Specifies that ssh should only use the identity file explicitly configured above
           # required to prevent sending default identity files first.
           IdentitiesOnly yes
-      
+
       Host github-at
           HostName github.com
           IdentityFile ~/.ssh/gh_astg
@@ -54,12 +54,12 @@
           HostName gitlab.test2pay.com
           IdentityFile ~/.ssh/at_rsa
           IdentitiesOnly yes
-      
+
       Host gitlab-ag
           HostName gitlab.corp.algento.com
           IdentityFile ~/.ssh/at_rsa
           IdentitiesOnly yes
-      
+
       Host mock.gitlab.corp.algento.com
           HostName gitlab.corp.algento.com
           IdentityFile ~/.ssh/at_rsa
@@ -75,9 +75,7 @@
           User tkoval
           IdentityFile ~/.ssh/ai_rsa
           IdentitiesOnly yes
-          RequestTTY yes
-          RemoteCommand /run/current-system/sw/bin/bash
-      
+
       Host hetzner-tk
           HostName 5.75.140.70
           User tkoval

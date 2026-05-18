@@ -12,10 +12,10 @@
     # foliate
 
     # instant messaging
+    teams-for-linux
     # telegram-desktop
     # discord
     #    pkgs-unstable.qq # https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/networking/instant-messengers/qq
-    # teams-for-linux
 
     # remote desktop(rdp connect)
     # remmina

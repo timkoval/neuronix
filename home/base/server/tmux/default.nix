@@ -43,6 +43,14 @@ in {
       set -g prefix C-s
       set -g mouse on
 
+      # Vi-style throughout tmux: copy mode + command prompt
+      set -g mode-keys vi
+      set -g status-keys vi
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"
+      bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "wl-copy"
+      bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "wl-copy"
+
       # Unbind any no-prefix arrow keys to avoid conflicts
       unbind -n Up
       unbind -n Down
@@ -56,6 +64,18 @@ in {
 
       set -g status-position top
 
+      # ── Status bar: keep Stylix session badge on left, ──────────────
+      # ── add mode + working directory + time on the right ────────────
+      set -g status-interval 2
+
+      # Left: session name + mode badge (NORMAL / COPY / PREFIX).
+      # Theme-agnostic: bold session, reverse-video badge for the mode.
+      set -g status-left-length 60
+      set -g status-left "#[bold] #S #[default]#{?client_prefix,#[reverse] PREFIX #[noreverse],#{?pane_in_mode,#[reverse] COPY #[noreverse], NORMAL }} "
+
+      # Right: working directory + clock (replaces Stylix's date+hostname).
+      set -g status-right-length 80
+      set -g status-right " 󰉋 #{b:pane_current_path}  󰥔 #(date +'%H:%M') "
     '';
   };
   # only works in bash/zsh/fish, not nushell

@@ -32,6 +32,9 @@
       # ai related
       # python311Packages.huggingface-hub # huggingface-cli
 
+      # python tooling
+      uv # fast Python package manager (replaces pip/poetry/pyenv)
+
       # misc
       gh # GitHub CLI
       bfg-repo-cleaner # remove large files from git history
