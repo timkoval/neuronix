@@ -11,8 +11,9 @@
     hermes-agent.nixosModules.default
   ];
 
-  # Default LLM model. Override per-host as needed.
-  services.hermes-agent.settings.model.default = lib.mkDefault "anthropic/claude-sonnet-4";
+  # Default LLM model. Hosts override by re-setting the same path
+  # (the upstream deepConfigType merges via recursiveUpdate — last value wins).
+  services.hermes-agent.settings.model.default = "anthropic/claude-sonnet-4";
 
   # Makes the `hermes` CLI available globally.
   services.hermes-agent.addToSystemPackages = lib.mkDefault true;
