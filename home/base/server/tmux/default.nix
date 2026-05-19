@@ -9,31 +9,13 @@
 in {
   programs.tmux = {
     enable = true;
-    # Theme is managed by Stylix
-    plugins = with pkgs; [
-      {
-        plugin = tmuxPlugins.vim-tmux-navigator;
-        extraConfig = ''
-          set -g @tmux_navigator_no_mappings 'true'
-        '';
-      }
-      {
-        plugin = tmuxPlugins.resurrect;
-        extraConfig = ''
-          set -g @resurrect-capture-pane-contents 'on'
-          set -g @resurrect-strategy-vim 'session'
-          set -g @resurrect-strategy-nvim 'session'
-        '';
-      }
-      {
-        plugin = tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '15'
-        '';
-      }
-    ];
+    # Theme is managed by Stylix.
+    # NOTE: plugins are loaded manually below (inside extraConfig) instead of
+    # via `programs.tmux.plugins`, so that default-shell/default-command are
+    # already set when continuum's auto-restore fires. Otherwise restored
+    # panes whose saved pane_start_command is empty fall back to bash.
     extraConfig = ''
+      # ── Shell (must be set before plugins, esp. continuum auto-restore) ──
       set-option -g default-shell ${pkgs.fish}/bin/fish
       set-option -g default-command "${pkgs.fish}/bin/fish -i"
 
@@ -76,6 +58,19 @@ in {
       # Right: working directory + clock (replaces Stylix's date+hostname).
       set -g status-right-length 80
       set -g status-right " 󰉋 #{b:pane_current_path}  󰥔 #(date +'%H:%M') "
+
+      # ── Plugins (loaded last so default-shell/command are already set) ──
+      set -g @tmux_navigator_no_mappings 'true'
+      run-shell ${pkgs.tmuxPlugins.vim-tmux-navigator}/share/tmux-plugins/vim-tmux-navigator/vim-tmux-navigator.tmux
+
+      set -g @resurrect-capture-pane-contents 'on'
+      set -g @resurrect-strategy-vim 'session'
+      set -g @resurrect-strategy-nvim 'session'
+      run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+
+      set -g @continuum-restore 'on'
+      set -g @continuum-save-interval '15'
+      run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
     '';
   };
   # only works in bash/zsh/fish, not nushell

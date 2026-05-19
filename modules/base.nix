@@ -3,17 +3,25 @@
   hostVars,
   nuenv,
   ...
-} @ args: {
+} @ args: let
+  # Per-host Stylix overrides — see hosts/variables-template.nix.
+  #   scheme   — any file (without .yaml) in base16-schemes/share/themes/
+  #   polarity — "light" | "dark" | "either"
+  #   wallpaper — absolute path to an image
+  stylixVars = hostVars.stylix or {};
+  scheme = stylixVars.scheme or "gruvbox-light-medium";
+  polarity = stylixVars.polarity or "light";
+  wallpaper = stylixVars.wallpaper or "${pkgs.hyprland}/share/hypr/wall0.png";
+in {
   # ── Stylix: system-wide theming via base16 ──────────────────────────────
   stylix = {
     enable = true;
     autoEnable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-medium.yaml";
-    polarity = "light";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
+    inherit polarity;
 
     # A wallpaper image is required by Stylix (especially on NixOS).
-    # Use Hyprland's bundled default wallpaper for now.
-    image = "${pkgs.hyprland}/share/hypr/wall0.png";
+    image = wallpaper;
 
     fonts = {
       monospace = {

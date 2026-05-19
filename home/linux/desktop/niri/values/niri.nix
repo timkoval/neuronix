@@ -30,9 +30,11 @@ in {
 
   xdg.configFile =
     {
-      "niri/config.kdl" = {
-        source = ../conf/niri.kdl;
-      };
+      "niri/config.kdl".text =
+        builtins.replaceStrings
+        ["#B4A1DB" "#343A40"]
+        [colors.base0E colors.base03]
+        (builtins.readFile ../conf/niri.kdl);
       "niri/scripts" = {
         source = ../conf/scripts;
         recursive = true;

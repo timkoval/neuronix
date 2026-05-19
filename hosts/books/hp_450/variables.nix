@@ -10,4 +10,9 @@
   initialHashedPassword = "$y$j9T$WIHgmW9kWHpdWlzfE0FxE.$P80ipWW4AP1IXPXioOQrIerrvHGXST3wipdThnQ/7p9";
 
   mainSshAuthorizedKeys = [];
+
+  stylix = {
+    scheme = "gruvbox-dark-medium";
+    polarity = "dark";
+  };
 }

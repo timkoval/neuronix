@@ -27,7 +27,14 @@ in {
       ];
     };
     package = pkgs.hyprland;
-    extraConfig = builtins.readFile ../conf/hyprland.conf;
+    extraConfig =
+      builtins.replaceStrings
+      ["0xFFB4A1DB" "0xFF343A40"]
+      [
+        "rgb(${lib.removePrefix "#" colors.base0E})"
+        "rgb(${lib.removePrefix "#" colors.base03})"
+      ]
+      (builtins.readFile ../conf/hyprland.conf);
     systemd.enable = true;
   };
 

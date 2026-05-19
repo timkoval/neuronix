@@ -21,5 +21,10 @@
   #   # Add any secondary keys here
   # ];
 
+  stylix = {
+    scheme = "gruvbox-dark-medium";
+    polarity = "dark";
+  };
+
   # Add any other host-specific variables needed for your configuration
 }
