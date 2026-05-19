@@ -72,9 +72,11 @@
   };
 
   # Hermes Agent (LLM agent from Nous Research) — container mode
-  # Provide API keys via age.secrets.hermes-env then uncomment environmentFiles below.
+  # Provide API keys (including XAI_API_KEY) via age.secrets.hermes-env then
+  # uncomment environmentFiles below.
   services.hermes-agent = {
     enable = true;
+    settings.model.default = "xai/grok-4";
     container = {
       enable = true;
       backend = "docker";
