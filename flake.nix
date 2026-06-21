@@ -72,9 +72,11 @@
     impermanence.url = "github:nix-community/impermanence";
 
     # Hermes Agent — LLM agent from Nous Research
-    # https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup
+    # Forked locally to apply container-mode profile fixes:
+    #   - pass HERMES_HOME into docker exec so `hermes -p <profile>` works
+    #   - skip auth parent-dir chmod(0700) in NixOS managed mode
     hermes-agent = {
-      url = "github:NousResearch/hermes-agent";
+      url = "git+file:///home/tkoval/git-local/hermes-agent-fork";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -93,7 +95,7 @@
     };
     # secrets management
     agenix = {
-      url = "github:ryantm/agenix/0.15.0";
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
