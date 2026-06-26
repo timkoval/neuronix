@@ -1289,11 +1289,11 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1782513439,
-        "narHash": "sha256-eI9VdEqB7y5SSIoxsBPfwWYw+qCHiBGnBRphsaWAulg=",
+        "lastModified": 1782514989,
+        "narHash": "sha256-QodGFDGzm8SRxeKmlqZkNcp0Hd+xFLR5mmTou0S3vVQ=",
         "ref": "refs/heads/main",
-        "rev": "26a67e62592efe70780e671d3996ff4717502a8d",
-        "revCount": 25,
+        "rev": "46c4d206abb7cd267253aa7f2755d3db160acb4a",
+        "revCount": 26,
         "type": "git",
         "url": "file:///home/tkoval/git-local/hermes-agent-fork"
       },
