@@ -19,13 +19,13 @@
     libva-utils
     vdpauinfo
     vulkan-tools
-      
+
     # notes
     oxipng
-    # git-crypt
+    git-crypt
     obsidian
 
-#    okular # pdf viewer
+    #    okular # pdf viewer
   ];
 
   programs = {

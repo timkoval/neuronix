@@ -6,8 +6,8 @@
   mysecrets,
   hostVars,
   ...
-}: 
-with lib; let 
+}:
+with lib; let
   cfg = config.modules.secrets;
 
   enabledServerSecrets =
@@ -17,22 +17,22 @@ with lib; let
     || cfg.server.kubernetes.enable
     || cfg.server.webserver.enable
     || cfg.server.storage.enable;
-    
-    # No one can read/write the file, even root
-    noaccess = {
-      mode = "0000";
-      owner = "root";
-    };
-    # Only root can read this file
-    high_security = {
-      mode = "0500";
-      owner = "root";
-    };
-    # User can read this file
-    user_readable = {
-      mode = "0500";
-      owner = hostVars.username;
-    };
+
+  # No one can read/write the file, even root
+  noaccess = {
+    mode = "0000";
+    owner = "root";
+  };
+  # Only root can read this file
+  high_security = {
+    mode = "0500";
+    owner = "root";
+  };
+  # User can read this file
+  user_readable = {
+    mode = "0500";
+    owner = hostVars.username;
+  };
 in {
   imports = [
     agenix.nixosModules.default
@@ -73,12 +73,12 @@ in {
 
       # secrets that are used by all nixos hosts
       # age.secrets = {
-        # "nix-access-tokens" =
-        #   {
-        #     file = "${mysecrets}/nix-access-tokens.age";
-        #   }
-        #   # access-token needs to be readable by the user running the `nix` command
-        #   // user_readable;
+      # "nix-access-tokens" =
+      #   {
+      #     file = "${mysecrets}/nix-access-tokens.age";
+      #   }
+      #   # access-token needs to be readable by the user running the `nix` command
+      #   // user_readable;
       # };
 
       assertions = [
@@ -91,8 +91,13 @@ in {
     }
 
     (mkIf cfg.desktop.enable {
-      # age.secrets = {
-      # };
+      age.secrets = {
+        "hermes-env" =
+          {
+            file = "${mysecrets}/hermes-env.age";
+          }
+          // user_readable;
+      };
 
       # place secrets in /etc/
       environment.etc = {
@@ -136,7 +141,7 @@ in {
 
     (mkIf cfg.server.application.enable {
       age.secrets = {
-        };
+      };
     })
 
     (mkIf cfg.server.operation.enable {
@@ -178,6 +183,4 @@ in {
       };
     })
   ]);
-}
-
 }

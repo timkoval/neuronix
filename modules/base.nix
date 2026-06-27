@@ -68,6 +68,7 @@ in {
     # 2. Or just use hardware security keys like Yubikey/CanoKey.
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKW0Q0yG+poQ03E/y+VrbFxnisjxMnrPTZxFAoZuaYdK tkoval@tk-elitebook"
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIFAx9mq6WJeFbqcMXgekYmMeRE1G38UqKqrlTVX6WSLgAAAABHNzaDo= private-yubikey"
     ];
   };
 

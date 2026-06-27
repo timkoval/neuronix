@@ -1,4 +1,9 @@
-{config, ...} @ args:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+} @ args:
 #############################################################
 #
 #  Ai - my main computer, with NixOS + I5-13600KF + RTX 4090 GPU, for gaming & daily use.
@@ -71,18 +76,92 @@
     enable32Bit = true;
   };
 
+  # Make NVIDIA driver libraries discoverable by PyTorch, vLLM, etc.
+  environment.sessionVariables.LD_LIBRARY_PATH = args.lib.mkBefore ["/run/opengl-driver/lib"];
+
   # Hermes Agent (LLM agent from Nous Research) — container mode
-  # Provide API keys (including XAI_API_KEY) via age.secrets.hermes-env then
-  # uncomment environmentFiles below.
+  # Local Ollama integration: points to host's ollama via Docker bridge IP
   services.hermes-agent = {
     enable = true;
-    settings.model.default = "xai/grok-4";
+    settings = {
+      model = {
+        default = "35b-64k:latest";
+        provider = "custom";
+        base_url = "http://172.17.0.1:11434/v1";
+      };
+      display.final_response_markdown = "render";
+      display.streaming = false;
+    };
+    extraDependencyGroups = ["messaging"];
+
+    # Non-secret env vars (ollama API endpoint)
+    environment = {
+      OPENAI_BASE_URL = "http://172.17.0.1:11434/v1";
+      OPENAI_API_KEY = "dummy";
+    };
+    # Secret env vars (via age)
+    environmentFiles = [
+      config.age.secrets."hermes-env".path
+    ];
+
     container = {
       enable = true;
       backend = "docker";
       hostUsers = ["tkoval"];
+      # Mount personal projects into the container.
+      # Safety: all projects are in git; unwanted changes can be reviewed and reverted.
+      extraVolumes = [
+        "/home/tkoval/git-local:/git-local:rw"
+        "/home/tkoval/.opencode:/home/hermes/.opencode:rw"
+        "/home/tkoval/.config/opencode:/home/hermes/.config/opencode:rw"
+        "/home/tkoval/.local/share/opencode:/home/hermes/.local/share/opencode:rw"
+        "/home/tkoval/.cache/opencode:/home/hermes/.cache/opencode:rw"
+        "/home/tkoval/.local/state/opencode:/home/hermes/.local/state/opencode:rw"
+      ];
     };
-    # environmentFiles = [ config.age.secrets.hermes-env.path ];
+    workingDirectory = "/git-local";
+  };
+
+  # Ollama — local LLM server with NVIDIA CUDA acceleration
+  # Using official GitHub release (includes llama-server in lib/ollama/)
+  services.ollama = {
+    enable = true;
+    package = pkgs.stdenv.mkDerivation {
+      pname = "ollama";
+      version = "0.30.3";
+
+      src = pkgs.fetchurl {
+        url = "https://github.com/ollama/ollama/releases/download/v0.30.3/ollama-linux-amd64.tar.zst";
+        sha256 = "sha256-6Dd8aq9yfUWQe4R8PnprzeDTRVSxWM4jJ7AI38NOHI8=";
+      };
+
+      nativeBuildInputs = [pkgs.zstd pkgs.makeWrapper];
+
+      sourceRoot = ".";
+
+      installPhase = ''
+        mkdir -p $out/bin $out/lib
+        cp -r bin/ollama $out/bin/ollama
+        cp -r lib/ollama $out/lib/ollama
+        chmod +x $out/bin/ollama
+        chmod +x $out/lib/ollama/llama-server
+
+        # Wrap ollama with LD_LIBRARY_PATH so it can find libcuda.so on NixOS
+        wrapProgram $out/bin/ollama \
+          --suffix LD_LIBRARY_PATH : "/run/opengl-driver/lib"
+      '';
+
+      meta = {
+        description = "Get up and running with large language models locally";
+        homepage = "https://github.com/ollama/ollama";
+        license = pkgs.lib.licenses.mit;
+        platforms = ["x86_64-linux"];
+        mainProgram = "ollama";
+      };
+    };
+    host = "0.0.0.0";
+    port = 11434;
+    openFirewall = true;
   };
 
   boot.kernelModules = ["88x2bu"];
