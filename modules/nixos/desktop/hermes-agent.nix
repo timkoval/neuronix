@@ -110,7 +110,7 @@ in {
     # ── Hermes state backup (daily auto-commit + push) ─────────────────
     systemd.services.hermes-backup = lib.mkIf cfg.enable {
       description = "Hermes Agent state backup";
-      path = [pkgs.bash pkgs.coreutils pkgs.age pkgs.git pkgs.gnutar pkgs.gzip pkgs.sqlite];
+      path = [pkgs.bash pkgs.coreutils pkgs.age pkgs.git pkgs.gnutar pkgs.gzip pkgs.python3 pkgs.sqlite];
       environment = {
         HERMES_HOME = "${hermesHome}";
         GIT_AUTHOR_NAME = "Hermes Backup";

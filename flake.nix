@@ -76,7 +76,7 @@
     #   - pass HERMES_HOME into docker exec so `hermes -p <profile>` works
     #   - skip auth parent-dir chmod(0700) in NixOS managed mode
     hermes-agent = {
-      url = "git+file:///home/tkoval/git-local/hermes-agent-fork";
+      url = "github:timkoval/hermes-agent";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

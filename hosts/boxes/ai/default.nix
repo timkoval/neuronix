@@ -68,6 +68,7 @@
 
     powerManagement.enable = true;
   };
+  # Use docker_29 (docker 28.x is unmaintained; overlay makes pkgs.docker point to docker_29)
   hardware.nvidia-container-toolkit.enable = true; # for nvidia-docker
 
   hardware.graphics = {
