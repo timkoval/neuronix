@@ -4,7 +4,7 @@
   pkgs,
   pkgs-unstable,
   ...
-}:
+} @ args:
 ##########################################################################
 #
 #  Install all apps and packages here.
@@ -58,6 +58,10 @@ in {
 
     # darwin only apps
     utm # virtual machine
+
+    # Hermes Agent — AI agent framework
+    args."hermes-agent".packages.${pkgs.system}.default
+    age # encryption for backup scripts
   ];
   environment.variables =
     {
@@ -103,14 +107,14 @@ in {
       # Wechat = 836500024;
       # QQ = 451108668;
       # WeCom = 1189898970; # Wechat for Work
-      # TecentMetting = 1484048379;
+      # TecentMeeting = 1484048379;
       # QQMusic = 595615424;
     };
 
     taps = [
-    #  "homebrew/cask-fonts"
-    #  "homebrew/services"
-    #  "homebrew/cask-versions"
+      #  "homebrew/cask-fonts"
+      #  "homebrew/services"
+      #  "homebrew/cask-versions"
 
       "hashicorp/tap"
       "streamdal/public"
@@ -156,7 +160,7 @@ in {
       # "qmk/qmk/qmk" # keyboard management
       # "plumber" # message queues tool
       "docker"
-      "colima"  # containers runtime environment
+      "colima" # containers runtime environment
       "trunk" # shipping rust wasm apps
       "ical-buddy" # calendar cli helper
       "cairo" # 2d graphics lib
@@ -177,22 +181,22 @@ in {
       "obsidian" # note taking tool
       "itsycal" # calendar
       "the-unarchiver"
-      "ghostty" # terminal 
+      "ghostty" # terminal
 
       # IM & audio & remote desktop & meeting
-    #  "telegram"
-     # "discord"
-     # "microsoft-remote-desktop"
+      #  "telegram"
+      # "discord"
+      # "microsoft-remote-desktop"
       #"zoom"
       # "moonlight" # remote desktop client
-#      "rustdesk"
+      #      "rustdesk"
       "localsend" # file transfer tool
-      "gitbutler" # better git 
+      "gitbutler" # better git
 
       # Misc
       "shadowsocksx-ng" # proxy tool
       "iina" # video player
-      "raycast" # (HotKey: alt/option + space)search, caculate and run scripts(with many plugins)
+      "raycast" # (HotKey: alt/option + space)search, calculate and run scripts(with many plugins)
       "stats" # beautiful system status monitor in menu bar
       # "reaper"  # audio editor
       "sonic-pi" # music programming
@@ -208,7 +212,7 @@ in {
       # "mitmproxy" # HTTP/HTTPS traffic inspector
       "kicad"
       "insomnia" # REST client
-#      "wireshark" # network analyzer
+      #      "wireshark" # network analyzer
       # "jdk-mission-control" # Java Mission Control
       # "google-cloud-sdk" # Google Cloud SDK
       "miniforge" # Miniconda's community-driven distribution
