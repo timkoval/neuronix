@@ -901,15 +901,16 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1783056523,
-        "narHash": "sha256-8r500OnYCCFslS6DAf8BUMxzHxm6c00gV1+UKuP9vuc=",
+        "lastModified": 1783057752,
+        "narHash": "sha256-vhUysn97FO/sAjyCESaHGbTj1XNjbCVJOWncuEuDNiM=",
         "owner": "timkoval",
         "repo": "hermes-agent",
-        "rev": "c8dc31aaac994d253527c516e9ab330f39e00312",
+        "rev": "d2b5a70c7b5ebe7c6c36a9456d388b117001c47a",
         "type": "github"
       },
       "original": {
         "owner": "timkoval",
+        "ref": "old-features",
         "repo": "hermes-agent",
         "type": "github"
       }
