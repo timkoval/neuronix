@@ -7,7 +7,6 @@
 {
   networking.hostName = hostVars.hostname;
   networking.computerName = hostVars.hostname;
-  system.defaults.smb.NetBIOSName = hostVars.hostname;
 
   environment.variables = {
     HERMES_HOME = "/Users/${hostVars.username}/.hermes";
