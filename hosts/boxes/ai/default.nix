@@ -123,6 +123,26 @@
     workingDirectory = "/git-local";
   };
 
+  # Hermes Web UI — standalone dashboard (runs outside the container)
+  systemd.services.hermes-webui = {
+    description = "Hermes Web UI";
+    after = ["hermes-agent.service"];
+    wants = ["hermes-agent.service"];
+    path = [pkgs.python3 pkgs.nodejs pkgs.coreutils pkgs.bash pkgs.git pkgs.openssh config.services.hermes-agent.package];
+    serviceConfig = {
+      Type = "exec";
+      User = "tkoval";
+      WorkingDirectory = "/home/tkoval/git-local/hermes-webui";
+      ExecStart = "/home/tkoval/git-local/hermes-webui/start.sh";
+      Restart = "always";
+      RestartSec = 5;
+    };
+    wantedBy = ["multi-user.target"];
+  };
+
+  # Provide /bin/bash for tools that hardcode it (bootstrap.py, etc.)
+  services.envfs.enable = true;
+
   # Ollama — local LLM server with NVIDIA CUDA acceleration
   # Using official GitHub release (includes llama-server in lib/ollama/)
   services.ollama = {
