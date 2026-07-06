@@ -20,6 +20,16 @@ in {
         ];
       };
 
+      chromium = {
+        enable = true;
+        commandLineArgs = [
+          "--gtk-version=4"
+          "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
+          "--ozone-platform=wayland"
+          "--enable-wayland-ime"
+        ];
+      };
+
       brave.enable = false;
 
       firefox = {

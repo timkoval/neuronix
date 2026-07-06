@@ -37,6 +37,7 @@
 
       # misc
       gh # GitHub CLI
+      glab # GitLab CLI
       bfg-repo-cleaner # remove large files from git history
       protobuf # protocol buffer compiler
       nix-init # generate nix package from url
