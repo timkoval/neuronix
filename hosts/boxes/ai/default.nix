@@ -140,6 +140,21 @@
     wantedBy = ["multi-user.target"];
   };
 
+  # Neurogate — multi-tenant web server
+  systemd.services.neurogate = {
+    description = "Neurogate web server";
+    after = ["network.target"];
+    serviceConfig = {
+      Type = "exec";
+      User = "tkoval";
+      WorkingDirectory = "/home/tkoval/git-local/tk/neurogate";
+      ExecStart = "/home/tkoval/git-local/tk/neurogate/target/release/neurogate";
+      Restart = "always";
+      RestartSec = 5;
+    };
+    wantedBy = ["multi-user.target"];
+  };
+
   # Provide /bin/bash for tools that hardcode it (bootstrap.py, etc.)
   services.envfs.enable = true;
 
