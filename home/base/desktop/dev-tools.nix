@@ -29,6 +29,9 @@
       # embedded development
       minicom
 
+      # agent tooling
+      pkgs-unstable.herdr # agent multiplexer that lives in your terminal
+
       # ai related
       # python311Packages.huggingface-hub # huggingface-cli
 
