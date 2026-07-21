@@ -2289,6 +2289,9 @@ config.bind('T', 'tab-next')
 config.bind('N', 'tab-prev')
 config.bind('S', 'forward')
 
+# translate page in place (press again on the same page to restore)
+config.bind(',t', 'jseval --file qb_translate.js -q')
+
 # gopass autofill via qute-pass
 config.bind('<z><l>', "spawn --userscript qute-pass --mode gopass --dmenu-invocation 'walker --dmenu'")
 config.bind('<z><u><l>', "spawn --userscript qute-pass --mode gopass --dmenu-invocation 'walker --dmenu' --username-only")
