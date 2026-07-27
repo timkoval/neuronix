@@ -95,6 +95,10 @@ in {
             fi
           done
         ''}
+        # ── Herdr socket (mounted into container for integration hooks) ──
+        if [ -S /home/tkoval/.config/herdr/herdr.sock ]; then
+          ${pkgs.coreutils}/bin/chmod 0666 /home/tkoval/.config/herdr/herdr.sock 2>/dev/null || true
+        fi
       '';
     };
 

@@ -22,7 +22,7 @@ in {
     enable = true;
     enableCompletion = true;
     bashrcExtra = ''
-      export PATH="/run/current-system/sw/bin:/run/wrappers/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:$PATH:${localBin}:${rustBin}:${npmBin}:${opencodeBin}"
+      export PATH="/run/wrappers/bin:/run/current-system/sw/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:$PATH:${localBin}:${rustBin}:${npmBin}:${opencodeBin}"
     '';
   };
 

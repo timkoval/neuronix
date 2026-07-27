@@ -14,8 +14,10 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    #  ../../../secrets/nixos.nix
+    ../../../secrets/nixos.nix
   ];
+
+  modules.secrets.desktop.enable = true;
 
   nixpkgs.overlays = import ../../../overlays args;
 
@@ -92,13 +94,24 @@
       };
       display.final_response_markdown = "render";
       display.streaming = false;
+      plugins.enabled = ["herdr-agent-state"];
+      security = {
+        permanent_allowlist = [
+          "apt-get install *"
+          "apt-get update *"
+          "apt install *"
+          "apt update *"
+        ];
+      };
     };
     extraDependencyGroups = ["messaging"];
 
-    # Non-secret env vars (ollama API endpoint)
+    # Non-secret env vars
     environment = {
-      OPENAI_BASE_URL = "http://172.17.0.1:11434/v1";
-      OPENAI_API_KEY = "dummy";
+      OPENAI_BASE_URL = "https://ws-bap1c9m2ly4z46yy.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1";
+      # Herdr socket passthrough for agent integration hooks
+      HERDR_ENV = "1";
+      HERDR_SOCKET_PATH = "/tmp/herdr.sock";
     };
     # Secret env vars (via age)
     environmentFiles = [
@@ -109,6 +122,22 @@
       enable = true;
       backend = "docker";
       hostUsers = ["tkoval"];
+      extraOptions = [
+        "--env"
+        "DASHSCOPE_API_KEY=sk-ws-H.XLXHDE.uPmL.MEUCIDo2fsj54owTA00NmNrzu6OnH_ai3JGCYSOjHgQkTXsXAiEApHPw6egz7PbN2h3-CeTV5qAvEk9T2sRclmgAfznX66s"
+        "--env"
+        "DASHSCOPE_BASE_URL=https://ws-bap1c9m2ly4z46yy.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+        "--env"
+        "OPENAI_API_KEY=sk-ws-H.XLXHDE.uPmL.MEUCIDo2fsj54owTA00NmNrzu6OnH_ai3JGCYSOjHgQkTXsXAiEApHPw6egz7PbN2h3-CeTV5qAvEk9T2sRclmgAfznX66s"
+        "--env"
+        "OPENAI_BASE_URL=https://ws-bap1c9m2ly4z46yy.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+        "--env"
+        "WAYLAND_DISPLAY=wayland-1"
+        "--env"
+        "XDG_RUNTIME_DIR=/run/user/1000"
+        "--volume"
+        "/run/user/1000/wayland-1:/run/user/1000/wayland-1:ro"
+      ];
       # Mount personal projects into the container.
       # Safety: all projects are in git; unwanted changes can be reviewed and reverted.
       extraVolumes = [
@@ -118,6 +147,8 @@
         "/home/tkoval/.local/share/opencode:/home/hermes/.local/share/opencode:rw"
         "/home/tkoval/.cache/opencode:/home/hermes/.cache/opencode:rw"
         "/home/tkoval/.local/state/opencode:/home/hermes/.local/state/opencode:rw"
+        "/home/tkoval/.config/herdr/herdr.sock:/tmp/herdr.sock:ro"
+        "/tmp/hermes-tools-provisioned:/var/lib/hermes-tools-provisioned:ro"
       ];
     };
     workingDirectory = "/git-local";
