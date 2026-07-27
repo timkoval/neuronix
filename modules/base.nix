@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   hostVars,
   nuenv,
   ...
@@ -11,7 +12,14 @@
   stylixVars = hostVars.stylix or {};
   scheme = stylixVars.scheme or "gruvbox-light-medium";
   polarity = stylixVars.polarity or "light";
+  # The default wallpaper lives in pkgs.hyprland, which is Linux-only. So we
+  # only ever reference it on Linux; on darwin the image is left unset unless
+  # the host explicitly provides one (see hasWallpaper / image below).
   wallpaper = stylixVars.wallpaper or "${pkgs.hyprland}/share/hypr/wall0.png";
+  hasWallpaper =
+    (stylixVars.wallpaper or null)
+    != null
+    || pkgs.stdenv.hostPlatform.isLinux;
 in {
   # ── Stylix: system-wide theming via base16 ──────────────────────────────
   stylix = {
@@ -20,8 +28,10 @@ in {
     base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
     inherit polarity;
 
-    # A wallpaper image is required by Stylix (especially on NixOS).
-    image = wallpaper;
+    # A wallpaper image is required by Stylix on NixOS; on darwin it's
+    # optional, so only set it when we actually have one (mkIf keeps the
+    # attribute lazy so pkgs.hyprland is never forced on darwin).
+    image = lib.mkIf hasWallpaper wallpaper;
 
     fonts = {
       monospace = {
