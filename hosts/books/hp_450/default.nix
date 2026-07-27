@@ -86,6 +86,7 @@
     # between 10.44.14.7 (works) and 10.32.56.4 (SSH/ICMP blocked on this VPN).
     extraHosts = ''
       10.44.14.7 gitlab.test2pay.com
+      10.44.14.254 openobserve-new.corp.astratech.ae
     '';
   };
 
