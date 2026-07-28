@@ -800,8 +800,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1785245835,
-        "narHash": "sha256-NohHksPOqfxFlPNf+XtA51NSIYENnpM9mAqBby3AzPE=",
+        "lastModified": 1785249382,
+        "narHash": "sha256-c83sjTs8+DUEgFj+g6mnL7JlloyPP1sU0diou81skxM=",
         "path": "/home/tkoval/git-local/tk/grok-build",
         "type": "path"
       },
