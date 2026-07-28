@@ -177,5 +177,10 @@
 
     # aarch64 SBCs
     nixos-rk3588.url = "github:ryan4yin/nixos-rk3588";
+
+    # local source: grok-build TUI (now has its own flake.nix)
+    grok-build-src = {
+      url = "path:/home/tkoval/git-local/tk/grok-build";
+    };
   };
 }

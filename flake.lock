@@ -776,6 +776,19 @@
         "type": "gitlab"
       }
     },
+    "grok-build-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785244799,
+        "narHash": "sha256-tJFZlqzzknVUZcRH6mVawUtRanPfQogXXiR7nIQfJGw=",
+        "path": "/home/tkoval/git-local/tk/grok-build",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/tkoval/git-local/tk/grok-build",
+        "type": "path"
+      }
+    },
     "haumea": {
       "inputs": {
         "nixpkgs": [
@@ -1798,6 +1811,7 @@
         "devenv": "devenv",
         "disko": "disko",
         "ghostty": "ghostty_2",
+        "grok-build-src": "grok-build-src",
         "haumea": "haumea",
         "hermes-agent": "hermes-agent",
         "home-manager": "home-manager_3",

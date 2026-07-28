@@ -1,4 +1,4 @@
-{hostVars, ...}:
+{hostVars, ...} @ args:
 #############################################################
 #
 #  Procs - MacBook Pro 16 M3 Max 36G.
@@ -13,4 +13,6 @@
   };
 
   system.stateVersion = 5; # Did you read the comment?
+
+  nixpkgs.overlays = import ../../../overlays args;
 }

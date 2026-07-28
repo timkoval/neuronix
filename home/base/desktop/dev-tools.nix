@@ -4,7 +4,13 @@
   ghostty,
   devenv,
   ...
-}: {
+}: let
+  # xai-grok-pager comes from the grok-build overlay, which is loaded via
+  # `nixpkgs.overlays` in the NixOS config (hosts/boxes/ai/default.nix) and
+  # automatically propagated to home-manager through useGlobalPkgs.
+  # No manual pkgs.extend needed.
+  xai-grok-pager = pkgs.xai-grok-pager;
+in {
   #############################################################
   #
   #  Basic settings for development environment
@@ -16,8 +22,8 @@
   #
   #############################################################
 
-  home.packages = with pkgs;
-    [
+  home.packages =
+    (with pkgs; [
       devenv.packages."${pkgs.system}".default
 
       # db related
@@ -32,6 +38,10 @@
       # agent tooling
       pkgs-unstable.herdr # agent multiplexer that lives in your terminal
 
+      # Grok Build TUI (from local source, via grok-build overlay)
+      xai-grok-pager
+    ])
+    ++ (with pkgs; [
       # ai related
       # python311Packages.huggingface-hub # huggingface-cli
 
@@ -54,23 +64,24 @@
       leetcode-cli
       exercism
       ghostty
-    ]
+    ])
     ++ (
       if pkgs.stdenv.isLinux
-      then [
-        # Automatically trims your branches whose tracking remote refs are merged or gone
-        # It's really useful when you work on a project for a long time.
-        git-trim
+      then
+        (with pkgs; [
+          # Automatically trims your branches whose tracking remote refs are merged or gone
+          # It's really useful when you work on a project for a long time.
+          git-trim
 
-        # need to run `conda-install` before using it
-        # need to run `conda-shell` before using command `conda`
-        # conda is not available for MacOS
-        # conda
+          # need to run `conda-install` before using it
+          # need to run `conda-shell` before using command `conda`
+          # conda is not available for MacOS
+          # conda
 
-        # mitmproxy # http/https proxy tool
-        # insomnia # REST client
-        # wireshark # network analyzer
-      ]
+          # mitmproxy # http/https proxy tool
+          # insomnia # REST client
+          # wireshark # network analyzer
+        ])
       else []
     );
 
