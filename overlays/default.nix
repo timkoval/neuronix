@@ -10,5 +10,6 @@ builtins.map
       f
       != "default.nix" # ignore default.nix
       && f != "README.md" # ignore README.md
+      && f != "grok-build.nix" # wired centrally in nixosSystem.nix / macosSystem.nix
   )
   (builtins.attrNames (builtins.readDir ./.)))

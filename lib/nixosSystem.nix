@@ -23,6 +23,10 @@ in
       ++ [
         nixos-generators.nixosModules.all-formats
         stylix.nixosModules.stylix
+        # Wire the grok-build overlay centrally where inputs is available
+        {
+          nixpkgs.overlays = [(import ../overlays/grok-build.nix {inherit (inputs) grok-build-src;})];
+        }
       ]
       ++ (
         lib.optionals ((lib.lists.length home-modules) > 0)

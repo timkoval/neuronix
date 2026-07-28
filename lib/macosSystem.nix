@@ -14,9 +14,11 @@ in
   nix-darwin.lib.darwinSystem {
     inherit system;
     # Include hostVars in specialArgs to make them available in all modules
-    specialArgs = specialArgs // { 
-      inherit hostVars;
-    };
+    specialArgs =
+      specialArgs
+      // {
+        inherit hostVars;
+      };
     modules =
       darwin-modules
       ++ [
@@ -28,6 +30,10 @@ in
           };
         })
         stylix.darwinModules.stylix
+        # Wire the grok-build overlay centrally where inputs is available
+        {
+          nixpkgs.overlays = [(import ../overlays/grok-build.nix {inherit (inputs) grok-build-src;})];
+        }
       ]
       ++ (
         lib.optionals ((lib.lists.length home-modules) > 0)
@@ -38,9 +44,11 @@ in
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "home-manager.backup";
 
-            home-manager.extraSpecialArgs = specialArgs // { 
-              inherit hostVars;
-            };
+            home-manager.extraSpecialArgs =
+              specialArgs
+              // {
+                inherit hostVars;
+              };
             home-manager.users."${hostVars.username}".imports = home-modules;
           }
         ]
