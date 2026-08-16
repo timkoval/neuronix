@@ -28,6 +28,16 @@ in {
     # Makes the `hermes` CLI available globally.
     services.hermes-agent.addToSystemPackages = lib.mkDefault true;
 
+    # ── MCP servers ───────────────────────────────────────────────────────
+    # Merged into settings.mcp_servers by the upstream module.
+    # OAuth is interactive on first use: run `hermes mcp test atlassian`
+    # (or connect from the TUI) to complete the PKCE flow — the token is
+    # cached in $HERMES_HOME/mcp-tokens/.
+    services.hermes-agent.mcpServers.atlassian = {
+      url = "https://mcp.atlassian.com/v1/mcp/authv2";
+      auth = "oauth";
+    };
+
     # Auto-derive from container.extraVolumes, but allow per-host override.
     services.hermes-agent.extraGroupWritableDirs = lib.mkDefault (
       lib.optionals (cfg.container.enable or false) (

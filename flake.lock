@@ -800,14 +800,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1785249382,
-        "narHash": "sha256-c83sjTs8+DUEgFj+g6mnL7JlloyPP1sU0diou81skxM=",
-        "path": "/home/tkoval/git-local/tk/grok-build",
-        "type": "path"
+        "lastModified": 1786092850,
+        "narHash": "sha256-VsLDn4DFYGpeFMIw6x9YJaIrgt1TZ36feqa/2NG1ORE=",
+        "owner": "timkoval",
+        "repo": "grok-build",
+        "rev": "5841cb4f854741dd887a83d32ffae65582eafce9",
+        "type": "github"
       },
       "original": {
-        "path": "/home/tkoval/git-local/tk/grok-build",
-        "type": "path"
+        "owner": "timkoval",
+        "repo": "grok-build",
+        "type": "github"
       }
     },
     "haumea": {
@@ -1388,11 +1391,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1784497964,
-        "narHash": "sha256-vlHUuqAcbcH2RKmHbPiuQzbv1pnzzavXnI62RD0bqCU=",
+        "lastModified": 1785090369,
+        "narHash": "sha256-m0pDuRJG7EDo9ri+4Ksu83VsI+PlxNC9lNBfydejce4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "241313f4e8e508cb9b13278c2b0fa25b9ca27163",
+        "rev": "624af665418d3c65d544145b4d34ad696439570e",
         "type": "github"
       },
       "original": {

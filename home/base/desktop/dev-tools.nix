@@ -10,6 +10,21 @@
   # automatically propagated to home-manager through useGlobalPkgs.
   # No manual pkgs.extend needed.
   xai-grok-pager = pkgs.xai-grok-pager;
+  # nixpkgs-unstable is pinned before herdr's Darwin build fix (nixpkgs
+  # 39b5c834a, "herdr: fix Darwin builds", 2026-07-03). Without it, the
+  # vendored libghostty-vt zig build has no xcrun/xcode-select to locate the
+  # SDK (error.DarwinSdkNotFound) and no libtool to archive the static lib.
+  # Drop this override once nixpkgs-unstable is bumped past that commit.
+  # (bound outside `with pkgs` so it is unambiguous)
+  herdrPkg =
+    if pkgs.stdenv.isDarwin
+    then
+      pkgs-unstable.herdr.overrideAttrs (old: {
+        nativeBuildInputs =
+          (old.nativeBuildInputs or [])
+          ++ [pkgs-unstable.cctools pkgs-unstable.xcbuild];
+      })
+    else pkgs-unstable.herdr;
 in {
   #############################################################
   #
@@ -36,7 +51,7 @@ in {
       minicom
 
       # agent tooling
-      pkgs-unstable.herdr # agent multiplexer that lives in your terminal
+      herdrPkg # agent multiplexer that lives in your terminal
 
       # Grok Build TUI (from local source, via grok-build overlay)
       xai-grok-pager
