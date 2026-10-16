@@ -20,6 +20,15 @@
     enable = true;
   };
 
+  programs.vivaldi = {
+    enable = true;
+    commandLineArgs = [
+      "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
+      "--ozone-platform=wayland"
+      "--enable-wayland-ime"
+    ];
+  };
+
   programs.ssh = {
     enable = true;
     # extraConfig = ''

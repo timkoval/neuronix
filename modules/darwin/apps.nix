@@ -74,10 +74,26 @@ in {
     // homebrew_mirror_env;
 
   # Set environment variables for nix-darwin before run `brew bundle`.
-  system.activationScripts.homebrew.text = lib.mkBefore ''
-    echo >&2 '${homebrew_env_script}'
-    ${homebrew_env_script}
-  '';
+  system.activationScripts.homebrew.text = lib.mkMerge [
+    (lib.mkBefore ''
+      echo >&2 '${homebrew_env_script}'
+      ${homebrew_env_script}
+    '')
+    # Homebrew 7 removed `brew bundle --cleanup`, which nix-darwin still passes
+    # for `onActivation.cleanup`, so run the `cleanup` subcommand ourselves.
+    (lib.mkAfter ''
+      echo >&2 "Homebrew bundle cleanup..."
+      if [ -f "${config.homebrew.brewPrefix}/brew" ]; then
+        PATH="${config.homebrew.brewPrefix}:${lib.makeBinPath [pkgs.mas]}:$PATH" \
+        sudo \
+          --preserve-env=PATH \
+          --user=${lib.escapeShellArg config.homebrew.user} \
+          --set-home \
+          env \
+          brew bundle cleanup --file='${pkgs.writeText "Brewfile" config.homebrew.brewfile}' --zap --force
+      fi
+    '')
+  ];
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   # this is required if you want to use darwin's default shell - zsh
@@ -94,8 +110,9 @@ in {
 
     onActivation = {
       autoUpdate = true;
-      # 'zap': uninstalls all formulae(and related files) not listed in the generated Brewfile
-      cleanup = "zap";
+      # Cleanup ('zap' of everything not in the generated Brewfile) runs from
+      # system.activationScripts.homebrew above; `--cleanup` is gone in Homebrew 7.
+      cleanup = "none";
     };
 
     # Applications to install from Mac App Store using mas.
@@ -172,6 +189,7 @@ in {
       "firefox"
       "google-chrome"
       "arc"
+      "vivaldi"
       "qutebrowser"
       "visual-studio-code"
       "zed" # zed editor
