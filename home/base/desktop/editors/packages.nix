@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   home.packages = with pkgs;
     [
       #-- c/c++
@@ -105,7 +109,7 @@
       proselint # English prose linter
 
       #-- Misc
-      tree-sitter # common language parser/highlighter
+      pkgs-unstable.tree-sitter # common language parser/highlighter, nvim-treesitter main needs >= 0.26.1
       nodePackages.prettier # common code formatter
       marksman # language server for markdown
       glow # markdown previewer

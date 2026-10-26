@@ -1033,11 +1033,11 @@
     "neuronvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1777025163,
-        "narHash": "sha256-n7wVfEbyzALAZ/IGq78OXV9rl5hoOoUtFP4rjhyHh9E=",
+        "lastModified": 1792761006,
+        "narHash": "sha256-Z0+/Es4xxdNdbjug60ja2o2qw3bAeUHLAjNU5N48d/w=",
         "owner": "timkoval",
         "repo": "neuronvim",
-        "rev": "9c256fc64495899dbbd0de89961495f67cf546b1",
+        "rev": "573163d61f1a63409261727fced0deafef2d1f5e",
         "type": "github"
       },
       "original": {
